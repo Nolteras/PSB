@@ -122,11 +122,11 @@ public class VillageDef
     public void DefVillAct()
     {
         //Обстановка, начало
-        int bulds = Buildings;
+        int bulds = Buildings; //15 - маленькая деревня, 35 - средняя деревня, 60 - небольшой город
         string name = Name;
         int pop = Pops;
         int pros = Prosp; // 0 - нищие, 1 - бедные, 2 - зажиточные, 3 - богатые
-                          // Описание пункта
+        // Описание пункта
         if (bulds > 10 && bulds < 20)
         {
             Console.WriteLine("Вы находитесь в маленькой деревне " + name + ".");
@@ -209,6 +209,15 @@ public class VillageDef
             {
                 case 0:
                     Console.WriteLine("Город в очень плачевном состоянии; Торговцев и ремесленников почти нет и люди пытаются покинуть это место.");
+                    break;
+                case 1:
+                    Console.WriteLine("Население города живет бедно; Торговля идет плохо и все чаще люди задумываются о том, чтобы покинуть это место.");
+                    break;
+                case 2:
+                    Console.WriteLine("Город в более-менее хорошем состоянии; Бедняков имеют собственный районы...");
+                    break;
+                case 3:
+                    Console.WriteLine("Город явно процветает; Местные люди живкт богато...");
                     break;
             }
         }
