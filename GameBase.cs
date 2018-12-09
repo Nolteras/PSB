@@ -256,31 +256,31 @@ public class VillageDef
         if (Tavern)
         {
             a++;
-            arr[a] =  + a + ".Таверна";
+            arr[a] = $"{a}.Таверна";
             Console.WriteLine(arr[a]);
         }
         if (Armory)
         {
             a++;
-            arr[a] = +a + ".Бронница";
+            arr[a] = $"{a}.Бронница";
             Console.WriteLine(arr[a]);
         }
         if (Weapns)
         {
             a++;
-            arr[a] = +a + ".Оружейник(???)";
+            arr[a] = $"{a}.Оружейник(???)";
             Console.WriteLine(arr[a]);
         }
         if (Market)
         {
             a++;
-            arr[a] = +a + ".Рынок";
+            arr[a] = $"{a}.Рынок";
             Console.WriteLine(arr[a]);
         }
         if (Church)
         {
             a++;
-            arr[a] = +a + ".Церковь";
+            arr[a] = $"{a}.Церковь";
             Console.WriteLine(arr[a]);
         }
 
