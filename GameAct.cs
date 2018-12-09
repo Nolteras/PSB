@@ -11,6 +11,7 @@ public class GameAct
     {
         GameBase start = new GameBase();
         start.DisplayMenu();
+        //Найти способ попасть сюда
         Console.Clear();
         Dragenhof village1 = new Dragenhof();
         village1.DefVillAct();
