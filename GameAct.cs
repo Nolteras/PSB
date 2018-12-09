@@ -9,8 +9,12 @@ public class GameAct
 
     public static void Main(string[] args)
     {
-        GameBase obj1 = new GameBase();
-        obj1.DisplayMenu();
-        
+        GameBase start = new GameBase();
+        start.DisplayMenu();
+        Console.Clear();
+        Dragenhof village1 = new Dragenhof();
+        village1.DefVillAct();
+        Console.ReadKey();
+
     }
 }

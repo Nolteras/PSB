@@ -45,8 +45,10 @@ public class GameBase
 
     public void Menu()
     {
+        Console.Clear();
         Dragenhof dragenhof = new Dragenhof();
         dragenhof.DefVillAct();
+
         Console.ReadKey();
 
 
@@ -104,23 +106,51 @@ public class GameBase
 
 }
 
+//Постройки и их функции
 
+class Churh
+{
+
+}
+
+class Markt
+{
+
+}
+
+class Weapn
+{
+
+}
+
+class Armor
+{
+
+}
+
+public class Tavrn
+{
+
+}
 
 public class VillageDef
-{
+{  
 
     public string Name { get; set; }
     public int Buildings { get; set; }
     public int Pops { get; set; }
     public int Prosp { get; set; }
     protected bool Tavern { get; set; }
-    protected bool Dorms { get; set; }
     protected bool Armory { get; set; }
+    protected bool Weapns { get; set; }
     protected bool Market { get; set; }
     protected bool Church { get; set; }
 
     public void DefVillAct()
     {
+        int a = 0;
+        string[] arr = new string[5];
+        Console.WriteLine("################################################################################");
         //Обстановка, начало
         int bulds = Buildings; //15 - маленькая деревня, 35 - средняя деревня, 60 - небольшой город
         string name = Name;
@@ -221,12 +251,62 @@ public class VillageDef
                     break;
             }
         }
+        //Постройки
+        Console.WriteLine("В " + name + " есть:");
+        if (Tavern)
+        {
+            a++;
+            arr[a] =  + a + ".Таверна";
+            Console.WriteLine(arr[a]);
+        }
+        if (Armory)
+        {
+            a++;
+            arr[a] = +a + ".Бронница";
+            Console.WriteLine(arr[a]);
+        }
+        if (Weapns)
+        {
+            a++;
+            arr[a] = +a + ".Оружейник(???)";
+            Console.WriteLine(arr[a]);
+        }
+        if (Market)
+        {
+            a++;
+            arr[a] = +a + ".Рынок";
+            Console.WriteLine(arr[a]);
+        }
+        if (Church)
+        {
+            a++;
+            arr[a] = +a + ".Церковь";
+            Console.WriteLine(arr[a]);
+        }
 
+        //Конец построек
 
+        for (int i = 0; i < 3; i++)
+        {
+            Console.WriteLine("            ");
+        }
+
+        Console.WriteLine("################################################################################");
+
+        for (int i = 0; i < 1; i++)
+        {
+            Console.WriteLine("            ");
+        }
+        //Конец описания
+        Console.WriteLine("Вы можете:");
 
 
     }
+
+
+
 }
+
 
 
 
@@ -237,11 +317,13 @@ public class Dragenhof : VillageDef
     public Dragenhof()
     {
         Name = "Дракенхоф";
-        Buildings = 72;
+        Buildings = 57;
         Pops = 325;
         Prosp = 0;
         Tavern = true;
-        Dorms = true;    
+        Church = true;   
+        
     }
+
 
 }
