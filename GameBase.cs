@@ -6,17 +6,7 @@ using System.Threading.Tasks;
 
 public class GameBase
 {
-    //to do:
-    // 1. Меню - есть.
-    // 2. Сюжет - нет.
-    // 3. Механика продвижения по сюжету = нет.
-    // 4. Конструктор деревень - есть.
-    // 5. Рандомная генерация деревень - нет.
-    // 6. Функции построек - нет.
-    // 7. Сюжетные изменения в деревнях - нет.
-    // 8. Состояние ГГ, которое постоянно отслеживаяется во время сессии - нет.
-    // 9. Боевая механика - нет.
-    // 10. Механика "свободы действия" - нет. 
+
     public string Name { get; set; }
     public int Plot = 0;
     public void StartThisShit()
@@ -141,6 +131,16 @@ class Armor
 
 public class Tavrn
 {
+    public int dudes = 0;
+    public void GoToBuhat()
+    {
+        Console.WriteLine(dudes);
+        dudes = dudes + 1;
+        Console.WriteLine(dudes);
+        Console.ReadLine();
+        Dragenhof obratno = new Dragenhof();
+        obratno.DefVillAct();
+    }
 
 }
 
@@ -362,6 +362,9 @@ public class VillageDef
                 }
             case "T":
                 Console.WriteLine("Taverna");
+                Tavrn aTavrn = new Tavrn();
+                Tavrn tavrn = aTavrn;
+                tavrn.GoToBuhat();
                 break;
             case "A":
                 Console.WriteLine("Armory");
