@@ -223,27 +223,27 @@ public class VillageDef
             }
         }
 
-        if ( pop > 75 && pop < 345 && bulds < 50)
+        if (pop > 75 && pop < 345 && bulds < 50)
         {
-                Console.WriteLine("На ваш взгляд, тут проживает около 200-та человек.");
-                switch (pros)
-                {
-                    case 0:
-                        Console.WriteLine("Хоть в деревне проживает много людей, обстановка среди них плачевная.");
-                        break;
-                    case 1:
-                        Console.WriteLine("Хоть в деревне проживает много людей, подавляющая часть из них живет в бедных условиях.");
-                        break;
-                    case 2:
-                        Console.WriteLine("Почти одна вторая часть населения живет в хороших условиях и имеют собственные усадьбы.");
-                        break;
-                    case 3:
-                        Console.WriteLine("Почти вся деревня не испытывает проблем и успешно развивается.");
-                        break;
-                }
+            Console.WriteLine("На ваш взгляд, тут проживает около 200-та человек.");
+            switch (pros)
+            {
+                case 0:
+                    Console.WriteLine("Хоть в деревне проживает много людей, обстановка среди них плачевная.");
+                    break;
+                case 1:
+                    Console.WriteLine("Хоть в деревне проживает много людей, подавляющая часть из них живет в бедных условиях.");
+                    break;
+                case 2:
+                    Console.WriteLine("Почти одна вторая часть населения живет в хороших условиях и имеют собственные усадьбы.");
+                    break;
+                case 3:
+                    Console.WriteLine("Почти вся деревня не испытывает проблем и успешно развивается.");
+                    break;
+            }
 
         }
-        if(pop > 75 && pop < 345 && bulds > 50)
+        if (pop > 75 && pop < 345 && bulds > 50)
         {
             Console.WriteLine("На ваш взгляд, тут проживает около 200-та человек.");
             switch (pros)
@@ -310,7 +310,76 @@ public class VillageDef
         }
         //Конец описания
         Console.WriteLine("Вы можете:");
-
+        if (Tavern)
+        {
+            Console.WriteLine("[T] - Таверна");
+        }
+        if (Armory)
+        {
+            Console.WriteLine("[A] - Бронница");
+        }
+        if (Weapns)
+        {
+            Console.WriteLine("[W] - Оружейная");
+        }
+        if (Market)
+        {
+            Console.WriteLine("[M] - Рынок");
+        }
+        if (Church)
+        {
+            Console.WriteLine("[C] - Церковь");
+        }
+        string choice;
+            Console.Write("Введите букву(Регистр важен): "); 
+            choice = Console.ReadLine();
+        switch (choice)
+        {
+            case "1":
+                if (choice == "T")
+                {
+                    goto case "T";
+                }
+                else if (choice == "A")
+                {
+                    goto case "A";
+                }
+                else if (choice == "W")
+                {
+                    goto case "W";
+                }
+                else if (choice == "M")
+                {
+                    goto case "M";
+                }
+                else if (choice == "C")
+                {
+                    goto case "C";
+                }
+                else
+                {
+                    goto default;
+                }
+            case "T":
+                Console.WriteLine("Taverna");
+                break;
+            case "A":
+                Console.WriteLine("Armory");
+                break;
+            case "W":
+                Console.WriteLine("Weapon");
+                break;
+            case "M":
+                Console.WriteLine("Market");
+                break;
+            case "C":
+                Console.WriteLine("Cerkov");
+                break;
+            default:
+                Console.Write("Давай по новой, Миша, все хуйня: ");
+                choice = Console.ReadLine();
+                goto case "1";
+        }
 
     }
 
