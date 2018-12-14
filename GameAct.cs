@@ -9,13 +9,7 @@ public class GameAct
 
     public static void Main(string[] args)
     {
-        GameBase start = new GameBase();
-        start.DisplayMenu();
-        //Найти способ попасть сюда
-        Console.Clear();
-        Dragenhof village1 = new Dragenhof();
-        village1.DefVillAct();
-        Console.ReadKey();
+        GameBase.DisplayMenu();
 
     }
 }

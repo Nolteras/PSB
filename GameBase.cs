@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class GameBase
+public static class GameBase
 {
 
-    public string Name { get; set; }
-    public int Plot = 0;
-    public void StartThisShit()
+   static public string Name { get; set; }
+    static public int Plot = 0;
+    static public void StartThisShit()
     {
 
         string NameGG;
@@ -28,12 +28,17 @@ public class GameBase
         Console.ReadKey();
     }
 
-    public void AboutWorld()
+    public static void AboutWorld()
     {
-        // Лор.
+        Console.Clear();
+        Console.WriteLine("Лор");
+        Console.WriteLine("Лор");
+        Console.WriteLine("Лор");
+        Console.ReadKey();
+        DisplayMenu();
     }
 
-    public void AboutUs()
+    public static void AboutUs()
     {
         Console.Clear();
         Console.WriteLine("Сценарист - ???(Ушел в порно-индустрию)");
@@ -44,23 +49,23 @@ public class GameBase
 
     }
 
-    public void TestStuff()
+    public static void TestStuff()
     {
         Console.Clear();
         Dragenhof dragenhof = new Dragenhof();
         dragenhof.DefVillAct();
 
-        Console.ReadKey();
+       Console.ReadKey();
 
 
     }
 
-    public void CloseAllThisShit()
+    public static void CloseAllThisShit()
     {
     }
 
 
-    public void DisplayMenu()
+    public static void DisplayMenu()
     {
         Console.Clear();
         Console.WriteLine("       Portania Strikes Back    ");
@@ -144,7 +149,7 @@ public class Tavrn
 
 }
 
-public class VillageDef
+public abstract class VillageDef
 {  
 
     public string Name { get; set; }
@@ -156,10 +161,15 @@ public class VillageDef
     protected bool Weapns { get; set; }
     protected bool Market { get; set; }
     protected bool Church { get; set; }
+    private Tavrn tavrn = new Tavrn();
+
+    public virtual void PlotVill()
+    {
+    }
 
     public void DefVillAct()
     {
-        int a = 0;
+         int a = 0;
         string[] arr = new string[5];
         Console.WriteLine("################################################################################");
         //Обстановка, начало
@@ -362,8 +372,6 @@ public class VillageDef
                 }
             case "T":
                 Console.WriteLine("Taverna");
-                Tavrn aTavrn = new Tavrn();
-                Tavrn tavrn = aTavrn;
                 tavrn.GoToBuhat();
                 break;
             case "A":
@@ -395,7 +403,7 @@ public class VillageDef
 //Действия, которые, возможно, перейдут в GameAct
 
 
-public class Dragenhof : VillageDef
+public  class Dragenhof : VillageDef
 {
     public Dragenhof()
     {
