@@ -17,7 +17,6 @@ public static class GGInventory //Инвентарь, задания, проче
 
 }
 
-
 public static class GameBase
 {
 
@@ -76,6 +75,7 @@ public static class GameBase
 
     public static void CloseAllThisShit()
     {
+
     }
 
 
@@ -148,12 +148,14 @@ class Armor
 
 }
 
-
 public class Tavrn
 {
     // Описание и возможности
    public void GoToTavern(int poptavrn, int prosptavrn)
     {
+        Console.Clear();
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("Вы захождите в таверну.");
         if (poptavrn > 10 && poptavrn < 35)
         {
             Console.WriteLine("Таверна выглядит очень пустой.");
@@ -180,10 +182,59 @@ public class Tavrn
                     Console.WriteLine("Состояние отличное.");
                     break;
         }
+        //Конец описания
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
+        Console.WriteLine("Вы можете:");
+        Console.WriteLine("[1] - Подойти к барной стойке.");
+        Console.WriteLine("[2] - Сесть за стол и перекусить.");
+        Console.WriteLine("[3] - Покинуть таверну.");
 
-        
-    }
+        string choice;
+        Console.Write("Введите букву(Регистр важен): ");
+        choice = Console.ReadLine();
+        switch (choice)
+        {
+            case "dew":
+                if (choice == "1")
+                {
+                    goto case "1";
+                }
+                else if (choice == "2")
+                {
+                    goto case "2";
+                }
+                else if (choice == "3")
+                {
+                    goto case "3";
+                }
+                else
+                {
+                    goto default;
+                }
+            case "1":
+                GoToBar();
+                break;
+            case "2":
+                Console.WriteLine("Armory");
+                break;
+            case "3":
+                Console.WriteLine("Weapon");
+                break;
+            default:
+                Console.Write("Давай по новой, Миша, все хуйня: ");
+                choice = Console.ReadLine();
+                goto case "dew";
 
+        }
+
+        void GoToBar()
+        {
+
+        }
+
+   }
 
 }
 
@@ -409,8 +460,8 @@ public abstract class VillageDef
                     goto default;
                 }
             case "T":
-                Console.WriteLine("Taverna");
                 tavern.GoToTavern(pop, pros);
+                Console.Clear();
                 DefVillAct();
                 break;
             case "A":
@@ -431,10 +482,7 @@ public abstract class VillageDef
                 goto case "1";
         }
 
-
     }
-
-
 
 }
 
@@ -448,8 +496,7 @@ public  class Dragenhof : VillageDef
         Prosp = 0;
         Tavern = true;
         Church = true;   
-        
-    }
 
+    }
 
 }
