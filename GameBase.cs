@@ -4,6 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
+
+
+public static class GGInventory //Инвентарь, задания, прочее, связанное с ГГ
+{
+    static public int PlotInGG = GameBase.Plot;
+    static public string NameGG = GameBase.Name;
+    static public int SuplSupply = 0;
+
+
+}
+
+
 public static class GameBase
 {
 
@@ -134,23 +148,47 @@ class Armor
 
 }
 
+
 public class Tavrn
 {
-    public int dudes = 0;
-    public void GoToBuhat()
+    // Описание и возможности
+   public void GoToTavern(int poptavrn, int prosptavrn)
     {
-        Console.WriteLine(dudes);
-        dudes = dudes + 1;
-        Console.WriteLine(dudes);
-        Console.ReadLine();
-        Dragenhof obratno = new Dragenhof();
-        obratno.DefVillAct();
+        if (poptavrn > 10 && poptavrn < 35)
+        {
+            Console.WriteLine("Таверна выглядит очень пустой.");
+        } else if(poptavrn > 35 && poptavrn < 75)
+        {
+            Console.WriteLine("Таверна выглядит запустелой.");
+        } else if(poptavrn > 75 && poptavrn < 345)
+        {
+            Console.WriteLine("Таверна выглядит запустелой.");
+        }
+
+        switch (prosptavrn)
+        {
+                case 0:
+                    Console.WriteLine("Состояние ужасное.");
+                    break;
+                case 1:
+                    Console.WriteLine("Состояние терпимое.");
+                    break;
+                case 2:
+                    Console.WriteLine("Состояние хорошее.");
+                    break;
+                case 3:
+                    Console.WriteLine("Состояние отличное.");
+                    break;
+        }
+
+        
     }
+
 
 }
 
 public abstract class VillageDef
-{  
+{
 
     public string Name { get; set; }
     public int Buildings { get; set; }
@@ -161,7 +199,7 @@ public abstract class VillageDef
     protected bool Weapns { get; set; }
     protected bool Market { get; set; }
     protected bool Church { get; set; }
-    private Tavrn tavrn = new Tavrn();
+    Tavrn tavern = new Tavrn();
 
     public virtual void PlotVill()
     {
@@ -169,9 +207,9 @@ public abstract class VillageDef
 
     public void DefVillAct()
     {
-         int a = 0;
+        int a = 0;
         string[] arr = new string[5];
-        Console.WriteLine("################################################################################");
+        Console.WriteLine(new string('#', 80));
         //Обстановка, начало
         int bulds = Buildings; //15 - маленькая деревня, 35 - средняя деревня, 60 - небольшой город
         string name = Name;
@@ -312,7 +350,7 @@ public abstract class VillageDef
             Console.WriteLine("            ");
         }
 
-        Console.WriteLine("################################################################################");
+        Console.WriteLine(new string('#', 80));
 
         for (int i = 0; i < 1; i++)
         {
@@ -321,7 +359,7 @@ public abstract class VillageDef
         //Конец описания
         Console.WriteLine("Вы можете:");
         if (Tavern)
-        {
+        { 
             Console.WriteLine("[T] - Таверна");
         }
         if (Armory)
@@ -372,7 +410,8 @@ public abstract class VillageDef
                 }
             case "T":
                 Console.WriteLine("Taverna");
-                tavrn.GoToBuhat();
+                tavern.GoToTavern(pop, pros);
+                DefVillAct();
                 break;
             case "A":
                 Console.WriteLine("Armory");
@@ -392,16 +431,12 @@ public abstract class VillageDef
                 goto case "1";
         }
 
+
     }
 
 
 
 }
-
-
-
-//Действия, которые, возможно, перейдут в GameAct
-
 
 public  class Dragenhof : VillageDef
 {
