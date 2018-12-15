@@ -150,9 +150,13 @@ class Armor
 
 public class Tavrn
 {
+    public int PopTavrn;
+    public int ProsTavrn;
     // Описание и возможности
    public void GoToTavern(int poptavrn, int prosptavrn)
     {
+        PopTavrn = poptavrn;
+        ProsTavrn = prosptavrn;
         Console.Clear();
         Console.WriteLine(new string('#', 80));
         Console.WriteLine("Вы захождите в таверну.");
@@ -217,10 +221,8 @@ public class Tavrn
                 GoToBar();
                 break;
             case "2":
-                Console.WriteLine("Armory");
                 break;
             case "3":
-                Console.WriteLine("Weapon");
                 break;
             default:
                 Console.Write("Давай по новой, Миша, все хуйня: ");
@@ -231,6 +233,55 @@ public class Tavrn
 
         void GoToBar()
         {
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine(new string('#', 80));
+            Console.WriteLine("");
+            Console.WriteLine("Вы подходите к барной стойке");
+            Console.WriteLine("Нужно что-нибудь еще написать...");
+            Console.WriteLine("");
+            Console.WriteLine(new string('#', 80));
+            Console.WriteLine("");
+            Console.WriteLine("Вы можете:");
+            Console.WriteLine("[1] - Спросить о слухах.");
+            Console.WriteLine("[2] - Выпить.");
+            Console.WriteLine("[3] - Отойти.");
+
+            string choice2;
+            Console.Write("Введите букву(Регистр важен): ");
+            choice2 = Console.ReadLine();
+            switch (choice2)
+            {
+                case "dew":
+                    if (choice2 == "1")
+                    {
+                        goto case "1";
+                    }
+                    else if (choice2 == "2")
+                    {
+                        goto case "2";
+                    }
+                    else if (choice2 == "3")
+                    {
+                        goto case "3";
+                    }
+                    else
+                    {
+                        goto default;
+                    }
+                case "1":
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    GoToTavern(PopTavrn, ProsTavrn);
+                    break;
+                default:
+                    Console.Write("Давай по новой, Миша, все хуйня: ");
+                    choice = Console.ReadLine();
+                    goto case "dew";
+
+            }
 
         }
 
