@@ -150,6 +150,7 @@ class Armor
 
 public class Tavrn
 {
+    Random rnd = new Random();
     public int PopTavrn;
     public int ProsTavrn;
     // Описание и возможности
@@ -290,7 +291,6 @@ public class Tavrn
         void TalkBarman()
         {
             // Генератор для слухов
-            Random rnd = new Random();
             int value = rnd.Next(1, 10);
             int value2 = rnd.Next(1, 10);
             Console.Clear();
@@ -301,53 +301,77 @@ public class Tavrn
             switch (value2) // "Бармен перед слухами"
             {
                 case 1:
+                    Console.WriteLine("Владелец таверны нервно оглядывается и произносит:");
                     break;
                 case 2:
+                    Console.WriteLine("Владелец таверны, раздумывая пару секунд, говорит:");
                     break;
                 case 3:
+                    Console.WriteLine("Владелец таверны, сплюнув на пол, говорит:");
                     break;
                 case 4:
+                    Console.WriteLine("Владелец таверны, наливая еще один стакан посетителю, произносит:");
                     break;
                 case 5:
+                    Console.WriteLine("Владелец таверны, убрав грязные стаканы, произносит:");
                     break;
                 case 6:
+                    Console.WriteLine("Владелец таверны, посмотрев на вас, говорит:");
                     break;
                 case 7:
+                    Console.WriteLine("Владелец таверны что-то делает и произносит:");
                     break;
                 case 8:
+                    Console.WriteLine("Владелец таверны... Говорит:");
                     break;
                 case 9:
+                    Console.WriteLine("Владелец таверны... Произносит:");
                     break;
                 case 10:
+                    Console.WriteLine("Владелец таверны говорит:");
                     break;
 
             }
             switch (value) // Сами слухи
             {
                 case 1:
+                    Console.WriteLine("'Сохраняй спокойствие'");
                     break;
                 case 2:
+                    Console.WriteLine("'Будь готов к чему угодно'");
                     break;
                 case 3:
+                    Console.WriteLine("'Помни о возможности осмотреться'");
                     break;
                 case 4:
+                    Console.WriteLine("'Обрати внимание на то, где ты останавливаешься'");
                     break;
                 case 5:
+                    Console.WriteLine("'Помни о дальности зрения каждого противника'");
                     break;
                 case 6:
+                    Console.WriteLine("'Шуми'");
                     break;
                 case 7:
+                    Console.WriteLine("'Привлечение внимания требует времени'");
                     break;
                 case 8:
+                    Console.WriteLine("'Обращай внимание на окна'");
                     break;
                 case 9:
+                    Console.WriteLine("'Открывай двери используя свое оружие'");
                     break;
                 case 10:
+                    Console.WriteLine("'Не упусти дверь в зону миссии'");
                     break;
 
             }
+            Console.WriteLine("");
+            Console.WriteLine(new string('#', 80));
+            Console.WriteLine("");
             // Конец генератора
-
+            Console.ReadKey();
+            GoToBar();
         }
 
 
