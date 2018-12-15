@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 public static class GGInventory //Инвентарь, задания, прочее, связанное с ГГ
 {
-    static public int PlotInGG = GameBase.Plot;
-    static public string NameGG = GameBase.Name;
+    static public int PlotInGG = GameBase.Plot; // "Число сюжета"
+    static public string NameGG = GameBase.Name; // Имя ГГ
     static public int SuplSupply = 0;
 
 
@@ -36,7 +36,7 @@ public static class GameBase
         Console.Write("Молодой оруженосец по имени ");
         NameGG = Convert.ToString(Console.ReadLine());
         Console.Clear();
-        Console.WriteLine("Молодой оруженосец по имени " + NameGG + " только-только выпустился из оружейной академии Барона Керонча.");
+        Console.WriteLine("Молодой оруженосец по имени " + NameGG + " только-только выпустился из оружейной академии Барона Керонча."); //Все это к херам переделать
         Name = NameGG;
         Console.ReadKey();
     }
@@ -270,6 +270,7 @@ public class Tavrn
                         goto default;
                     }
                 case "1":
+                    TalkBarman();
                     break;
                 case "2":
                     break;
@@ -283,7 +284,72 @@ public class Tavrn
 
             }
 
+
         }
+
+        void TalkBarman()
+        {
+            // Генератор для слухов
+            Random rnd = new Random();
+            int value = rnd.Next(1, 10);
+            int value2 = rnd.Next(1, 10);
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine(new string('#', 80));
+            Console.WriteLine("");
+            Console.WriteLine("Вы спрашиваете у владельца таверны, слышал ли он что-либо.");
+            switch (value2) // "Бармен перед слухами"
+            {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    break;
+                case 10:
+                    break;
+
+            }
+            switch (value) // Сами слухи
+            {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    break;
+                case 10:
+                    break;
+
+            }
+            // Конец генератора
+
+        }
+
 
    }
 
@@ -511,7 +577,7 @@ public abstract class VillageDef
                     goto default;
                 }
             case "T":
-                tavern.GoToTavern(pop, pros);
+                tavern.GoToTavern(pop, pros); //Переход к классу "Таверна"
                 Console.Clear();
                 DefVillAct();
                 break;
