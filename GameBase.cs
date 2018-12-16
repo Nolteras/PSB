@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 public static class GGInventory //Инвентарь, задания, прочее, связанное с ГГ
 {
-    static public int PlotInGG = GameBase.Plot; // "Число сюжета"
-    static public string NameGG = GameBase.Name; // Имя ГГ
+    static public int Plot = 0; // "Число сюжета"
+    static public string Name; // Имя ГГ
     static public int Money = 100;
     static public int MT = 100;
     static public int HP = 100;
@@ -93,9 +93,6 @@ public static class GGInventory //Инвентарь, задания, проче
 
 public static class GameBase
 {
-
-   static public string Name { get; set; }
-    static public int Plot = 0;
     static public void StartThisShit()
     {
 
@@ -111,7 +108,7 @@ public static class GameBase
         NameGG = Convert.ToString(Console.ReadLine());
         Console.Clear();
         Console.WriteLine("Молодой оруженосец по имени " + NameGG + " только-только выпустился из оружейной академии Барона Керонча."); //Все это к херам переделать
-        Name = NameGG;
+        GGInventory.Name = NameGG;
         Console.ReadKey();
     }
 
@@ -487,19 +484,50 @@ public class Tavrn
                     TalkBarman();
                     break;
                 case "2":
+                    DrinkBarman(GGInventory.HP, GGInventory.MT, GGInventory.Money);
                     break;
                 case "3":
                     GoToTavern(PopTavrn, ProsTavrn);
                     break;
                 default:
                     Console.Write("Давай по новой, Миша, все хуйня: ");
-                    choice = Console.ReadLine();
+                    choice2 = Console.ReadLine();
                     goto case "dew";
 
             }
 
 
         }
+
+        void DrinkBarman(int gghp, int ggmp, int moneys)
+        {
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine(new string('#', 80));
+            Console.WriteLine("");
+            if(moneys < 5)
+            {
+                Console.WriteLine("У вас нет денег, чтобы выпить.");
+                Console.WriteLine("");
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("");
+                Console.ReadKey();
+                GoToBar();
+            }
+            Console.WriteLine("Вы заказываете себе выпить.");
+            Console.WriteLine("Ваше моральное состояние улучшилось.");
+            GGInventory.RemoveMoney(5);
+            GGInventory.RemoveHP(2);
+            GGInventory.AddMT(25);
+            Console.WriteLine("");
+            Console.WriteLine(new string('#', 80));
+            Console.WriteLine("");
+            Console.ReadKey();
+            GoToBar();
+
+        }
+
+
 
         void TalkBarman()
         {
