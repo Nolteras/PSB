@@ -12,8 +12,32 @@ public static class GGInventory //Инвентарь, задания, проче
 {
     static public int PlotInGG = GameBase.Plot; // "Число сюжета"
     static public string NameGG = GameBase.Name; // Имя ГГ
-    static public int SuplSupply = 0;
+    static private int MT = 100;
+    static private int HP = 100;
 
+    static public int SetMT(int value)
+    {
+        MT = value + MT;
+
+        if (MT > 100)
+        {
+            MT = 100;
+        }
+
+        return MT;
+    }
+
+    static public int SetHP(int value)
+    {
+        HP = value + HP;
+
+        if (HP > 100)
+        {
+            HP = 100;
+        }
+
+        return HP;
+    }
 
 }
 
@@ -169,7 +193,7 @@ public class Tavrn
             Console.WriteLine("Таверна выглядит запустелой.");
         } else if(poptavrn > 75 && poptavrn < 345)
         {
-            Console.WriteLine("Таверна выглядит запустелой.");
+            Console.WriteLine("Таверна выглядит НЕ запустелой.");
         }
 
         switch (prosptavrn)
@@ -222,6 +246,14 @@ public class Tavrn
                 GoToBar();
                 break;
             case "2":
+                Console.Clear();
+                Console.WriteLine("Вы садитесь за стол и заказываете еду.");
+                Console.WriteLine("Спустя время вам её приносят.");
+                GGInventory.SetHP(100);
+                GGInventory.SetMT(100);
+                Console.WriteLine("Жизни и рассудок восстановлены.");// Как-то не то, переписать
+                Console.ReadKey();
+                GoToTavern(PopTavrn, ProsTavrn);
                 break;
             case "3":
                 break;
