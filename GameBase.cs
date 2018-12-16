@@ -12,10 +12,63 @@ public static class GGInventory //Инвентарь, задания, проче
 {
     static public int PlotInGG = GameBase.Plot; // "Число сюжета"
     static public string NameGG = GameBase.Name; // Имя ГГ
+    static private int Money = 99999;
+    static public int money = Money;
     static private int MT = 100;
+    static public int mp = HP;
     static private int HP = 100;
+    static public int hp = HP;
 
-    static public int SetMT(int value)
+    static private bool[] AllStatEffects = new bool[4];
+    static public bool BadThoughts = AllStatEffects[0];
+    static public bool Bleed = AllStatEffects[1];
+    static public bool StatEffect3 = AllStatEffects[2];
+    static public bool StatEffect4 = AllStatEffects[3];
+
+    static public int SetMoney(int value)
+    {
+        Money = value + Money;
+
+        return Money;
+    }
+
+    static public int RemoveMoney(int value)
+    {
+        Money = Money - value;
+
+        if (Money < 0)
+        {
+            Money = 0;
+        }
+
+        return Money;
+    }
+
+    static public int RemoveMT(int value)
+    {
+        MT = MT - value;
+
+        if (MT < 1)
+        {
+            GameAct.DeadByMind();
+        }
+
+        return MT;
+    }
+
+    static public int RemoveHP(int value)
+    {
+        HP = HP - value;
+
+        if (HP < 1)
+        {
+            GameAct.DeadByPhysic();
+        }
+
+        return HP;
+    }
+
+    static public int AddMT(int value)
     {
         MT = value + MT;
 
@@ -27,7 +80,7 @@ public static class GGInventory //Инвентарь, задания, проче
         return MT;
     }
 
-    static public int SetHP(int value)
+    static public int AddHP(int value)
     {
         HP = value + HP;
 
@@ -246,14 +299,7 @@ public class Tavrn
                 GoToBar();
                 break;
             case "2":
-                Console.Clear();
-                Console.WriteLine("Вы садитесь за стол и заказываете еду.");
-                Console.WriteLine("Спустя время вам её приносят.");
-                GGInventory.SetHP(100);
-                GGInventory.SetMT(100);
-                Console.WriteLine("Жизни и рассудок восстановлены.");// Как-то не то, переписать
-                Console.ReadKey();
-                GoToTavern(PopTavrn, ProsTavrn);
+                EatMeal(GGInventory.hp, GGInventory.mp, GGInventory.money);
                 break;
             case "3":
                 break;
@@ -262,6 +308,144 @@ public class Tavrn
                 choice = Console.ReadLine();
                 goto case "dew";
 
+        }
+
+        void EatMeal(int gghp, int ggmp, int moneys)
+        {
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine(new string('#', 80));
+            Console.WriteLine("");
+            Console.WriteLine("Вы садитесь за свободный стол.");
+            Console.WriteLine("Спустя какое-то время к вам подходит официантка(???)."); // Официантки вообще были тогда?
+            if (moneys >= 15)
+            {
+                Console.WriteLine("Вы можете заказать:");
+                Console.WriteLine("[1] - ДОХОДНЫЙ ЧАЙ(15)"); // Нет
+                if (moneys >= 50)
+                {
+                    Console.WriteLine("[2] - ЧАЙ(50)"); // Нет, пожалуйста
+                    if(moneys >= 100)
+                    {
+                        Console.WriteLine("[3] - ДОРОГОЙ ЧАЙ(100)"); // Черт
+                    }
+                }
+
+                Console.WriteLine("");
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("");
+
+                string choiceEat;
+                Console.Write("Введите букву(Регистр важен): ");
+                choiceEat = Console.ReadLine();
+                switch (choiceEat)
+                {
+                    case "check":
+                        if (choiceEat == "1")
+                        {
+                            goto case "1";
+                        }
+                        else if (choiceEat == "2")
+                        {
+                            goto case "2";
+                        }
+                        else if (choiceEat == "3")
+                        {
+                            goto case "3";
+                        }
+                        else
+                        {
+                            goto default;
+                        }
+                    case "1":
+                        Console.Clear();
+                        if (moneys >= 15)
+                        {
+                            Console.WriteLine("");
+                            Console.WriteLine(new string('#', 80));
+                            Console.WriteLine("");
+                            Console.WriteLine("Вы заказываете самый дешевый чай.");
+                            GGInventory.RemoveMoney(15);
+                            Console.WriteLine("После того, как вы его выпили, вам стало чуть-чуть лучше.");
+                            GGInventory.AddHP(10);
+                            GGInventory.AddMT(5);
+                            Console.WriteLine("");
+                            Console.WriteLine(new string('#', 80));
+                            Console.WriteLine("");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Console.WriteLine("У вас нет денег на это.");
+                        }
+
+                        break;
+                    case "2":
+                        Console.Clear();
+                        if (moneys >= 50)
+                        {
+                            Console.WriteLine("");
+                            Console.WriteLine(new string('#', 80));
+                            Console.WriteLine("");
+                            Console.WriteLine("Вы заказываете чай.");
+                            GGInventory.RemoveMoney(50);
+                            Console.WriteLine("После того, как вы его выпили, вам стало лучше.");
+                            GGInventory.AddHP(20);
+                            GGInventory.AddMT(10);
+                            Console.WriteLine("");
+                            Console.WriteLine(new string('#', 80));
+                            Console.WriteLine("");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Console.WriteLine("У вас нет денег на это.");
+                        }
+                        break;
+                    case "3":
+                        Console.Clear();
+                        if (moneys >= 100)
+                        {
+                            Console.WriteLine("");
+                            Console.WriteLine(new string('#', 80));
+                            Console.WriteLine("");
+                            Console.WriteLine("Вы заказываете ПРЯМ ХОРОШИЙ чай.");
+                            GGInventory.RemoveMoney(100);
+                            Console.WriteLine("После того, как вы его выпили, вам стало ХОРОШО.");
+                            GGInventory.AddHP(25);
+                            GGInventory.AddMT(15);
+                            Console.WriteLine("");
+                            Console.WriteLine(new string('#', 80));
+                            Console.WriteLine("");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Console.WriteLine("У вас нет денег на это.");
+                            Console.WriteLine("");
+                            Console.WriteLine(new string('#', 80));
+                            Console.WriteLine("");
+                            Console.ReadKey();
+                        }
+                        break;
+                    default:
+                        Console.Write("Давай по новой, Миша, все хуйня: ");
+                        choiceEat = Console.ReadLine();
+                        goto case "check";
+
+                }
+            }
+
+            else
+            {
+                Console.WriteLine("У вас нет денег, чтобы что-нибудь заказать.");
+                Console.WriteLine("");
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("");
+                Console.ReadKey();
+            }
+
+            GoToTavern(PopTavrn, ProsTavrn);
         }
 
         void GoToBar()
@@ -663,7 +847,7 @@ public  class Dragenhof : VillageDef
 {
     public Dragenhof()
     {
-        Name = "Дракенхоф";
+        Name = "Драгенхоф";
         Buildings = 57;
         Pops = 325;
         Prosp = 0;
