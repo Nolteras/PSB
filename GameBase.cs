@@ -12,12 +12,9 @@ public static class GGInventory //Инвентарь, задания, проче
 {
     static public int PlotInGG = GameBase.Plot; // "Число сюжета"
     static public string NameGG = GameBase.Name; // Имя ГГ
-    static private int Money = 99999;
-    static public int money = Money;
-    static private int MT = 100;
-    static public int mp = HP;
-    static private int HP = 100;
-    static public int hp = HP;
+    static public int Money = 100;
+    static public int MT = 100;
+    static public int HP = 100;
 
     static private bool[] AllStatEffects = new bool[4];
     static public bool BadThoughts = AllStatEffects[0];
@@ -25,7 +22,7 @@ public static class GGInventory //Инвентарь, задания, проче
     static public bool StatEffect3 = AllStatEffects[2];
     static public bool StatEffect4 = AllStatEffects[3];
 
-    static public int SetMoney(int value)
+    static public int AddMoney(int value)
     {
         Money = value + Money;
 
@@ -299,7 +296,7 @@ public class Tavrn
                 GoToBar();
                 break;
             case "2":
-                EatMeal(GGInventory.hp, GGInventory.mp, GGInventory.money);
+                EatMeal(GGInventory.HP, GGInventory.MT, GGInventory.Money);
                 break;
             case "3":
                 break;
