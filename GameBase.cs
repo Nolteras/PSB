@@ -15,6 +15,7 @@ public static class GGInventory //Инвентарь, задания, проче
     static public int Money = 100;
     static public int MT = 100;
     static public int HP = 100;
+    static public int BeliveLev = 0;
 
     static private bool[] AllStatEffects = new bool[4];
     static public bool BadThoughts = AllStatEffects[0];
@@ -201,23 +202,90 @@ public static class GameBase
 
 class Churh
 {
+    public int PopChurch;
+    int darkKrac;
+    int noDarkKrac;
+    public int ProsChurch;
+    int religiousZeal;
+    // Описание и возможности
+
+    public int GetReligiousZeal(int pros)
+    {
+        switch (pros)
+        {
+            case 0:
+                return religiousZeal = 3;
+            case 1:
+                return religiousZeal = 2;
+            case 2:
+                return religiousZeal = 1;
+            case 3:
+                return religiousZeal = 0;
+        }
+
+        return religiousZeal;
+    }
+
+
+    public void GoToChurch(int popchurh, int proschurh)
+    {
+        PopChurch = popchurh;
+        ProsChurch = proschurh;
+        Console.Clear();
+        GetReligiousZeal(proschurh);
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("Вы захождите в церковь.");
+        switch (proschurh)
+        {
+            case 0:
+                Console.WriteLine("Хотя населенный пункт является очень бедным, церковь выглядит неплохо.");
+                break;
+            case 1:
+                Console.WriteLine("Церковь хорошо выглядит. Видно, бедность не так сильно затронула это место."); // Переделать
+                break;
+            case 2:
+                Console.WriteLine("Церковь выглядит отлично. Похоже, это одно из самых богатых построек в городе.");
+                break;
+            case 3:
+                Console.WriteLine("Церковь выглядит роскошно и богато. Похоже, это одно из самых богатых построек в городе.");
+                break;
+        }
+        Console.WriteLine("Подойдя к алтарю пожертвований, вы видите, что:");
+        Console.WriteLine("");
+        getDarkKrac(PopChurch);
+        Console.WriteLine("Последователей  'Темного Краца' - " + darkKrac +"");
+        getNoDarkKrac(PopChurch);
+        Console.WriteLine("Последователей  'Не Темного Краца' - " + noDarkKrac + "");
+        Console.ReadKey();
+    }
+
+
+
+    int getDarkKrac(int alldudes) //Переделать, использовать "Рвение" в качестве айди
+    {
+        darkKrac = (alldudes / 2) - religiousZeal * 2;
+        return darkKrac;
+    }
+
+    int getNoDarkKrac(int alldudes)
+    {
+        noDarkKrac = (alldudes - darkKrac) + religiousZeal * 2;
+        return noDarkKrac;
+    }
 
 }
+
 
 class Markt
 {
 
 }
 
-class Weapn
+class Blacksmt
 {
 
 }
 
-class Armor
-{
-
-}
 
 public class Tavrn
 {
@@ -628,11 +696,11 @@ public abstract class VillageDef
     public int Pops { get; set; }
     public int Prosp { get; set; }
     protected bool Tavern { get; set; }
-    protected bool Armory { get; set; }
-    protected bool Weapns { get; set; }
+    protected bool Blacksmith { get; set; }
     protected bool Market { get; set; }
     protected bool Church { get; set; }
     Tavrn tavern = new Tavrn();
+    Churh church = new Churh();
 
     public virtual void PlotVill()
     {
@@ -751,16 +819,10 @@ public abstract class VillageDef
             arr[a] = $"{a}.Таверна";
             Console.WriteLine(arr[a]);
         }
-        if (Armory)
+        if (Blacksmith)
         {
             a++;
-            arr[a] = $"{a}.Бронница";
-            Console.WriteLine(arr[a]);
-        }
-        if (Weapns)
-        {
-            a++;
-            arr[a] = $"{a}.Оружейник(???)";
+            arr[a] = $"{a}.Кузня(???)";
             Console.WriteLine(arr[a]);
         }
         if (Market)
@@ -795,13 +857,9 @@ public abstract class VillageDef
         { 
             Console.WriteLine("[T] - Таверна");
         }
-        if (Armory)
+        if (Blacksmith)
         {
-            Console.WriteLine("[A] - Бронница");
-        }
-        if (Weapns)
-        {
-            Console.WriteLine("[W] - Оружейная");
+            Console.WriteLine("[B] - Кузня(???)");
         }
         if (Market)
         {
@@ -821,13 +879,9 @@ public abstract class VillageDef
                 {
                     goto case "T";
                 }
-                else if (choice == "A")
+                else if (choice == "B")
                 {
-                    goto case "A";
-                }
-                else if (choice == "W")
-                {
-                    goto case "W";
+                    goto case "B";
                 }
                 else if (choice == "M")
                 {
@@ -846,17 +900,16 @@ public abstract class VillageDef
                 Console.Clear();
                 DefVillAct();
                 break;
-            case "A":
-                Console.WriteLine("Armory");
-                break;
-            case "W":
-                Console.WriteLine("Weapon");
+            case "B":
+                Console.WriteLine("Black");
                 break;
             case "M":
                 Console.WriteLine("Market");
                 break;
             case "C":
-                Console.WriteLine("Cerkov");
+                church.GoToChurch(pop, pros); //Переход к классу "Таверна"
+                Console.Clear();
+                DefVillAct();
                 break;
             default:
                 Console.Write("Давай по новой, Миша, все хуйня: ");
@@ -875,7 +928,7 @@ public  class Dragenhof : VillageDef
         Name = "Драгенхоф";
         Buildings = 57;
         Pops = 325;
-        Prosp = 0;
+        Prosp = 3;
         Tavern = true;
         Church = true;   
 
