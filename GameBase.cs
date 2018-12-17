@@ -214,11 +214,11 @@ class Churh
         switch (pros)
         {
             case 0:
-                return religiousZeal = 3;
+                return religiousZeal = 30;
             case 1:
-                return religiousZeal = 2;
+                return religiousZeal = 20;
             case 2:
-                return religiousZeal = 1;
+                return religiousZeal = 10;
             case 3:
                 return religiousZeal = 0;
         }
@@ -263,13 +263,13 @@ class Churh
 
     int getDarkKrac(int alldudes) //Переделать, использовать "Рвение" в качестве айди
     {
-        darkKrac = (alldudes / 2) - religiousZeal * 2;
+        darkKrac = (alldudes / 4) + religiousZeal + 15;
         return darkKrac;
     }
 
     int getNoDarkKrac(int alldudes)
     {
-        noDarkKrac = (alldudes - darkKrac) + religiousZeal * 2;
+        noDarkKrac = alldudes - darkKrac;
         return noDarkKrac;
     }
 
@@ -928,7 +928,7 @@ public  class Dragenhof : VillageDef
         Name = "Драгенхоф";
         Buildings = 57;
         Pops = 325;
-        Prosp = 3;
+        Prosp = 0;
         Tavern = true;
         Church = true;   
 
