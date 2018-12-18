@@ -202,11 +202,13 @@ public static class GameBase
 
 class Churh
 {
+    Random rnd = new Random();
     public int PopChurch;
     int darkKrac;
     int noDarkKrac;
     public int ProsChurch;
     int religiousZeal;
+    bool canGetBless = true;
     // Описание и возможности
 
     public int GetReligiousZeal(int pros)
@@ -256,12 +258,63 @@ class Churh
         Console.WriteLine("Последователей  'Темного Краца' - " + darkKrac +"");
         getNoDarkKrac(PopChurch);
         Console.WriteLine("Последователей  'Не Темного Краца' - " + noDarkKrac + "");
-        Console.ReadKey();
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
+        Console.WriteLine("Вы можете:");
+        Console.WriteLine("[1] - Попросить благословение.");
+        Console.WriteLine("[2] - Покинуть церковь.");
+
+        string choice;
+        Console.Write("Введите букву(Регистр важен): ");
+        choice = Console.ReadLine();
+
+        switch (choice)
+        {
+            case "check":
+                if (choice == "1")
+                {
+                    goto case "1";
+                }
+                if (choice == "2")
+                {
+                    goto case "2";
+                }
+                else
+                {
+                    goto default;
+                }
+            case "1":
+                if (canGetBless)
+                {
+                    getBless();
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.WriteLine(new string('#', 80));
+                    Console.WriteLine("");
+                    Console.WriteLine("В этом месте вы уже обращались к Крацу.");
+                    Console.WriteLine("");
+                    Console.WriteLine(new string('#', 80));
+                    Console.WriteLine("");
+                    Console.ReadKey();
+                    GoToChurch(PopChurch, ProsChurch);
+                }
+                break;
+            case "2":
+                break;
+            default:
+                Console.Write("Давай по новой, Миша, все хуйня: ");
+                choice = Console.ReadLine();
+                goto case "check";
+        }
     }
 
 
 
-    int getDarkKrac(int alldudes) //Переделать, использовать "Рвение" в качестве айди
+    int getDarkKrac(int alldudes)
     {
         darkKrac = (alldudes / 4) + religiousZeal + 15;
         return darkKrac;
@@ -271,6 +324,79 @@ class Churh
     {
         noDarkKrac = alldudes - darkKrac;
         return noDarkKrac;
+    }
+
+    void getBless()
+    {
+        Console.Clear();
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
+        Console.WriteLine("Вы усердно молитесь...");
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
+        canGetBless = false;
+        int iGotBless = rnd.Next(0, 3);
+        Console.ReadKey();
+        switch (iGotBless)
+        {
+            case 0:
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("");
+                Console.WriteLine("Вам кажется, что ничего не поменялось.");
+                Console.WriteLine("");
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("");
+                Console.ReadKey();
+                GoToChurch(PopChurch, ProsChurch);
+                break;
+            case 1:
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("");
+                Console.WriteLine("Вы чувствуете, как энергия проходит сквозь вас.");
+                GGInventory.BeliveLev = GGInventory.BeliveLev + 1;
+                GGInventory.AddHP(5);
+                GGInventory.AddMT(5);
+                Console.WriteLine("");
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("");
+                Console.ReadKey();
+                GoToChurch(PopChurch, ProsChurch);
+                break;
+            case 2:
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("");
+                Console.WriteLine("Вы чувствуете, как у вас начинают трястись руки.");
+                GGInventory.BeliveLev = GGInventory.BeliveLev + 3;
+                GGInventory.RemoveMT(10);
+                Console.WriteLine("");
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("");
+                Console.ReadKey();
+                GoToChurch(PopChurch, ProsChurch);
+                break;
+            case 3:
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("");
+                Console.WriteLine("Вы чувствуете, как у вас начинает болеть голова.");
+                GGInventory.BeliveLev = GGInventory.BeliveLev + 3;
+                GGInventory.RemoveHP(10);
+                Console.WriteLine("");
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("");
+                Console.ReadKey();
+                GoToChurch(PopChurch, ProsChurch);
+                break;
+        }
     }
 
 }
@@ -907,7 +1033,7 @@ public abstract class VillageDef
                 Console.WriteLine("Market");
                 break;
             case "C":
-                church.GoToChurch(pop, pros); //Переход к классу "Таверна"
+                church.GoToChurch(pop, pros); //Переход к классу "Церковь"
                 Console.Clear();
                 DefVillAct();
                 break;
