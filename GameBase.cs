@@ -8,6 +8,68 @@ using System.Threading.Tasks;
 
 
 
+public abstract class Weapon
+{
+     string name;
+     int damage;
+    public int typeOfWeapon; // 0 - Короткий меч, 1 - Длинный меч
+
+    public void GetDescr()
+    {
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
+        if (typeOfWeapon == 0)
+        {
+            getDescr0();
+        }
+        else if(typeOfWeapon == 1)
+        {
+            getDescr1();
+        }
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
+    }
+
+
+
+    private void getDescr0()
+    {
+        Console.WriteLine("Короткий меч");
+        damage = 15;
+        Console.WriteLine("Урон - {0}", damage);
+    }
+
+    private void getDescr1()
+    {
+        Console.WriteLine("Длинный меч");
+        damage = 40;
+        Console.WriteLine("Урон - {0}", damage);
+    }
+
+}
+
+
+ public class SmallSword : Weapon
+{
+    // Сделать генератор случайных имен... Когда-нибудь
+    public string GenerateName()
+    {
+        string[] strarr = new string[20];
+        strarr[0] = "";
+        return "fds";
+    } 
+
+    public SmallSword()
+    {
+        typeOfWeapon = 0;
+    }
+}
+
+
+
+
 public static class GGInventory //Инвентарь, задания, прочее, связанное с ГГ
 {
     static public int Plot = 0; // "Число сюжета"
@@ -17,11 +79,6 @@ public static class GGInventory //Инвентарь, задания, проче
     static public int HP = 100;
     static public int BeliveLev = 0;
 
-    static private bool[] AllStatEffects = new bool[4];
-    static public bool BadThoughts = AllStatEffects[0];
-    static public bool Bleed = AllStatEffects[1];
-    static public bool StatEffect3 = AllStatEffects[2];
-    static public bool StatEffect4 = AllStatEffects[3];
 
     static public int AddMoney(int value)
     {
@@ -137,9 +194,10 @@ public static class GameBase
     public static void TestStuff()
     {
         Console.Clear();
-        Dragenhof dragenhof = new Dragenhof();
-        dragenhof.DefVillAct();
-
+        SmallSword sword = new SmallSword();
+        // Dragenhof dragenhof = new Dragenhof();
+        //  dragenhof.DefVillAct();
+        sword.GetDescr();
        Console.ReadKey();
 
 
