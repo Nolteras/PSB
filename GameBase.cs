@@ -6,13 +6,33 @@ using System.Threading.Tasks;
 
 
 
+public class Fight
+{
+
+
+
+
+
+
+}
+
+
+
+
 
 
 public abstract class Weapon
 {
-     string name;
-     int damage;
+    int target;
+    public bool[] canSomething = new bool[1];
+    string name;
+    protected int damage;
     public int typeOfWeapon; // 0 - Короткий меч, 1 - Длинный меч
+
+    public int GetTarget()
+    {
+        return target;
+    }
 
     public void GetDescr()
     {
@@ -37,14 +57,12 @@ public abstract class Weapon
     private void getDescr0()
     {
         Console.WriteLine("Короткий меч");
-        damage = 15;
         Console.WriteLine("Урон - {0}", damage);
     }
 
     private void getDescr1()
     {
         Console.WriteLine("Длинный меч");
-        damage = 40;
         Console.WriteLine("Урон - {0}", damage);
     }
 
@@ -54,18 +72,31 @@ public abstract class Weapon
  public class SmallSword : Weapon
 {
     // Сделать генератор случайных имен... Когда-нибудь
-    public string GenerateName()
-    {
-        string[] strarr = new string[20];
-        strarr[0] = "";
-        return "fds";
-    } 
+    
 
     public SmallSword()
     {
+        canSomething[0] = true;
+        damage = 15;
         typeOfWeapon = 0;
     }
 }
+
+
+public class BigSword : Weapon
+{
+    // Сделать генератор случайных имен... Когда-нибудь
+
+
+    public BigSword()
+    {
+        canSomething[0] = true;
+        canSomething[2] = true;
+        damage = 40;
+        typeOfWeapon = 1;
+    }
+}
+
 
 
 
