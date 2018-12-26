@@ -12,7 +12,9 @@ public abstract class Enemy : IEnemy
     public int HP { get; set; }
     public int Defence { get; set; }
     public int TypeOfWeapon { get; set; }
+    public int BaseDamage { get; set; }
     public bool NoHuman { get; set; }
+    public bool[] Traumas { get; set; }
     public virtual int Attack()
     {
         return 0;
@@ -28,7 +30,10 @@ public class Human : Enemy
 {
     public Human()
     {
+        HP = 100;
+        Traumas = new bool[2];
         GetDef();
+        getWeapon();
     }
 
     public override int GetDef()
@@ -47,8 +52,37 @@ public class Human : Enemy
             case 3:
                 return Defence = 3;
         }
-
         return GetDef();
+    }
+
+    void getWeapon()
+    {
+        Random random = new Random();
+        int result;
+        result = random.Next(1, 2);
+
+        switch (result)
+        {
+            case 1:
+                TypeOfWeapon = 0; //Короткий меч
+                return;
+            case 2:
+                TypeOfWeapon = 1; //Длинный меч
+                return;
+        }
+
+    }
+
+    public override int Attack()
+    {
+        switch (TypeOfWeapon)
+        {
+            case 0:
+               return BaseDamage = 15;
+            case 1:
+               return BaseDamage = 40;
+        }
+        return this.Attack();
     }
 
 }
@@ -57,7 +91,9 @@ public class Human : Enemy
 {
     string TypeOfEnemy { get; set; }
     int HP { get; set; }
+    bool[] Traumas { get; set; }
     int Defence { get; set; }
+    int BaseDamage { get; set; }
     int TypeOfWeapon { get; set; }
     bool NoHuman { get; set; }
     int Attack();
@@ -71,9 +107,8 @@ public class Fight
     public IEnemy EnemyF { get; set; }
     public void GetEnemy( string typeOfEnemy)
     {
-        EnemyF = new Human();
-        Console.WriteLine(EnemyF.Defence);
-        Console.ReadKey();
+
+
     }
     
 
