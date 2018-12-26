@@ -6,13 +6,26 @@ using System.Threading.Tasks;
 
 
 
+public abstract class Enemy
+{
+    public string TypeOfEnemy; //Undead, Human
+    public int HP;
+    public int TypeOfWeapon;
+    public bool NoHuman;
+}
+
+
+
+
+
+
 public class Fight
 {
+    public void GetEnemy()
+    {
 
-
-
-
-
+    }
+    
 
 }
 
@@ -225,10 +238,10 @@ public static class GameBase
     public static void TestStuff()
     {
         Console.Clear();
-        SmallSword sword = new SmallSword();
-        // Dragenhof dragenhof = new Dragenhof();
-        //  dragenhof.DefVillAct();
-        sword.GetDescr();
+        // SmallSword sword = new SmallSword();
+         Dragenhof dragenhof = new Dragenhof();
+        dragenhof.DefVillAct();
+
        Console.ReadKey();
 
 
