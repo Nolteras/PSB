@@ -6,24 +6,74 @@ using System.Threading.Tasks;
 
 
 
-public abstract class Enemy
+public abstract class Enemy : IEnemy
 {
-    public string TypeOfEnemy; //Undead, Human
-    public int HP;
-    public int TypeOfWeapon;
-    public bool NoHuman;
+    public string TypeOfEnemy { get; set; } //Undead, Human
+    public int HP { get; set; }
+    public int Defence { get; set; }
+    public int TypeOfWeapon { get; set; }
+    public bool NoHuman { get; set; }
+    public virtual int Attack()
+    {
+        return 0;
+    }
+    public virtual int GetDef()
+    {
+        return 0;
+    }
 }
 
 
+public class Human : Enemy
+{
+    public Human()
+    {
+        GetDef();
+    }
 
+    public override int GetDef()
+    {
+        Random random = new Random();
+        int result;
+        result = random.Next(0, 3);
+        switch (result)
+        {
+            case 0:
+                return Defence = 0;
+            case 1:
+                return Defence = 1;
+            case 2:
+                return Defence = 2;
+            case 3:
+                return Defence = 3;
+        }
+
+        return GetDef();
+    }
+
+}
+
+ public interface IEnemy
+{
+    string TypeOfEnemy { get; set; }
+    int HP { get; set; }
+    int Defence { get; set; }
+    int TypeOfWeapon { get; set; }
+    bool NoHuman { get; set; }
+    int Attack();
+    int GetDef();
+}
 
 
 
 public class Fight
 {
-    public void GetEnemy()
+    public IEnemy EnemyF { get; set; }
+    public void GetEnemy( string typeOfEnemy)
     {
-
+        EnemyF = new Human();
+        Console.WriteLine(EnemyF.Defence);
+        Console.ReadKey();
     }
     
 
@@ -237,10 +287,12 @@ public static class GameBase
 
     public static void TestStuff()
     {
-        Console.Clear();
+        // Console.Clear();
         // SmallSword sword = new SmallSword();
-         Dragenhof dragenhof = new Dragenhof();
-        dragenhof.DefVillAct();
+        //  Dragenhof dragenhof = new Dragenhof();
+        //  dragenhof.DefVillAct();
+        Fight fight = new Fight();
+        fight.GetEnemy("hurt");
 
        Console.ReadKey();
 
