@@ -15,7 +15,7 @@ public abstract class Enemy : IEnemy
     public int BaseDamage { get; set; }
     public bool NoHuman { get; set; }
     public bool[] Traumas { get; set; }
-    public virtual int Attack()
+    public virtual int GetDamage()
     {
         return 0;
     }
@@ -28,17 +28,18 @@ public abstract class Enemy : IEnemy
 
 public class Human : Enemy
 {
+    Random random = new Random();
     public Human()
     {
         HP = 100;
         Traumas = new bool[2];
         GetDef();
         getWeapon();
+        GetDamage();
     }
 
     public override int GetDef()
     {
-        Random random = new Random();
         int result;
         result = random.Next(0, 3);
         switch (result)
@@ -57,7 +58,6 @@ public class Human : Enemy
 
     void getWeapon()
     {
-        Random random = new Random();
         int result;
         result = random.Next(1, 2);
 
@@ -73,7 +73,7 @@ public class Human : Enemy
 
     }
 
-    public override int Attack()
+    public override int GetDamage()
     {
         switch (TypeOfWeapon)
         {
@@ -82,7 +82,7 @@ public class Human : Enemy
             case 1:
                return BaseDamage = 40;
         }
-        return this.Attack();
+        return this.GetDamage();
     }
 
 }
@@ -96,21 +96,40 @@ public class Human : Enemy
     int BaseDamage { get; set; }
     int TypeOfWeapon { get; set; }
     bool NoHuman { get; set; }
-    int Attack();
+    int GetDamage();
     int GetDef();
 }
 
 
 
-public class Fight
+public class FightModule
 {
     public IEnemy EnemyF { get; set; }
-    public void GetEnemy( string typeOfEnemy)
+    public void GetEnemy(string typeOfEnemy)
     {
+        if (typeOfEnemy == "Human")
+        {
+            EnemyF = new Human();
+        }
+        else if(typeOfEnemy == "Undead")
+        {
 
+        }
+        battle(EnemyF);
 
     }
     
+
+    void battle( IEnemy EnemyF)
+    {
+        Console.ReadKey();
+        do
+        {
+
+
+        }
+        while (EnemyF.HP == 0);
+    }
 
 }
 
@@ -326,10 +345,9 @@ public static class GameBase
         // SmallSword sword = new SmallSword();
         //  Dragenhof dragenhof = new Dragenhof();
         //  dragenhof.DefVillAct();
-        Fight fight = new Fight();
-        fight.GetEnemy("hurt");
-
-       Console.ReadKey();
+        FightModule fight = new FightModule();
+        fight.GetEnemy("Human");
+        DisplayMenu();
 
 
     }
