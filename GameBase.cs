@@ -23,6 +23,10 @@ public abstract class Enemy : IEnemy
     {
         return 0;
     }
+    public virtual void Act()
+    {
+
+    }
 }
 
 
@@ -33,9 +37,6 @@ public class Human : Enemy
     {
         HP = 100;
         Traumas = new bool[2];
-        GetDef();
-        getWeapon();
-        GetDamage();
     }
 
     public override int GetDef()
@@ -56,30 +57,22 @@ public class Human : Enemy
         return GetDef();
     }
 
-    void getWeapon()
+
+    public override void Act()
     {
         int result;
-        result = random.Next(1, 2);
-
-        switch (result)
-        {
-            case 1:
-                TypeOfWeapon = 0; //Короткий меч
-                return;
-            case 2:
-                TypeOfWeapon = 1; //Длинный меч
-                return;
-        }
-
+        result = random.Next(1, 10);
     }
 
-    public override int GetDamage()
+    public override int GetDamage() // 0 - Кулаки, 1 - Короткий меч, 2 - Длинный меч
     {
         switch (TypeOfWeapon)
         {
             case 0:
-               return BaseDamage = 15;
+               return BaseDamage = 5;
             case 1:
+               return BaseDamage = 15;
+            case 2:
                return BaseDamage = 40;
         }
         return this.GetDamage();
@@ -98,6 +91,7 @@ public class Human : Enemy
     bool NoHuman { get; set; }
     int GetDamage();
     int GetDef();
+    void Act();
 }
 
 
@@ -105,24 +99,27 @@ public class Human : Enemy
 public class FightModule
 {
     public IEnemy EnemyF { get; set; }
-    public void GetEnemy(string typeOfEnemy)
+    public void GetEnemy(string typeOfEnemy, int typeOfArmor, int typeofWeapon)
     {
         if (typeOfEnemy == "Human")
         {
             EnemyF = new Human();
+            EnemyF.TypeOfWeapon = typeofWeapon;
+            EnemyF.Defence = typeOfArmor;
+            EnemyF.GetDamage();
         }
         else if(typeOfEnemy == "Undead")
         {
 
         }
-        battle(EnemyF);
+        Battle(EnemyF);
 
     }
     
 
-    void battle( IEnemy EnemyF)
+    void Battle( IEnemy EnemyF)
     {
-        Console.ReadKey();
+        getDescr(EnemyF);
         do
         {
 
@@ -130,6 +127,12 @@ public class FightModule
         }
         while (EnemyF.HP == 0);
     }
+
+    void getDescr( IEnemy EnemyF)
+    {
+
+    }
+
 
 }
 
@@ -347,6 +350,7 @@ public static class GameBase
         //  dragenhof.DefVillAct();
         FightModule fight = new FightModule();
         fight.GetEnemy("Human");
+        Console.ReadKey();
         DisplayMenu();
 
 
