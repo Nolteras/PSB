@@ -221,7 +221,7 @@ public class BigSword : Weapon
 
 
 
-public static class GGInventory //Инвентарь, задания, прочее, связанное с ГГ
+public static class MainCharacter //Инвентарь, задания, прочее, связанное с ГГ
 {
     static public int Plot = 0; // "Число сюжета"
     static public string Name; // Имя ГГ
@@ -317,7 +317,7 @@ public static class GameBase
         NameGG = Convert.ToString(Console.ReadLine());
         Console.Clear();
         Console.WriteLine("Молодой оруженосец по имени " + NameGG + " только-только выпустился из оружейной академии Барона Керонча."); //Все это к херам переделать
-        GGInventory.Name = NameGG;
+        MainCharacter.Name = NameGG;
         Console.ReadKey();
     }
 
@@ -349,7 +349,7 @@ public static class GameBase
         //  Dragenhof dragenhof = new Dragenhof();
         //  dragenhof.DefVillAct();
         FightModule fight = new FightModule();
-        fight.GetEnemy("Human");
+        fight.GetEnemy("Human", 1, 1);
         Console.ReadKey();
         DisplayMenu();
 
@@ -570,9 +570,9 @@ class Churh
                 Console.WriteLine(new string('#', 80));
                 Console.WriteLine("");
                 Console.WriteLine("Вы чувствуете, как энергия проходит сквозь вас.");
-                GGInventory.BeliveLev = GGInventory.BeliveLev + 1;
-                GGInventory.AddHP(5);
-                GGInventory.AddMT(5);
+                MainCharacter.BeliveLev = MainCharacter.BeliveLev + 1;
+                MainCharacter.AddHP(5);
+                MainCharacter.AddMT(5);
                 Console.WriteLine("");
                 Console.WriteLine(new string('#', 80));
                 Console.WriteLine("");
@@ -585,8 +585,8 @@ class Churh
                 Console.WriteLine(new string('#', 80));
                 Console.WriteLine("");
                 Console.WriteLine("Вы чувствуете, как у вас начинают трястись руки.");
-                GGInventory.BeliveLev = GGInventory.BeliveLev + 3;
-                GGInventory.RemoveMT(10);
+                MainCharacter.BeliveLev = MainCharacter.BeliveLev + 3;
+                MainCharacter.RemoveMT(10);
                 Console.WriteLine("");
                 Console.WriteLine(new string('#', 80));
                 Console.WriteLine("");
@@ -599,8 +599,8 @@ class Churh
                 Console.WriteLine(new string('#', 80));
                 Console.WriteLine("");
                 Console.WriteLine("Вы чувствуете, как у вас начинает болеть голова.");
-                GGInventory.BeliveLev = GGInventory.BeliveLev + 3;
-                GGInventory.RemoveHP(10);
+                MainCharacter.BeliveLev = MainCharacter.BeliveLev + 3;
+                MainCharacter.RemoveHP(10);
                 Console.WriteLine("");
                 Console.WriteLine(new string('#', 80));
                 Console.WriteLine("");
@@ -615,7 +615,8 @@ class Churh
 
 class Markt
 {
-
+    int popMarket;
+    int prosMarket;
 }
 
 class Blacksmt
@@ -698,7 +699,7 @@ public class Tavrn
                 GoToBar();
                 break;
             case "2":
-                EatMeal(GGInventory.HP, GGInventory.MT, GGInventory.Money);
+                EatMeal(MainCharacter.HP, MainCharacter.MT, MainCharacter.Money);
                 break;
             case "3":
                 break;
@@ -720,13 +721,13 @@ public class Tavrn
             if (moneys >= 15)
             {
                 Console.WriteLine("Вы можете заказать:");
-                Console.WriteLine("[1] - ДОХОДНЫЙ ЧАЙ(15)"); // Нет
+                Console.WriteLine("[1] - Запеченные овощи(15)"); // Нет
                 if (moneys >= 50)
                 {
-                    Console.WriteLine("[2] - ЧАЙ(50)"); // Нет, пожалуйста
+                    Console.WriteLine("[2] - Суп(50)"); // Нет, пожалуйста
                     if(moneys >= 100)
                     {
-                        Console.WriteLine("[3] - ДОРОГОЙ ЧАЙ(100)"); // Черт
+                        Console.WriteLine("[3] - Свиной окорок(100)"); // Черт
                     }
                 }
 
@@ -763,11 +764,11 @@ public class Tavrn
                             Console.WriteLine("");
                             Console.WriteLine(new string('#', 80));
                             Console.WriteLine("");
-                            Console.WriteLine("Вы заказываете самый дешевый чай.");
-                            GGInventory.RemoveMoney(15);
-                            Console.WriteLine("После того, как вы его выпили, вам стало чуть-чуть лучше.");
-                            GGInventory.AddHP(10);
-                            GGInventory.AddMT(5);
+                            Console.WriteLine("Вы заказываете самое дешевое блюдо.");
+                            MainCharacter.RemoveMoney(15);
+                            Console.WriteLine("После того, как вы поели, вам стало чуть-чуть лучше.");
+                            MainCharacter.AddHP(10);
+                            MainCharacter.AddMT(5);
                             Console.WriteLine("");
                             Console.WriteLine(new string('#', 80));
                             Console.WriteLine("");
@@ -786,11 +787,11 @@ public class Tavrn
                             Console.WriteLine("");
                             Console.WriteLine(new string('#', 80));
                             Console.WriteLine("");
-                            Console.WriteLine("Вы заказываете чай.");
-                            GGInventory.RemoveMoney(50);
-                            Console.WriteLine("После того, как вы его выпили, вам стало лучше.");
-                            GGInventory.AddHP(20);
-                            GGInventory.AddMT(10);
+                            Console.WriteLine("Вы заказываете овощи.");
+                            MainCharacter.RemoveMoney(50);
+                            Console.WriteLine("После того, как вы поели, вам стало лучше.");
+                            MainCharacter.AddHP(20);
+                            MainCharacter.AddMT(10);
                             Console.WriteLine("");
                             Console.WriteLine(new string('#', 80));
                             Console.WriteLine("");
@@ -808,11 +809,11 @@ public class Tavrn
                             Console.WriteLine("");
                             Console.WriteLine(new string('#', 80));
                             Console.WriteLine("");
-                            Console.WriteLine("Вы заказываете ПРЯМ ХОРОШИЙ чай.");
-                            GGInventory.RemoveMoney(100);
-                            Console.WriteLine("После того, как вы его выпили, вам стало ХОРОШО.");
-                            GGInventory.AddHP(25);
-                            GGInventory.AddMT(15);
+                            Console.WriteLine("Вы заказываете большой сытный окорок.");
+                            MainCharacter.RemoveMoney(100);
+                            Console.WriteLine("После того, как вы его съели, вам стало очень хорошо.");//Править меню
+                            MainCharacter.AddHP(25);
+                            MainCharacter.AddMT(15);
                             Console.WriteLine("");
                             Console.WriteLine(new string('#', 80));
                             Console.WriteLine("");
@@ -889,7 +890,7 @@ public class Tavrn
                     TalkBarman();
                     break;
                 case "2":
-                    DrinkBarman(GGInventory.HP, GGInventory.MT, GGInventory.Money);
+                    DrinkBarman(MainCharacter.HP, MainCharacter.MT, MainCharacter.Money);
                     break;
                 case "3":
                     GoToTavern(PopTavrn, ProsTavrn);
@@ -921,9 +922,9 @@ public class Tavrn
             }
             Console.WriteLine("Вы заказываете себе выпить.");
             Console.WriteLine("Ваше моральное состояние улучшилось.");
-            GGInventory.RemoveMoney(5);
-            GGInventory.RemoveHP(2);
-            GGInventory.AddMT(25);
+            MainCharacter.RemoveMoney(5);
+            MainCharacter.RemoveHP(2);
+            MainCharacter.AddMT(25);
             Console.WriteLine("");
             Console.WriteLine(new string('#', 80));
             Console.WriteLine("");
