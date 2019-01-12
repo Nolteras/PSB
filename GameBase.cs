@@ -145,9 +145,10 @@ public class FightModule
 
 public abstract class Weapon
 {
+    public int count;
+    public int name;
     int target;
     public bool[] canSomething = new bool[1];
-    string name;
     protected int damage;
     public int typeOfWeapon; // 0 - Короткий меч, 1 - Длинный меч
 
@@ -231,6 +232,12 @@ public static class MainCharacter //Инвентарь, задания, проч
     static public int MT = 100;
     static public int HP = 100;
     static public int BeliveLev = 0;
+    static string weapon;
+    static int damage;
+    static int def;
+    static string defence;
+
+    static List<Weapon> weaponsInv = new List<Weapon>();
 
 
     static public int AddMoney(int value)
