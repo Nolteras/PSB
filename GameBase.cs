@@ -10,16 +10,16 @@ public abstract class Enemy : IEnemy
 {
     public string TypeOfEnemy { get; set; } //Undead, Human
     public int HP { get; set; }
-    public int Defence { get; set; }
-    public int TypeOfWeapon { get; set; }
+    public int Defence { get; set; } // Независимая величина
+    public int TypeOfWeapon { get; set; } //Тип оружия, через которое получаем BaseDamage
     public int BaseDamage { get; set; }
-    public bool NoHuman { get; set; }
-    public bool[] Traumas { get; set; }
-    public virtual int GetDamage()
+    public bool HasTrauma { get; set; } // Если есть - тру; Если тру - проверяем, что за травма через массив
+    public int[] Traumas { get; set; } // Список травм для каждого типа противника уникален, инициализировать в конструкторе
+    public virtual int GetDamage() 
     {
         return 0;
     }
-    public virtual int GetDef()
+    public virtual int GetDef() // Данный момент - попытка дать случайность. Идея - сделать формулу
     {
         return 0;
     }
@@ -36,7 +36,7 @@ public class Human : Enemy
     public Human()
     {
         HP = 100;
-        Traumas = new bool[2];
+        HasTrauma = false;
     }
 
     public override int GetDef()
@@ -80,15 +80,15 @@ public class Human : Enemy
 
 }
 
- public interface IEnemy
+public interface IEnemy
 {
     string TypeOfEnemy { get; set; }
     int HP { get; set; }
-    bool[] Traumas { get; set; }
+    bool HasTrauma { get; set; }
+    int[] Traumas { get; set; }
     int Defence { get; set; }
     int BaseDamage { get; set; }
     int TypeOfWeapon { get; set; }
-    bool NoHuman { get; set; }
     int GetDamage();
     int GetDef();
     void Act();
@@ -121,18 +121,49 @@ public class FightModule
 
     void Battle( IEnemy EnemyF)
     {
-        getDescr(EnemyF);
+        GetDescr(EnemyF);
         do
         {
-
+          
 
         }
         while (EnemyF.HP == 0);
     }
 
-    void getDescr( IEnemy EnemyF)
+    void GetDescr(IEnemy EnemyF)
     {
-
+        Console.Clear();
+        Console.WriteLine("Перед вами:");
+        switch (EnemyF.TypeOfEnemy)
+        {
+            case "Human":
+                Console.WriteLine("Человек");
+                break;
+            case "Undead":
+                Console.WriteLine("Чумной");
+                break;
+        }
+        Console.WriteLine(" На вид он -");
+        if (EnemyF.HP == 100)
+        {
+            Console.WriteLine("В полном порядке");
+        }
+        else if(EnemyF.HP < 100 && EnemyF.HP >= 75)
+        {
+            Console.WriteLine("Немного ранен");
+        }
+        else if(EnemyF.HP < 75 && EnemyF.HP >= 50)
+        {
+            Console.WriteLine("Ранен");
+        }
+        else if(EnemyF.HP < 50 && EnemyF.HP >= 35)
+        {
+            Console.WriteLine("Сильно ранен");
+        }
+        else if(EnemyF.HP < 35 && EnemyF.HP > 0)
+        {
+            Console.WriteLine("При смерти");
+        }
     }
 
 
@@ -148,7 +179,7 @@ public abstract class Weapon
     public int count;
     public int name;
     int target;
-    public bool[] canSomething = new bool[1];
+    public bool[] canSomething = new bool[1]; // Заменить странную буловую систему на ту, что у противников
     protected int damage;
     public int typeOfWeapon; // 0 - Короткий меч, 1 - Длинный меч
 
