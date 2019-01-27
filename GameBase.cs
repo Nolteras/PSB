@@ -30,14 +30,55 @@ public abstract class Enemy : IEnemy
 }
 
 
+public class Undead : Enemy
+{
+    Random random = new Random();
+
+    public override int GetDef()
+    {
+        int result;
+        result = random.Next(0, 3);
+        switch (result)
+        {
+            case 0:
+                return Defence = 0;
+            case 1:
+                return Defence = 1;
+            case 2:
+                return Defence = 2;
+            case 3:
+                return Defence = 3;
+        }
+        return GetDef();
+    }
+
+
+    public override void Act()
+    {
+        int result;
+        result = random.Next(1, 10);
+    }
+
+    public override int GetDamage() // 0 - Кулаки, 1 - Короткий меч, 2 - Длинный меч
+    {
+        switch (TypeOfWeapon)
+        {
+            case 0:
+                return BaseDamage = 5;
+            case 1:
+                return BaseDamage = 15;
+            case 2:
+                return BaseDamage = 40;
+        }
+        return this.GetDamage();
+    }
+
+}
+
+
 public class Human : Enemy
 {
     Random random = new Random();
-    public Human()
-    {
-        HP = 100;
-        HasTrauma = false;
-    }
 
     public override int GetDef()
     {
@@ -105,14 +146,25 @@ public class FightModule
         {
             EnemyF = new Human
             {
+                HP = 100,
+                HasTrauma = false,
                 TypeOfWeapon = typeofWeapon,
-                Defence = typeOfArmor
+                Defence = typeOfArmor,
+                TypeOfEnemy = typeOfEnemy
             };
             EnemyF.GetDamage();
         }
         else if(typeOfEnemy == "Undead")
         {
-
+            EnemyF = new Undead
+            {
+                HP = 100,
+                HasTrauma = false,
+                TypeOfWeapon = typeofWeapon,
+                Defence = typeOfArmor,
+                TypeOfEnemy = typeOfEnemy
+            };
+            EnemyF.GetDamage();
         }
         Battle(EnemyF);
 
@@ -121,10 +173,9 @@ public class FightModule
 
     void Battle( IEnemy EnemyF)
     {
-        GetDescr(EnemyF);
         do
         {
-          
+          GetDescr(EnemyF);
 
         }
         while (EnemyF.HP == 0);
@@ -133,6 +184,9 @@ public class FightModule
     void GetDescr(IEnemy EnemyF)
     {
         Console.Clear();
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
         Console.WriteLine("Перед вами:");
         switch (EnemyF.TypeOfEnemy)
         {
@@ -164,6 +218,14 @@ public class FightModule
         {
             Console.WriteLine("При смерти");
         }
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
+    }
+
+    void DoMainChar()
+    {
+
     }
 
 
@@ -177,16 +239,11 @@ public class FightModule
 public abstract class Weapon
 {
     public int count;
-    public int name;
-    int target;
+    public string name;
     public bool[] canSomething = new bool[1]; // Заменить странную буловую систему на ту, что у противников
     protected int damage;
     public int typeOfWeapon; // 0 - Короткий меч, 1 - Длинный меч
 
-    public int GetTarget()
-    {
-        return target;
-    }
 
     public void GetDescr()
     {
