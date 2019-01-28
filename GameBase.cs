@@ -76,9 +76,10 @@ public class Undead : Enemy
 }
 
 
-public class Human : Enemy
+public class Human : Enemy // Травмы: 0 - голова, 1 - левая рука, 2 - правая рука, 3 - левая нога, 4 - правая нога.
 {
     Random random = new Random();
+
 
     public override int GetDef()
     {
@@ -126,7 +127,7 @@ public interface IEnemy
     string TypeOfEnemy { get; set; }
     int HP { get; set; }
     bool HasTrauma { get; set; }
-    int[] Traumas { get; set; }
+    int[] Traumas  { get; set; }
     int Defence { get; set; }
     int BaseDamage { get; set; }
     int TypeOfWeapon { get; set; }
@@ -146,6 +147,7 @@ public class FightModule
         {
             EnemyF = new Human
             {
+                Traumas = new int[5],
                 HP = 100,
                 HasTrauma = false,
                 TypeOfWeapon = typeofWeapon,
@@ -225,6 +227,11 @@ public class FightModule
 
     void DoMainChar()
     {
+        int fightModuleDamage = MainCharacter.damage;
+        int fightModuleDefence = MainCharacter.def;
+        int fightModuleWeapon = MainCharacter.typeOfWeaponMC;
+        Console.WriteLine("Вы можете:");
+
 
     }
 
@@ -240,7 +247,6 @@ public abstract class Weapon
 {
     public int count;
     public string name;
-    public bool[] canSomething = new bool[1]; // Заменить странную буловую систему на ту, что у противников
     protected int damage;
     public int typeOfWeapon; // 0 - Короткий меч, 1 - Длинный меч
 
@@ -282,12 +288,10 @@ public abstract class Weapon
 
  public class SmallSword : Weapon
 {
-    // Сделать генератор случайных имен... Когда-нибудь
-    
+    //Не может отрубать конечности
 
     public SmallSword()
-    {
-        canSomething[0] = true;
+    { 
         damage = 15;
         typeOfWeapon = 0;
     }
@@ -296,13 +300,11 @@ public abstract class Weapon
 
 public class BigSword : Weapon
 {
-    // Сделать генератор случайных имен... Когда-нибудь
 
+    //Может отрубить голову
 
     public BigSword()
     {
-        canSomething[0] = true;
-        canSomething[2] = true;
         damage = 40;
         typeOfWeapon = 1;
     }
@@ -320,9 +322,9 @@ public static class MainCharacter //Инвентарь, задания, проч
     static public int MT = 100;
     static public int HP = 100;
     static public int BeliveLev = 0;
-    static string weapon;
-    static int damage;
-    static int def;
+    static public int typeOfWeaponMC = 0; //Получаем от покупок в магазине
+    static public int damage;
+    static public int def;
     static string defence;
 
     static List<Weapon> weaponsInv = new List<Weapon>();
