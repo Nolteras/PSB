@@ -140,12 +140,12 @@ public interface IEnemy
 
 public class FightModule
 {
-    public IEnemy EnemyF { get; set; }
+    public IEnemy EnemyF1 { get; set; }
     public void GetEnemy(string typeOfEnemy, int typeOfArmor, int typeofWeapon)
     {
         if (typeOfEnemy == "Human")
         {
-            EnemyF = new Human
+            EnemyF1 = new Human
             {
                 Traumas = new int[5],
                 HP = 100,
@@ -154,11 +154,12 @@ public class FightModule
                 Defence = typeOfArmor,
                 TypeOfEnemy = typeOfEnemy
             };
-            EnemyF.GetDamage();
+            EnemyF1.GetDamage();
+            Battle(EnemyF1);
         }
         else if(typeOfEnemy == "Undead")
         {
-            EnemyF = new Undead
+            EnemyF1 = new Undead
             {
                 HP = 100,
                 HasTrauma = false,
@@ -166,9 +167,9 @@ public class FightModule
                 Defence = typeOfArmor,
                 TypeOfEnemy = typeOfEnemy
             };
-            EnemyF.GetDamage();
+            EnemyF1.GetDamage();
+            Battle(EnemyF1);
         }
-        Battle(EnemyF);
 
     }
     
@@ -177,10 +178,11 @@ public class FightModule
     {
         do
         {
-          GetDescr(EnemyF);
+
+            GetDescr(EnemyF);
 
         }
-        while (EnemyF.HP == 0);
+        while (EnemyF.HP > 0);
     }
 
     void GetDescr(IEnemy EnemyF)
@@ -243,6 +245,40 @@ public class FightModule
         else if(MainCharacter.MT <= 20 && MainCharacter.MT > 0)
         {
             Console.WriteLine("Вы вот-вот сойдете с ума.");
+        }
+
+        int choice;
+
+        Console.WriteLine("Действия:");
+        Console.WriteLine("1 - Атака.");
+        Console.WriteLine("2 - Пропуск хода.");
+        Console.Write("Выбор:");
+        choice = Convert.ToInt32(Console.ReadLine());
+        switch (choice)
+        {
+            case 0:
+                if (choice == 1)
+                {
+                    goto case 1;
+                }
+                if (choice == 2)
+                {
+                    goto case 2;
+                }
+                else
+                {
+                    Console.Write("Давай по новой, Миша, все хуйня: ");
+                    choice = Convert.ToInt32(Console.ReadLine());
+                    goto case 0;
+                }
+
+            case 1:
+                MainCharacter.AttackChar(EnemyF1);
+                return;
+            case 2:
+                return;
+            default:
+                goto case 0;
         }
 
 
@@ -336,11 +372,26 @@ public static class MainCharacter //Инвентарь, задания, проч
     static public int HP = 100;
     static public int BeliveLev = 0;
     static public int typeOfWeaponMC = 0; //Получаем от покупок в магазине
-    static public int damage;
+    static public int damage = 25;
     static public int def;
     static string defence;
 
     static List<Weapon> weaponsInv = new List<Weapon>();
+
+    static public void AttackChar( this IEnemy enemy )
+    {       
+        Console.Clear();
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
+        Console.WriteLine("Вы бьете врага на {0} ед.", damage);
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
+        enemy.HP = enemy.HP - damage;
+        Console.ReadKey();
+        return;
+    }
 
 
     static public int AddMoney(int value)
