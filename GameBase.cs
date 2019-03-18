@@ -223,6 +223,7 @@ public class FightModule
         Console.WriteLine("");
         Console.WriteLine(new string('#', 80));
         Console.WriteLine("");
+        DoMainChar();
     }
 
     void DoMainChar()
@@ -230,7 +231,19 @@ public class FightModule
         int fightModuleDamage = MainCharacter.damage;
         int fightModuleDefence = MainCharacter.def;
         int fightModuleWeapon = MainCharacter.typeOfWeaponMC;
-        Console.WriteLine("Вы можете:");
+        Console.WriteLine("У вас " +MainCharacter.HP+ " очков здоровья.");
+        if(MainCharacter.MT <= 100 && MainCharacter.MT > 50)
+        {
+            Console.WriteLine("Ваше МТ в полном порядке."); //Переписать.
+        } 
+        else if(MainCharacter.MT <= 50 && MainCharacter.MT > 20)
+        {
+            Console.WriteLine("Вы чувствуете помутнение разума.");
+        }
+        else if(MainCharacter.MT <= 20 && MainCharacter.MT > 0)
+        {
+            Console.WriteLine("Вы вот-вот сойдете с ума.");
+        }
 
 
     }
