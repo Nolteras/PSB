@@ -102,8 +102,26 @@ public class Human : Enemy // Травмы: 0 - голова, 1 - левая р�
 
     public override void Act()
     {
+        string name = "null";
+        if (TypeOfEnemy == "Human")
+        {
+            name = "Человек";
+        } else if (TypeOfEnemy == "Undead")
+        {
+            name = "Чумной";
+        }
         int result;
         result = random.Next(1, 10);
+        Console.Clear();
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
+        Console.WriteLine(name + " бьет вас на " + result + " ед. урона!");
+        MainCharacter.RemoveHP(result);
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
+        Console.ReadKey();
     }
 
     public override int GetDamage() // 0 - Кулаки, 1 - Короткий меч, 2 - Длинный меч
@@ -226,6 +244,7 @@ public class FightModule
         Console.WriteLine(new string('#', 80));
         Console.WriteLine("");
         DoMainChar();
+        EnemyF.Act();
     }
 
     void DoMainChar()
@@ -276,6 +295,7 @@ public class FightModule
                 MainCharacter.AttackChar(EnemyF1);
                 return;
             case 2:
+                MainCharacter.DoNothingBM();
                 return;
             default:
                 goto case 0;
@@ -283,6 +303,8 @@ public class FightModule
 
 
     }
+
+
 
 
 }
@@ -377,6 +399,19 @@ public static class MainCharacter //Инвентарь, задания, проч
     static string defence;
 
     static List<Weapon> weaponsInv = new List<Weapon>();
+
+    static public void DoNothingBM()
+    {
+        Console.Clear();
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
+        Console.WriteLine("Вы ничего не делаете.");
+        Console.WriteLine("");
+        Console.WriteLine(new string('#', 80));
+        Console.WriteLine("");
+        Console.ReadKey();
+    }
 
     static public void AttackChar( this IEnemy enemy )
     {       
