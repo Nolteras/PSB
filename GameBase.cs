@@ -9,17 +9,20 @@ using System.Threading.Tasks;
 public abstract class Enemy : IEnemy
 {
     public string TypeOfEnemy { get; set; } //Undead, Human
+    public int AttackSkill { get; set; }   //Навык защиты
+    public int DefenceSkill { get; set; } //Навык атаки
+    public int Strength { get; set; } //Сила
+    public string Special { get; set; } //Особенности
     public int HP { get; set; }
-    public int Defence { get; set; } // Независимая величина
+    public int Armor { get; set; } // Тип брони, одетый на тело
+    public int Hat { get; set; }  // Шапка
     public int TypeOfWeapon { get; set; } //Тип оружия, через которое получаем BaseDamage
-    public int BaseDamage { get; set; }
+    public int BaseDamageWeapon { get; set; }    // Базовый урон оружия
+    public int ArmorPenetr { get; set; }  // Пробитие брони
+    public int WeaponLengh { get; set; } // Длина оружия
     public bool HasTrauma { get; set; } // Если есть - тру; Если тру - проверяем, что за травма через массив
     public int[] Traumas { get; set; } // Список травм для каждого типа противника уникален, инициализировать в конструкторе
-    public virtual int GetDamage() 
-    {
-        return 0;
-    }
-    public virtual int GetDef() // Данный момент - попытка дать случайность. Идея - сделать формулу
+    public virtual int GetStat() 
     {
         return 0;
     }
@@ -34,24 +37,6 @@ public class Undead : Enemy
 {
     Random random = new Random();
 
-    public override int GetDef()
-    {
-        int result;
-        result = random.Next(0, 3);
-        switch (result)
-        {
-            case 0:
-                return Defence = 0;
-            case 1:
-                return Defence = 1;
-            case 2:
-                return Defence = 2;
-            case 3:
-                return Defence = 3;
-        }
-        return GetDef();
-    }
-
 
     public override void Act()
     {
@@ -59,18 +44,18 @@ public class Undead : Enemy
         result = random.Next(1, 10);
     }
 
-    public override int GetDamage() // 0 - Кулаки, 1 - Короткий меч, 2 - Длинный меч
+    public override int GetStat() // На данный момент алгоритм действует так: Раса, навык защиты, навык атаки, броня, шляпа, оружие
     {
-        switch (TypeOfWeapon)
+        switch (TypeOfWeapon) // 0 - Кулаки, 1 - Короткий меч, 2 - Длинный меч
         {
             case 0:
-                return BaseDamage = 5;
+                return BaseDamageWeapon = 5;
             case 1:
-                return BaseDamage = 15;
+                return BaseDamageWeapon = 15;
             case 2:
-                return BaseDamage = 40;
+                return BaseDamageWeapon = 40;
         }
-        return this.GetDamage();
+        return this.GetStat();
     }
 
 }
@@ -79,26 +64,6 @@ public class Undead : Enemy
 public class Human : Enemy // Травмы: 0 - голова, 1 - левая рука, 2 - правая рука, 3 - левая нога, 4 - правая нога.
 {
     Random random = new Random();
-
-
-    public override int GetDef()
-    {
-        int result;
-        result = random.Next(0, 3);
-        switch (result)
-        {
-            case 0:
-                return Defence = 0;
-            case 1:
-                return Defence = 1;
-            case 2:
-                return Defence = 2;
-            case 3:
-                return Defence = 3;
-        }
-        return GetDef();
-    }
-
 
     public override void Act()
     {
@@ -124,33 +89,60 @@ public class Human : Enemy // Травмы: 0 - голова, 1 - левая р�
         Console.ReadKey();
     }
 
-    public override int GetDamage() // 0 - Кулаки, 1 - Короткий меч, 2 - Длинный меч
+    public override int GetStat()
     {
-        switch (TypeOfWeapon)
+        // На данный момент алгоритм действует так: Раса, сила, навык защиты, навык атаки, броня, шляпа, оружие
+        // Оружие: 0 - Кулаки, 1 - Короткий меч, 2 - Длинный меч
+        // Броня: 0 - отсутствует, 10 - Обычная броня
+        // Сила влияет на урон и на то, может ли оружие пробить броню
+        // Длина оружия влияет на то, можно ли парировать удар
+
+        if(Special != null)
+        {
+
+
+        }      
+
+        switch (TypeOfWeapon) 
         {
             case 0:
-               return BaseDamage = 5;
+                WeaponLengh = 0;
+                BaseDamageWeapon = 5;
+                ArmorPenetr = 0;
+                return 0;
             case 1:
-               return BaseDamage = 15;
+                WeaponLengh = 3;
+                BaseDamageWeapon = 20;
+                ArmorPenetr = 15;
+                return 1;
             case 2:
-               return BaseDamage = 40;
+                WeaponLengh = 5;
+                BaseDamageWeapon = 40;
+                ArmorPenetr = 17;
+                return 2;
         }
-        return this.GetDamage();
+        return this.GetStat();
     }
 
 }
 
 public interface IEnemy
 {
-    string TypeOfEnemy { get; set; }
+    string TypeOfEnemy { get; set; } //Undead, Human
+    int AttackSkill { get; set; }   //Навык защиты
+    int DefenceSkill { get; set; } //Навык атаки
+    int Strength { get; set; } //Сила
     int HP { get; set; }
-    bool HasTrauma { get; set; }
-    int[] Traumas  { get; set; }
-    int Defence { get; set; }
-    int BaseDamage { get; set; }
-    int TypeOfWeapon { get; set; }
-    int GetDamage();
-    int GetDef();
+    string Special { get; set; } //Особенности
+    int Armor { get; set; } // Тип брони, одетый на тело
+    int Hat { get; set; }  // Шапка
+    int TypeOfWeapon { get; set; } //Тип оружия, через которое получаем BaseDamage
+    int BaseDamageWeapon { get; set; }    // Базовый урон оружия
+    int ArmorPenetr { get; set; }  // Пробитие брони
+    int WeaponLengh { get; set; } // Длина оружия
+    bool HasTrauma { get; set; } // Если есть - тру; Если тру - проверяем, что за травма через массив
+    int[] Traumas { get; set; }
+    int GetStat();
     void Act();
 }
 
@@ -159,7 +151,7 @@ public interface IEnemy
 public class FightModule
 {
     public IEnemy EnemyF1 { get; set; }
-    public void GetEnemy(string typeOfEnemy, int typeOfArmor, int typeofWeapon)
+    public void GetEnemy(string typeOfEnemy, int strength, int attackSkill, int defenceSkill, int typeOfArmor, int typeOfHat, int typeofWeapon)
     {
         if (typeOfEnemy == "Human")
         {
@@ -168,11 +160,15 @@ public class FightModule
                 Traumas = new int[5],
                 HP = 100,
                 HasTrauma = false,
+                AttackSkill = attackSkill,
+                DefenceSkill = defenceSkill,
+                Strength = strength,
                 TypeOfWeapon = typeofWeapon,
-                Defence = typeOfArmor,
+                Armor = typeOfArmor,
+                Hat = typeOfHat,
                 TypeOfEnemy = typeOfEnemy
             };
-            EnemyF1.GetDamage();
+            EnemyF1.GetStat();
             Battle(EnemyF1);
         }
         else if(typeOfEnemy == "Undead")
@@ -182,10 +178,10 @@ public class FightModule
                 HP = 100,
                 HasTrauma = false,
                 TypeOfWeapon = typeofWeapon,
-                Defence = typeOfArmor,
+                Armor = typeOfArmor,
                 TypeOfEnemy = typeOfEnemy
             };
-            EnemyF1.GetDamage();
+            EnemyF1.GetStat();
             Battle(EnemyF1);
         }
 
@@ -244,7 +240,22 @@ public class FightModule
         Console.WriteLine(new string('#', 80));
         Console.WriteLine("");
         DoMainChar();
-        EnemyF.Act();
+        if (EnemyF.HP > 0)
+        {
+            EnemyF.Act();
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine(new string('#', 80));
+            Console.WriteLine("");
+            Console.WriteLine("Противник побежден!");
+            Console.WriteLine("");
+            Console.WriteLine(new string('#', 80));
+            Console.WriteLine("");
+
+        }
     }
 
     void DoMainChar()
@@ -547,7 +558,7 @@ public static class GameBase
         //  Dragenhof dragenhof = new Dragenhof();
         //  dragenhof.DefVillAct();
         FightModule fight = new FightModule();
-        fight.GetEnemy("Human", 1, 1);
+        fight.GetEnemy("Human", 8, 5, 5, 10, 0, 0);
         Console.ReadKey();
         DisplayMenu();
 
