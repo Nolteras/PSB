@@ -14,8 +14,10 @@ public abstract class Enemy : IEnemy
     public int Strength { get; set; } //Сила
     public string Special { get; set; } //Особенности
     public int HP { get; set; }
-    public int Armor { get; set; } // Тип брони, одетый на тело
-    public int Hat { get; set; }  // Шапка
+    public string Armor { get; set; } // Тип брони, одетый на тело
+    public int ArmorInt { get; set; } // Очки брони
+    public int HatId { get; set; }  // Шапка
+    public string Hat { get; set; }  // Название шапки
     public int TypeOfWeapon { get; set; } //Тип оружия, через которое получаем BaseDamage
     public int BaseDamageWeapon { get; set; }    // Базовый урон оружия
     public int ArmorPenetr { get; set; }  // Пробитие брони
@@ -67,6 +69,9 @@ public class Human : Enemy // Травмы: 0 - голова, 1 - левая р�
 
     public override void Act()
     {
+
+
+        //Вывод результата
         string name = "null";
         if (TypeOfEnemy == "Human")
         {
@@ -101,8 +106,8 @@ public class Human : Enemy // Травмы: 0 - голова, 1 - левая р�
         {
 
 
-        }      
-
+        }
+        
         switch (TypeOfWeapon) 
         {
             case 0:
@@ -121,6 +126,39 @@ public class Human : Enemy // Травмы: 0 - голова, 1 - левая р�
                 ArmorPenetr = 17;
                 return 2;
         }
+
+        if (Strength < 10 && Strength > 5)
+        {
+            if (TypeOfWeapon == 0)
+            {
+                return Strength;
+            }
+
+            if (TypeOfWeapon == 2 || TypeOfWeapon == 1)
+            {
+                BaseDamageWeapon = BaseDamageWeapon - 5;
+                ArmorPenetr = ArmorPenetr - 3;
+                return Strength;
+            }
+            
+        }
+
+        if(ArmorInt > 8 && ArmorInt < 13)
+        {
+            Armor = "Обычная одежда";
+            // Продолжить тут
+        }
+
+        if( HatId != 0)
+        {
+
+        }
+        else
+        {
+            Hat = "Ничего.";
+        }
+
+
         return this.GetStat();
     }
 
@@ -134,8 +172,10 @@ public interface IEnemy
     int Strength { get; set; } //Сила
     int HP { get; set; }
     string Special { get; set; } //Особенности
-    int Armor { get; set; } // Тип брони, одетый на тело
-    int Hat { get; set; }  // Шапка
+    string Armor { get; set; } // Тип брони, одетый на тело
+    int ArmorInt { get; set; } // Очки брони
+    int HatId { get; set; }  // Шапка
+    string Hat { get; set; }  // Название шапки
     int TypeOfWeapon { get; set; } //Тип оружия, через которое получаем BaseDamage
     int BaseDamageWeapon { get; set; }    // Базовый урон оружия
     int ArmorPenetr { get; set; }  // Пробитие брони
@@ -164,8 +204,8 @@ public class FightModule
                 DefenceSkill = defenceSkill,
                 Strength = strength,
                 TypeOfWeapon = typeofWeapon,
-                Armor = typeOfArmor,
-                Hat = typeOfHat,
+                ArmorInt = typeOfArmor,
+                HatId = typeOfHat,
                 TypeOfEnemy = typeOfEnemy
             };
             EnemyF1.GetStat();
@@ -178,7 +218,7 @@ public class FightModule
                 HP = 100,
                 HasTrauma = false,
                 TypeOfWeapon = typeofWeapon,
-                Armor = typeOfArmor,
+                ArmorInt = typeOfArmor,
                 TypeOfEnemy = typeOfEnemy
             };
             EnemyF1.GetStat();
@@ -327,8 +367,10 @@ public class FightModule
 
 public abstract class Weapon
 {
-    public int count;
     public string name;
+    public int armorPenetrat;
+    public int weaponWeight;
+    public int weaponLeght;
     protected int damage;
     public int typeOfWeapon; // 0 - Короткий меч, 1 - Длинный меч
 
@@ -340,6 +382,10 @@ public abstract class Weapon
         Console.WriteLine("");
         if (typeOfWeapon == 0)
         {
+            weaponWeight = 10;
+            weaponLeght = 3;
+            damage = 20;
+            armorPenetrat = 15;
             getDescr0();
         }
         else if(typeOfWeapon == 1)
