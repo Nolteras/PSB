@@ -146,7 +146,6 @@ public class Human : Enemy // Травмы: 0 - голова, 1 - левая р�
         if(ArmorInt > 8 && ArmorInt < 13)
         {
             Armor = "Обычная одежда";
-            // Продолжить тут
         }
 
         if( HatId != 0)
@@ -155,7 +154,7 @@ public class Human : Enemy // Травмы: 0 - голова, 1 - левая р�
         }
         else
         {
-            Hat = "Ничего.";
+            Hat = "Ничего";
         }
 
 
@@ -301,7 +300,8 @@ public class FightModule
     void DoMainChar()
     {
         int fightModuleDamage = MainCharacter.damage;
-        int fightModuleDefence = MainCharacter.def;
+        int fightModuleDefenceHead = MainCharacter.MCArmorHead;
+        int fightModuleDefenceBody = MainCharacter.MCArmorBody;
         int fightModuleWeapon = MainCharacter.typeOfWeaponMC;
         Console.WriteLine("У вас " +MainCharacter.HP+ " очков здоровья.");
         if(MainCharacter.MT <= 100 && MainCharacter.MT > 50)
@@ -448,12 +448,17 @@ public static class MainCharacter //Инвентарь, задания, проч
     static public string Name; // Имя ГГ
     static public int Money = 100;
     static public int MT = 100;
+    static public int MCArmorHead;
+    static public int MCArmorBody;
+    static public string MCHead;
+    static public string MCBody;
+    static public int MCWeapon;
+    static public int Skills = 1;// 0 - плохо, 1 - нормально
+    static public string DoNow;
     static public int HP = 100;
     static public int BeliveLev = 0;
     static public int typeOfWeaponMC = 0; //Получаем от покупок в магазине
     static public int damage = 25;
-    static public int def;
-    static string defence;
 
     static List<Weapon> weaponsInv = new List<Weapon>();
 
@@ -476,7 +481,15 @@ public static class MainCharacter //Инвентарь, задания, проч
         Console.WriteLine("");
         Console.WriteLine(new string('#', 80));
         Console.WriteLine("");
-        Console.WriteLine("Вы бьете врага на {0} ед.", damage);
+        Console.WriteLine("A - Нанести удар");
+        if (Skills > 0)
+        {
+            Console.WriteLine("R - Встать в стойку для ответного удара");
+        }
+        if (Skills > 1)
+        {
+            Console.WriteLine("P - Приготовиться паррировать удар");
+        }
         Console.WriteLine("");
         Console.WriteLine(new string('#', 80));
         Console.WriteLine("");
