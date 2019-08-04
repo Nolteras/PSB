@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
+//братиш, где namespace?? 
 
     public abstract class Enemy : IEnemy
     {
@@ -608,7 +608,7 @@ using System.Threading.Tasks;
             Console.Write("Молодой оруженосец по имени ");
             NameGG = Convert.ToString(Console.ReadLine());
             Console.Clear();
-            Console.WriteLine("Молодой оруженосец по имени " + NameGG + " только-только выпустился из оружейной академии Барона Керонча."); //Все это к херам переделать
+            Console.WriteLine("Молодой оруженосец по имени " + NameGG + " только-только выпустился из оружейной академии Барона Керонча."); //Все это к херам переделать nconc: да вроде и так нормально
             MainCharacter.Name = NameGG;
             Console.ReadKey();
         }
@@ -616,8 +616,8 @@ using System.Threading.Tasks;
         public static void AboutWorld()
         {
             Console.Clear();
-            Console.WriteLine("Лор");
-            Console.WriteLine("Лор");
+            Console.WriteLine("Лор (жили да были люди) ");
+            Console.WriteLine("Лор (которые никак не могли перенести классы в отдельные файлы) ");
             Console.WriteLine("Лор");
             Console.ReadKey();
             DisplayMenu();
@@ -628,7 +628,8 @@ using System.Threading.Tasks;
             Console.Clear();
             Console.WriteLine("Сценарист - ???(Ушел в порно-индустрию)");
             Console.WriteLine("Автор мира - Markela");
-            Console.WriteLine("Глав. Гад - Нолтерасс А.К.А Нолт А.К.А Террррррновое Вино А.К.А Noltras");
+            Console.WriteLine("Глав. Гад - Нолтерасс А.К.А Нолт А.К.А Террррррновое Вино А.К.А Noltras"); //
+            Console.WriteLine("Соавтор - Солнцеликий Nconc");
             Console.ReadKey();
             DisplayMenu();
 
@@ -671,27 +672,29 @@ using System.Threading.Tasks;
             {
                 Console.WriteLine("            ");
             }
-            int choice;
-            do
+            string choice;
+            int choice2;
+        do
             {
                 Console.Write("Введите число [1-5]: "); // постоянное меню
-                choice = Convert.ToInt32(Console.ReadLine()); // ввод меню
-            } while (choice < 1 || choice > 5);
-            switch (choice)
+                choice = Console.ReadLine(); // ввод меню
+                choice2 = Convert.ToInt32(Console.ReadLine());
+        } while (choice2 < 1 || choice2 > 5);
+            switch (choice.ToString())
             {
-                case 1:
+                case "1":
                     StartThisShit();
                     break;
-                case 2:
+                case "2":
                     AboutWorld();
                     break;
-                case 3:
+                case "3":
                     AboutUs();
                     break;
-                case 4:
+                case "4":
                     TestStuff();
                     break;
-                case 5:
+                case "5":
                     CloseAllThisShit();
                     break;
             }
@@ -912,7 +915,7 @@ using System.Threading.Tasks;
         // Описание и возможности
         public void GoToMarket(int popmarket, int prosmarket)
         {
-            popMarket = popmarket;
+            popMarket = popmarket; 
             prosMarket = prosmarket;
             Console.Clear();
             Console.WriteLine(new string('#', 80));
@@ -953,6 +956,8 @@ using System.Threading.Tasks;
 
         class Blacksmt
         {
+//nconc: я так понимаю, это кузница
+//тогда тут по идее можно или прокачивать вещи, или покупать новые
 
         }
     
@@ -1013,7 +1018,7 @@ using System.Threading.Tasks;
                 choice = Console.ReadLine();
                 switch (choice)
                 {
-                    case "dew":
+                    case "dew": //nconc: что это за кейс и зачем он тут нужен? можно ведь свитчить int, а не string
                         if (choice == "1")
                         {
                             goto case "1";
@@ -1134,7 +1139,7 @@ using System.Threading.Tasks;
                                 }
                                 else
                                 {
-                                    Console.WriteLine("У вас нет денег на это.");
+                                    Console.WriteLine("У вас нет денег на это."); //ГЫЫЫЫЯЫЫ ТЫ БОМЖ
                                 }
                                 break;
                             case "3":
@@ -1146,7 +1151,7 @@ using System.Threading.Tasks;
                                     Console.WriteLine("");
                                     Console.WriteLine("Вы заказываете большой сытный окорок.");
                                     MainCharacter.RemoveMoney(100);
-                                    Console.WriteLine("После того, как вы его съели, вам стало очень хорошо.");//Править меню
+                                    Console.WriteLine("После того, как вы его съели, вам стало очень хорошо.");//Править меню nconc: В плане править? 
                                     MainCharacter.AddHP(25);
                                     MainCharacter.AddMT(15);
                                     Console.WriteLine("");
@@ -1191,6 +1196,7 @@ using System.Threading.Tasks;
                     Console.WriteLine("");
                     Console.WriteLine("Вы подходите к барной стойке");
                     Console.WriteLine("Нужно что-нибудь еще написать...");
+							Console.WriteLine("nconc: тут довольно оригинальный способ оставлять комментарии");
                     Console.WriteLine("");
                     Console.WriteLine(new string('#', 80));
                     Console.WriteLine("");
@@ -1204,7 +1210,7 @@ using System.Threading.Tasks;
                     choice2 = Console.ReadLine();
                     switch (choice2)
                     {
-                        case "dew":
+                        case "dew": //nconc: и снова вопрос: зачем нужен этот кейс? 
                             if (choice2 == "1")
                             {
                                 goto case "1";
@@ -1273,7 +1279,7 @@ using System.Threading.Tasks;
                 void TalkBarman()
                 {
                     // Генератор для слухов
-                    int value = rnd.Next(1, 10);
+                    int value = rnd.Next(1, 12);
                     int value2 = rnd.Next(1, 10);
                     Console.Clear();
                     Console.WriteLine("");
@@ -1345,6 +1351,9 @@ using System.Threading.Tasks;
                             break;
                         case 10:
                             Console.WriteLine("'Не упусти дверь в зону миссии'");
+                            break;
+                        case 11:
+                            Console.WriteLine("'tovarish, mne nravitsya vash govnokod'");
                             break;
 
                     }
