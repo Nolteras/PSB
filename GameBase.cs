@@ -9,8 +9,8 @@ using System.Threading.Tasks;
     public abstract class Enemy : IEnemy
     {
         public string TypeOfEnemy { get; set; } //Undead, Human
-        public int AttackSkill { get; set; }   //Навык защиты
-        public int DefenceSkill { get; set; } //Навык атаки
+        public int AttackSkill { get; set; }   //Навык защиты, 0 - 100
+        public int DefenceSkill { get; set; } //Навык атаки, 0 - 100
         public int Strength { get; set; } //Сила
         public string Special { get; set; } //Особенности
         public int HP { get; set; }
@@ -23,7 +23,8 @@ using System.Threading.Tasks;
         public int ArmorPenetr { get; set; }  // Пробитие брони
         public int WeaponLengh { get; set; } // Длина оружия
         public bool HasTrauma { get; set; } // Если есть - тру; Если тру - проверяем, что за травма через массив
-        public int[] Traumas { get; set; } // Список травм для каждого типа противника уникален, инициализировать в конструкторе
+        public bool[] Traumas { get; set; } // 0 - левая рука, 1 - правая рука, 2 - левая нога, 3 - правая нога, 4 - голова
+        public string DoNow { get; set; } // def - защищается, par - паррирование 
         public virtual int GetStat()
         {
             return 0;
@@ -167,8 +168,8 @@ using System.Threading.Tasks;
     public interface IEnemy
     {
         string TypeOfEnemy { get; set; } //Undead, Human
-        int AttackSkill { get; set; }   //Навык защиты
-        int DefenceSkill { get; set; } //Навык атаки
+        int AttackSkill { get; set; }   //Навык защиты, 0 - 100
+        int DefenceSkill { get; set; } //Навык атаки, 0 - 100
         int Strength { get; set; } //Сила
         int HP { get; set; }
         string Special { get; set; } //Особенности
@@ -181,7 +182,8 @@ using System.Threading.Tasks;
         int ArmorPenetr { get; set; }  // Пробитие брони
         int WeaponLengh { get; set; } // Длина оружия
         bool HasTrauma { get; set; } // Если есть - тру; Если тру - проверяем, что за травма через массив
-        int[] Traumas { get; set; }
+        bool[] Traumas { get; set; } // 0 - левая рука, 1 - правая рука, 2 - левая нога, 3 - правая нога, 4 - голова
+        string DoNow { get; set; }
         int GetStat();
         void Act();
     }
@@ -197,7 +199,7 @@ using System.Threading.Tasks;
             {
                 EnemyF1 = new Human
                 {
-                    Traumas = new int[5],
+                    Traumas = new bool[4],
                     HP = 100,
                     HasTrauma = false,
                     AttackSkill = attackSkill,
@@ -503,7 +505,7 @@ using System.Threading.Tasks;
         switch (choice)
         {
             case "A":
-                DoBattle();
+                DoBattle(enemy);
                 break;
             case "R":
                 break;
@@ -512,13 +514,152 @@ using System.Threading.Tasks;
         }
     }
 
-     static void DoBattle()
+     static void DoBattle(this IEnemy enemy)
      {
         Console.Clear();
         Console.WriteLine("");
         Console.WriteLine(new string('#', 80));
         Console.WriteLine("");
         Console.WriteLine("Куда нанести удар:");
+        Console.WriteLine("[T] - тело");
+        if(Skills > 0)
+        {
+            Console.WriteLine("[A] - ass");
+        }
+        if (enemy.HasTrauma)
+        {
+            if (enemy.Traumas[0])
+            {
+                Console.WriteLine("[LA] - левая рука(травм)");
+            }
+            else
+            {
+                Console.WriteLine("[LA] - левая рука");
+            }
+            if (enemy.Traumas[1])
+            {
+                Console.WriteLine("[RA] - правая рука(травм)");
+            }
+            else
+            {
+                Console.WriteLine("[RA] - правая рука");
+            }
+            if (enemy.Traumas[2])
+            {
+                Console.WriteLine("[LL] - левая нога(травм)");
+            }
+            else
+            {
+                Console.WriteLine("[LL] - левая нога");
+            }
+            if (enemy.Traumas[3])
+            {
+                Console.WriteLine("[RL] - правая нога(травм)");
+            }
+            else
+            {
+                Console.WriteLine("[RL] - правая нога");
+            }
+        }
+        Console.Write("Введите буквы(Регистр важен): ");
+        string choice;
+        choice = Console.ReadLine();
+        switch (choice)
+        {
+            case "dew": //nconc: что это за кейс и зачем он тут нужен? можно ведь свитчить int, а не string
+                if (choice == "T")
+                {
+                    goto case "T";
+                }
+                else if (choice == "A")
+                {
+                    goto case "A";
+                }
+                else if (choice == "LA")
+                {
+                    goto case "LA";
+                }
+                else if (choice == "RA")
+                {
+                    goto case "RA";
+                }
+                else if (choice == "LL")
+                {
+                    goto case "LL";
+                }
+                else if (choice == "RL")
+                {
+                    goto case "RL";
+                }
+                else
+                {
+                    goto default;
+                }
+            case "T":
+                AttackLimb("Chest");
+                break;
+            case "A":
+                if(Skills > 0)
+                {
+                    AttackLimb("ASS");
+                }
+                else
+                {
+                    Console.WriteLine("Ошибка");
+                    goto default;
+                }
+                break;
+            case "LA":
+                AttackLimb("LeftArm");
+                break;
+            case "RA":
+                AttackLimb("RightArm");
+                break;
+            case "LL":
+                AttackLimb("LeftLeg");
+                break;
+            case "RL":
+                AttackLimb("RightLeg");
+                break;
+            default:
+                choice = Console.ReadLine();
+                goto case "dew";
+
+        }
+       void  AttackLimb(string Chast_tela)
+        {
+            int ParrySuc = 0;
+            int ParryDam = 0;
+            Random rnd = new Random();
+            switch (Chast_tela)
+            {
+                case "Chest":
+                    if (enemy.DoNow == "par")
+                    {
+                        int ParryChange = enemy.AttackSkill + enemy.DefenceSkill;
+                        ParryChange = 100 - ParryChange;
+                        if (ParryChange > 100)
+                        {
+
+                            ParrySuc = 2;
+                            ParryDam = (enemy.Strength + enemy.BaseDamageWeapon) - MCArmorBody;
+                            //Продолжить тут
+                        }
+                        rnd.Next(ParryChange);
+                        rnd.Next(ParryChange);
+                    }
+                    break;
+            }
+
+
+            void Output()
+            {
+
+            }
+
+
+        }
+
 
     }
 
@@ -642,7 +783,7 @@ using System.Threading.Tasks;
             Dragenhof dragenhof = new Dragenhof();
             dragenhof.DefVillAct();
             FightModule fight = new FightModule();
-            fight.GetEnemy("Human", 8, 5, 5, 10, 0, 0);
+            fight.GetEnemy("Human", 8, 50, 20, 10, 0, 0);
             Console.ReadKey();
             DisplayMenu();
 
