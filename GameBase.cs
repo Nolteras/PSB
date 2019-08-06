@@ -638,15 +638,33 @@ using System.Threading.Tasks;
                     {
                         int ParryChange = enemy.AttackSkill + enemy.DefenceSkill;
                         ParryChange = 100 - ParryChange;
-                        if (ParryChange > 100)
+                        if (ParryChange > 0)
                         {
 
                             ParrySuc = 2;
-                            ParryDam = (enemy.Strength + enemy.BaseDamageWeapon) - MCArmorBody;
-                            //Продолжить тут
+                            ParryDam = (enemy.Strength + enemy.ArmorPenetr) - MCArmorBody;
+                            if(ParryDam >= 0)
+                            {
+                              ParryDam = ParryDam * -1;
+                            }
+                            break;
                         }
-                        rnd.Next(ParryChange);
-                        rnd.Next(ParryChange);
+                        ParryChange = ParryChange * -1;
+                        int ParryChangeRandom = rnd.Next(ParryChange);
+                        if (ParryChangeRandom > (ParryChange - enemy.AttackSkill))
+                        {
+                            ParrySuc = 2;
+                            ParryDam = (enemy.Strength + enemy.ArmorPenetr) - MCArmorBody;
+                            if (ParryDam >= 0)
+                            {
+                                ParryDam = ParryDam * -1;
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            ParrySuc = 1;
+                        }
                     }
                     break;
             }
