@@ -5,3 +5,10 @@ C:\Users\Admin\Desktop\VS Projects\Portania strikes back\Portania strikes back\o
 C:\Users\Admin\Desktop\VS Projects\Portania strikes back\Portania strikes back\obj\Debug\Portania strikes back.exe
 C:\Users\Admin\Desktop\VS Projects\Portania strikes back\Portania strikes back\obj\Debug\Portania strikes back.pdb
 C:\Users\Admin\Desktop\VS Projects\Portania strikes back\Portania strikes back\obj\Debug\Portania strikes back.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\PSB-master\bin\Debug\Portania strikes back.exe.config
+C:\Users\Admin\Desktop\PSB-master\bin\Debug\Portania strikes back.exe
+C:\Users\Admin\Desktop\PSB-master\bin\Debug\Portania strikes back.pdb
+C:\Users\Admin\Desktop\PSB-master\obj\Debug\Portania strikes back.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\PSB-master\obj\Debug\Portania strikes back.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\PSB-master\obj\Debug\Portania strikes back.exe
+C:\Users\Admin\Desktop\PSB-master\obj\Debug\Portania strikes back.pdb
