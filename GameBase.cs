@@ -402,7 +402,8 @@ using System.Threading.Tasks;
 
         }
 
-
+try
+{
         public static void DisplayMenu()
         {
             Console.Clear();
@@ -447,8 +448,11 @@ using System.Threading.Tasks;
                     break;
             }
         }
-
-
+catch(Exception)
+{
+Console.Clear();
+DisplayMenu();
+}
 
     }
 
