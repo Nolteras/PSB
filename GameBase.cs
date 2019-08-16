@@ -39,17 +39,17 @@ using System.Threading.Tasks;
         static public int Plot = 0; // "Число сюжета"
         static public string Name; // Имя ГГ
         static public int Money = 100;
-        static public int MT = 100;
-        static public int MCArmorHead;
-        static public int MCArmorBody;
-        static public string MCHead;
-        static public string MCBody;
-        static public int MCWeapon;
+        static public int MT = 100; //добавить описание
+        static public int MCArmorHead;//добавить описание
+        static public int MCArmorBody;//добавить описание
+        static public string MCHead;//добавить описание
+        static public string MCBody;//добавить описание
+        static public int MCWeapon;//добавить описание
         static public int Skills = 1;// 0 - плохо, 1 - нормально
-        static public string DoNow;
-        static public int HP = 100;
-        static public int BeliveLev = 0;
-        static public int damage = 25;
+        static public string DoNow;//добавить описание
+        static public int HP = 100;//добавить описание
+        static public int BeliveLev = 0;//добавить описание
+        static public int damage = 25;//добавить описание
 
         static List<Weapon> weaponsInv = new List<Weapon>();
 
@@ -421,13 +421,8 @@ using System.Threading.Tasks;
                 Console.WriteLine("            ");
             }
             string choice;
-            //int choice2;
-        //do
-          //  {
                 Console.Write("Введите число [1-5]: "); // постоянное меню
                 choice = Console.ReadLine(); // ввод меню
-                //choice2 = Convert.ToInt32(Console.ReadLine());
-        //} //while (choice2 < 1 || choice2 > 5);
             switch (choice)
             {
                 case "1":
@@ -706,13 +701,15 @@ using System.Threading.Tasks;
         }
     }
 
-        class Blacksmt
+        public class Blacksmt
         {
             //кузница для покупки оружий
-            List<Weapon> weapons = new List<Weapon>(); //инициализация списка оружий для продажи
             
             public void GoToBlacksmt(){
-                weapons.Add(new Weapon(new Random().Next(1, 3))); //TODO добавить генерацию нескольких оружий, 
+                
+            
+            List<Weapon> weapons = new List<Weapon>(); //инициализация списка оружий для продажи
+            weapons.Add(new Weapon(new Random().Next(1, 3))); //TODO добавить генерацию нескольких оружий, 
             Console.Clear();
                 Console.WriteLine(new string('#', 80));
                 Console.WriteLine("Вы заходите в кузницу");
@@ -721,7 +718,7 @@ using System.Threading.Tasks;
                 foreach(Weapon weap in weapons)
                 {
                     int iType = weap.typeOfWeapon;
-                    weap.GetDescr(1); //добавить вывод описания оружия, см класс Weapon
+                    weap.getDescr(weap.typeOfWeapon); //добавить вывод описания оружия, см класс Weapon
                 }
             }
 
