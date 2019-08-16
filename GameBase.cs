@@ -6,29 +6,29 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-    public class SmallSword : Weapon
-    {
-        //Не может отрубать конечности
+    //~ public class SmallSword : Weapon
+    //~ {
+        //~ //Не может отрубать конечности
 
-        public SmallSword()
-        {
-            damage = 15;
-            typeOfWeapon = 0;
-        }
-    }
+        //~ public SmallSword()
+        //~ {
+            //~ damage = 15;
+            //~ typeOfWeapon = 0;
+        //~ }
+    //~ }
 
 
-    public class BigSword : Weapon
-    {
+    //~ public class BigSword : Weapon
+    //~ {
 
-        //Может отрубить голову
+        //~ //Может отрубить голову
 
-        public BigSword()
-        {
-            damage = 40;
-            typeOfWeapon = 1;
-        }
-    }
+        //~ public BigSword()
+        //~ {
+            //~ damage = 40;
+            //~ typeOfWeapon = 1;
+        //~ }
+    //~ }
 
 
 
@@ -386,7 +386,7 @@ using System.Threading.Tasks;
         public static void TestStuff()
         {
             Console.Clear();
-            SmallSword sword = new SmallSword();
+            Weapon sword = new Weapon(0);
             Dragenhof dragenhof = new Dragenhof();
             dragenhof.DefVillAct();
             FightModule fight = new FightModule();
@@ -421,14 +421,14 @@ using System.Threading.Tasks;
                 Console.WriteLine("            ");
             }
             string choice;
-            int choice2;
-        do
-            {
+            //int choice2;
+        //do
+          //  {
                 Console.Write("Введите число [1-5]: "); // постоянное меню
                 choice = Console.ReadLine(); // ввод меню
-                choice2 = Convert.ToInt32(Console.ReadLine());
-        } while (choice2 < 1 || choice2 > 5);
-            switch (choice.ToString())
+                //choice2 = Convert.ToInt32(Console.ReadLine());
+        //} //while (choice2 < 1 || choice2 > 5);
+            switch (choice)
             {
                 case "1":
                     StartThisShit();
@@ -445,6 +445,9 @@ using System.Threading.Tasks;
                 case "5":
                     CloseAllThisShit();
                     break;
+                    default:
+                    goto case "4";
+                    //TODO исправить краш при вводе неправильных символов
             }
         }
 
@@ -456,6 +459,7 @@ using System.Threading.Tasks;
 
     class Churh
     {
+        //TODO  добавить описание переменным
         Random rnd = new Random();
         public int PopChurch;
         int darkKrac;
@@ -704,8 +708,22 @@ using System.Threading.Tasks;
 
         class Blacksmt
         {
-//nconc: я так понимаю, это кузница
-//тогда тут по идее можно или прокачивать вещи, или покупать новые
+            //кузница для покупки оружий
+            List<Weapon> weapons = new List<Weapon>(); //инициализация списка оружий для продажи
+            
+            public void GoToBlacksmt(){
+                weapons.Add(new Weapon(new Random().Next(1, 3))); //TODO добавить генерацию нескольких оружий, 
+            Console.Clear();
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("Вы заходите в кузницу");
+                Console.WriteLine("У кузнеца есть:");
+                Console.WriteLine("");
+                foreach(Weapon weap in weapons)
+                {
+                    int iType = weap.typeOfWeapon;
+                    weap.GetDescr(1); //добавить вывод описания оружия, см класс Weapon
+                }
+            }
 
         }
     
@@ -1027,7 +1045,7 @@ using System.Threading.Tasks;
                 void TalkBarman()
                 {
                     // Генератор для слухов
-                    int value = rnd.Next(1, 12);
+                    int value = rnd.Next(1, 13);
                     int value2 = rnd.Next(1, 10);
                     Console.Clear();
                     Console.WriteLine("");
@@ -1102,6 +1120,9 @@ using System.Threading.Tasks;
                             break;
                         case 11:
                             Console.WriteLine("'tovarish, mne nravitsya vash govnokod'");
+                            break;
+                            case 12:
+                            Console.WriteLine("'tovarish, codit' c# na raspbian - eto pizdec'");
                             break;
 
                     }

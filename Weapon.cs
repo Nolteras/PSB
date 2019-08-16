@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Portania_strikes_back
 {
-    public abstract class Weapon
+    public class Weapon
     {
         public string name;
         public int armorPenetrat;
@@ -16,41 +16,61 @@ namespace Portania_strikes_back
         public int typeOfWeapon; // 0 - Короткий меч, 1 - Длинный меч
 
 
-        public void GetDescr()
+        public Weapon(int _type)
         {
-            Console.WriteLine("");
-            Console.WriteLine(new string('#', 80));
-            Console.WriteLine("");
-            if (typeOfWeapon == 0)
+            
+            if (_type == 0)
             {
                 weaponWeight = 10;
                 weaponLeght = 3;
                 damage = 20;
                 armorPenetrat = 15;
-                getDescr0();
+                //getDescr(typeOfWeapon);
             }
-            else if (typeOfWeapon == 1)
+            else if (_type == 1)
             {
-                getDescr1();
+                weaponWeight = 20;
+                weaponLeght = 5;
+                damage = 30;
+                armorPenetrat = 30;
+                //getDescr(typeOfWeapon);
+            }
+            typeOfWeapon = _type;
+          
+        }
+
+
+
+        //private void getDescr0()
+        //{
+            //Console.WriteLine("Короткий меч");
+            //Console.WriteLine("Урон - {0}", damage);
+        //}
+
+        //private void getDescr1()
+        //{
+            //Console.WriteLine("Длинный меч");
+            //Console.WriteLine("Урон - {0}", damage);
+        //}
+        public void getDescr(int typee)
+        {
+            Console.WriteLine("");
+            Console.WriteLine(new string('#', 80));
+            Console.WriteLine("");
+            if(typee == 0)
+            {
+                Console.WriteLine("Короткий меч");
+            Console.WriteLine("Урон - {0}", damage);
+            }
+            else
+            {
+                Console.WriteLine("Длинный меч");
+            Console.WriteLine("Урон - {0}", damage);
             }
             Console.WriteLine("");
             Console.WriteLine(new string('#', 80));
             Console.WriteLine("");
+
         }
-
-
-
-        private void getDescr0()
-        {
-            Console.WriteLine("Короткий меч");
-            Console.WriteLine("Урон - {0}", damage);
-        }
-
-        private void getDescr1()
-        {
-            Console.WriteLine("Длинный меч");
-            Console.WriteLine("Урон - {0}", damage);
-        }
-
     }
 }
