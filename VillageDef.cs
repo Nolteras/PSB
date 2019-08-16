@@ -19,6 +19,7 @@ namespace Portania_strikes_back
         protected bool Church { get; set; }
         Tavrn tavern = new Tavrn();
         Churh church = new Churh();
+        Blacksmt blacksmith = new Blacksmt();
 
         public virtual void PlotVill()
         {
@@ -177,7 +178,7 @@ namespace Portania_strikes_back
             }
             if (Blacksmith)
             {
-                Console.WriteLine("[B] - Кузня(???)");
+                Console.WriteLine("[B] - Кузня");
             }
             if (Market)
             {
@@ -219,7 +220,7 @@ namespace Portania_strikes_back
                     DefVillAct();
                     break;
                 case "B":
-                    Console.WriteLine("Black");
+                   blacksmith.GoToBlacksmt(1);
                     break;
                 case "M":
                     Console.WriteLine("Market");
