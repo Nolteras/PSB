@@ -11,7 +11,7 @@ namespace Portania_strikes_back
         public string name;
         public int armorPenetrat;
         public int weaponWeight;
-        public int weaponLeght;
+        public int weaponLength;
         protected int damage;
         public int typeOfWeapon; // 0 - Короткий меч, 1 - Длинный меч
 
@@ -22,50 +22,43 @@ namespace Portania_strikes_back
             if (_type == 0)
             {
                 weaponWeight = 10;
-                weaponLeght = 3;
+                weaponLength = 3;
                 damage = 20;
                 armorPenetrat = 15;
-                //getDescr(typeOfWeapon);
+                typeOfWeapon = 0;
             }
             else if (_type == 1)
             {
                 weaponWeight = 20;
-                weaponLeght = 5;
+                weaponLength = 5;
                 damage = 30;
                 armorPenetrat = 30;
-                //getDescr(typeOfWeapon);
+                typeOfWeapon = 1;
             }
-            typeOfWeapon = _type;
           
         }
 
 
-
-        //private void getDescr0()
-        //{
-            //Console.WriteLine("Короткий меч");
-            //Console.WriteLine("Урон - {0}", damage);
-        //}
-
-        //private void getDescr1()
-        //{
-            //Console.WriteLine("Длинный меч");
-            //Console.WriteLine("Урон - {0}", damage);
-        //}
-        public void getDescr(int typee)
+        public void getDescr()
         {
             Console.WriteLine("");
             Console.WriteLine(new string('#', 80));
             Console.WriteLine("");
-            if(typee == 0)
+            if(typeOfWeapon == 0)
             {
                 Console.WriteLine("Короткий меч");
-            Console.WriteLine("Урон - {0}", damage);
+                Console.WriteLine("Урон - {0}", damage);
+                Console.WriteLine("Тяжесть - {0}", weaponWeight);
+                Console.WriteLine("Длина - {0}", weaponLength);
+                Console.WriteLine("Пробитие брони - {0}", armorPenetrat);
             }
-            else
+            if (typeOfWeapon == 1)
             {
                 Console.WriteLine("Длинный меч");
-            Console.WriteLine("Урон - {0}", damage);
+                Console.WriteLine("Урон - {0}", damage);
+                Console.WriteLine("Тяжесть - {0}", weaponWeight);
+                Console.WriteLine("Длина - {0}", weaponLength);
+                Console.WriteLine("Пробитие брони - {0}", armorPenetrat);
             }
             Console.WriteLine("");
             Console.WriteLine(new string('#', 80));

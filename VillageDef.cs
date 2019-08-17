@@ -220,7 +220,7 @@ namespace Portania_strikes_back
                     DefVillAct();
                     break;
                 case "B":
-                blacksmith.GoToBlacksmt();
+                   blacksmith.GoToBlacksmt(pros);
                     break;
                 case "M":
                     Console.WriteLine("Market");
