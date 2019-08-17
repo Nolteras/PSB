@@ -52,7 +52,7 @@ namespace Portania_strikes_back
                 Console.WriteLine("Длина - {0}", weaponLength);
                 Console.WriteLine("Пробитие брони - {0}", armorPenetrat);
             }
-            if (typeOfWeapon == 1) //Тестовый 
+            if (typeOfWeapon == 1) //Тестовый-драйв Вовы 2
             {
                 Console.WriteLine("Длинный меч");
                 Console.WriteLine("Урон - {0}", damage);
