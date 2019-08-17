@@ -24,7 +24,7 @@ namespace Portania_strikes_back
         public int WeaponLengh { get; set; } // Длина оружия
         public bool HasTrauma { get; set; } // Если есть - тру; Если тру - проверяем, что за травма через массив
         public bool[] Traumas { get; set; } // 0 - левая рука, 1 - правая рука, 2 - левая нога, 3 - правая нога, 4 - голова
-        public string DoNow { get; set; } // def - защищается, par - паррирование 
+        public string DoNow { get; set; } // def - защищается, par - паррирование, noth - ничего
         public virtual int GetStat()
         {
             return 0;

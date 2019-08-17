@@ -39,17 +39,18 @@ public static class MainCharacter //Инвентарь, задания, проч
     static public int Plot = 0; // "Число сюжета"
     static public string Name; // Имя ГГ
     static public int Money = 100;
-    static public int MT = 100; //добавить описание
-    static public int MCArmorHead;//добавить описание
-    static public int MCArmorBody;//добавить описание
-    static public string MCHead;//добавить описание
-    static public string MCBody;//добавить описание
-    static public int MCWeapon;//добавить описание
+    static public int Fatigue = 0;
+    static public int MT = 100; //Мораль ГГ
+    static public int MCArmorHead;//Броня ГГ голова
+    static public int MCArmorBody;//Броня ГГ тело
+    static public string MCHead;//Название брони ГГ голова
+    static public string MCBody;//Название брони ГГ тело
+    static public int MCWeapon;//Название... Я... А черт его знает, что это
     static public int Skills = 1;// 0 - плохо, 1 - нормально
-    static public string DoNow;//добавить описание
-    static public int HP = 100;//добавить описание
-    static public int BeliveLev = 0;//добавить описание
-    static public int damage = 25;//добавить описание
+    static public string DoNow;//Что ГГ делаел в предыдущем действии во время боя
+    static public int HP = 100;//Здоровье ГГ
+    static public int BeliveLev = 0;//Уровень веры ГГ
+    static public int damage = 25;//Прямой урон ГГ. По идее, он должен зависеть от оружия
 
     static List<Weapon> weaponsInv = new List<Weapon>();
 
@@ -155,7 +156,7 @@ public static class MainCharacter //Инвентарь, задания, проч
         choice = Console.ReadLine();
         switch (choice)
         {
-            case "dew": //nconc: что это за кейс и зачем он тут нужен? можно ведь свитчить int, а не string
+            case "dew":
                 if (choice == "T")
                 {
                     goto case "T";
@@ -232,19 +233,22 @@ public static class MainCharacter //Инвентарь, задания, проч
 
                             ParrySuc = 2;
                             ParryDam = (enemy.Strength + enemy.ArmorPenetr) - MCArmorBody;
-                            if (ParryDam >= 0)
+                            if (ParryDam <= 0)
                             {
                                 ParryDam = ParryDam * -1;
                             }
                             break;
                         }
-                        ParryChange = ParryChange * -1;
+                        if(ParryChange <= 0)
+                        {
+                            ParryChange = ParryChange * -1;
+                        }
                         int ParryChangeRandom = rnd.Next(ParryChange);
                         if (ParryChangeRandom > (ParryChange - enemy.AttackSkill))
                         {
                             ParrySuc = 2;
                             ParryDam = (enemy.Strength + enemy.ArmorPenetr) - MCArmorBody;
-                            if (ParryDam >= 0)
+                            if (ParryDam <= 0)
                             {
                                 ParryDam = ParryDam * -1;
                             }
@@ -255,11 +259,44 @@ public static class MainCharacter //Инвентарь, задания, проч
                             ParrySuc = 1;
                         }
                     }
+                    if(enemy.DoNow == "def")
+                    {
+                        int defResult;
+                        int DefChange = enemy.DefenceSkill + enemy.WeaponLengh;
+                        if(Skills == 0)
+                        {
+                            DefChange = DefChange + 5;
+                        }
+                        if(Skills == 1)
+                        {
+                           DefChange = DefChange - 10;
+                        }
+
+                        if(Fatigue > 50)
+                        {
+                            DefChange = DefChange + 10;
+                        }
+
+                        rnd.Next(DefChange);
+                        if(DefChange > (enemy.DefenceSkill + enemy.WeaponLengh))
+                        {
+                            defResult = 1;
+                        }
+                        else
+                        {
+                            defResult = 0;
+                        }
+                    }
+
+                    if(enemy.DoNow == "noth")
+                    {
+                        enemy.HP = enemy.HP - damage;
+                    }
                     break;
             }
 
 
-            void Output()
+            void Output(int parry,int parryDam,int def)
             {
 
             }
@@ -710,7 +747,7 @@ public class Blacksmt
     {
         Console.Clear();
         Console.WriteLine(new string('#', 80));
-        Console.WriteLine("Вы захождите в церковь.");
+        Console.WriteLine("Вы захождите в К У У У З Н Ю.");
         switch (blackProsp)
         {
             case 0:
