@@ -58,13 +58,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blacksmt.cs" />
+    <Compile Include="Churh.cs" />
+    <Compile Include="Dragenhof.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="FightModule.cs" />
     <Compile Include="GameAct.cs" />
     <Compile Include="GameBase.cs" />
     <Compile Include="Human.cs" />
     <Compile Include="IEnemy.cs" />
+    <Compile Include="MainCharacter.cs" />
+    <Compile Include="Markt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tavrn.cs" />
     <Compile Include="Undead.cs" />
     <Compile Include="VillageDef.cs" />
     <Compile Include="Weapon.cs" />
