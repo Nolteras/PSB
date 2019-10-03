@@ -5,37 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-//~ public class SmallSword : Weapon
-//~ {
-//~ //Не может отрубать конечности
-
-//~ public SmallSword()
-//~ {
-//~ damage = 15;
-//~ typeOfWeapon = 0;
-//~ }
-//~ }
-
-
-//~ public class BigSword : Weapon
-//~ {
-
-//~ //Может отрубить голову
-
-//~ public BigSword()
-//~ {
-//~ damage = 40;
-//~ typeOfWeapon = 1;
-//~ }
-//~ }
-
-
-
-
-
-
-
 public static class GameBase
 {
     static public void StartThisShit()
@@ -72,7 +41,7 @@ public static class GameBase
         Console.Clear();
         Console.WriteLine("Сценарист - ???(Ушел в порно-индустрию)");
         Console.WriteLine("Автор мира - Markela");
-        Console.WriteLine("Глав. Гад - Нолтерасс А.К.А Нолт А.К.А Террррррновое Вино А.К.А Noltras"); //
+        Console.WriteLine("Глав. Гад - Нолтерасс А.К.А Нолт А.К.А Террррррновое Вино А.К.А Noltras"); 
         Console.WriteLine("Соавтор - Солнцеликий Nconc");
         Console.ReadKey();
         DisplayMenu();
@@ -93,19 +62,13 @@ public static class GameBase
 
     }
 
-    public static void CloseAllThisShit()
-    {
-
-    }
-
-
     public static void DisplayMenu()
     {
         Console.Clear();
         Console.WriteLine("       Portania Strikes Back    ");
         for (int i = 0; i < 3; i++)
         {
-            Console.WriteLine("            ");
+            Console.WriteLine("");
         }
         Console.WriteLine("1. Начать");
         Console.WriteLine("2. О Мире");
@@ -114,7 +77,7 @@ public static class GameBase
         Console.WriteLine("5. Выход");
         for (int i = 0; i < 3; i++)
         {
-            Console.WriteLine("            ");
+            Console.WriteLine("");
         }
         string choice;
         Console.Write("Введите число [1-5]: "); // постоянное меню
@@ -151,7 +114,7 @@ public static class GameBase
                 TestStuff();
                 break;
             case "5":
-                CloseAllThisShit();
+                Environment.Exit(0);
                 break;
             default:
                 Console.Write("Давай по новой, Миша, все хуйня: ");
