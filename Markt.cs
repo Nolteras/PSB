@@ -6,32 +6,35 @@ using System.Threading.Tasks;
 
 namespace Portania_strikes_back
 {
-    public class Markt
+    public class Markt : Business
     {
-        int popMarket;
-        int prosMarket;
-        // Описание и возможности
-        public void GoToMarket(int popmarket, int prosmarket)
+        public Markt(int popul, int prosp)
         {
-            popMarket = popmarket;
-            prosMarket = prosmarket;
+            Pop = popul;
+            Pros = prosp;
+            Name = "Рынок";
+        }
+
+        // Описание и возможности
+        public void GoToMarket()
+        {
             Console.Clear();
             Console.WriteLine(new string('#', 80));
             Console.WriteLine("Вы приходите на рынок.");
-            if (popmarket > 10 && popmarket < 35)
+            if (Pop > 10 && Pop < 35)
             {
                 Console.WriteLine("Рынок выглядит пустым.");
             }
-            else if (popmarket > 35 && popmarket < 75)
+            else if (Pop > 35 && Pop < 75)
             {
                 Console.WriteLine("Рынок, не смотря на маленькое население, живет своей жизнью.");
             }
-            else if (popmarket > 75 && popmarket < 345)
+            else if (Pop > 75 && Pop < 345)
             {
                 Console.WriteLine("Рынок выглядит оживленно.");
             }
 
-            switch (prosmarket)
+            switch (Pros)
             {
                 case 0:
                     Console.WriteLine("Но не смотря на это, торговцев почти нет, а те, кто есть, завышают цены до небес.");

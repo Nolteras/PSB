@@ -6,33 +6,35 @@ using System.Threading.Tasks;
 
 namespace Portania_strikes_back
 {
-    public class Tavrn
+    public class Tavrn : Business
     {
-        Random rnd = new Random();
-        public int PopTavrn;
-        public int ProsTavrn;
-        // Описание и возможности
-        public void GoToTavern(int poptavrn, int prosptavrn)
+        public Tavrn(int popul, int prosp)
         {
-            PopTavrn = poptavrn;
-            ProsTavrn = prosptavrn;
+            Pop = popul;
+            Pros = prosp;
+            Name = "Таверна";
+        }
+
+        // Описание и возможности
+        public void GoToTavern()
+        {
             Console.Clear();
             Console.WriteLine(new string('#', 80));
             Console.WriteLine("Вы захождите в таверну.");
-            if (poptavrn > 10 && poptavrn < 35)
+            if (Pop > 10 && Pop < 35)
             {
                 Console.WriteLine("Таверна выглядит очень пустой.");
             }
-            else if (poptavrn > 35 && poptavrn < 75)
+            else if (Pop > 35 && Pop < 75)
             {
                 Console.WriteLine("Таверна выглядит запустелой.");
             }
-            else if (poptavrn > 75 && poptavrn < 345)
+            else if (Pop > 75 && Pop < 345)
             {
                 Console.WriteLine("Таверна выглядит НЕ запустелой.");
             }
 
-            switch (prosptavrn)
+            switch (Pros)
             {
                 case 0:
                     Console.WriteLine("Состояние ужасное.");
@@ -57,40 +59,30 @@ namespace Portania_strikes_back
             Console.WriteLine("[3] - Покинуть таверну.");
 
             string choice;
-            Console.Write("Введите букву(Регистр важен): ");
+            Console.Write("Введите цифру: ");
             choice = Console.ReadLine();
-            switch (choice)
+            bool done = false;
+            while (!done)
             {
-                case "dew":
-                    if (choice == "1")
-                    {
-                        goto case "1";
-                    }
-                    else if (choice == "2")
-                    {
-                        goto case "2";
-                    }
-                    else if (choice == "3")
-                    {
-                        goto case "3";
-                    }
-                    else
-                    {
-                        goto default;
-                    }
-                case "1":
-                    GoToBar();
-                    break;
-                case "2":
-                    EatMeal(MainCharacter.HP, MainCharacter.MT, MainCharacter.Money);
-                    break;
-                case "3":
-                    break;
-                default:
-                    Console.Write("Давай по новой, Миша, все хуйня: ");
-                    choice = Console.ReadLine();
-                    goto case "dew";
+                switch (choice)
+                {
+                   
+                    case "1":
+                        done = true;
+                        GoToBar();
+                        break;
+                    case "2":
+                        done = true;
+                        EatMeal(MainCharacter.HP, MainCharacter.MT, MainCharacter.Money);
+                        break;
+                    case "3":
+                        break;
+                    default:
+                        Console.Write("Давай по новой, Миша, все хуйня: ");
+                        choice = Console.ReadLine();
+                        break;
 
+                }
             }
 
             void EatMeal(int gghp, int ggmp, int moneys)
@@ -121,101 +113,91 @@ namespace Portania_strikes_back
                     string choiceEat;
                     Console.Write("Введите букву(Регистр важен): ");
                     choiceEat = Console.ReadLine();
-                    switch (choiceEat)
+                    done = false;
+                    while (!done)
                     {
-                        case "check":
-                            if (choiceEat == "1")
-                            {
-                                goto case "1";
-                            }
-                            else if (choiceEat == "2")
-                            {
-                                goto case "2";
-                            }
-                            else if (choiceEat == "3")
-                            {
-                                goto case "3";
-                            }
-                            else
-                            {
-                                goto default;
-                            }
-                        case "1":
-                            Console.Clear();
-                            if (moneys >= 15)
-                            {
-                                Console.WriteLine("");
-                                Console.WriteLine(new string('#', 80));
-                                Console.WriteLine("");
-                                Console.WriteLine("Вы заказываете самое дешевое блюдо.");
-                                MainCharacter.RemoveMoney(15);
-                                Console.WriteLine("После того, как вы поели, вам стало чуть-чуть лучше.");
-                                MainCharacter.AddHP(10);
-                                MainCharacter.AddMT(5);
-                                Console.WriteLine("");
-                                Console.WriteLine(new string('#', 80));
-                                Console.WriteLine("");
-                                Console.ReadKey();
-                            }
-                            else
-                            {
-                                Console.WriteLine("У вас нет денег на это.");
-                            }
+                        switch (choiceEat)
+                        {
+                            case "1":
+                                done = true;
+                                Console.Clear();
+                                if (moneys >= 15)
+                                {
+                                    Console.WriteLine("");
+                                    Console.WriteLine(new string('#', 80));
+                                    Console.WriteLine("");
+                                    Console.WriteLine("Вы заказываете самое дешевое блюдо.");
+                                    MainCharacter.RemoveMoney(15);
+                                    Console.WriteLine("После того, как вы поели, вам стало чуть-чуть лучше.");
+                                    MainCharacter.AddHP(10);
+                                    MainCharacter.AddMT(5);
+                                    Console.WriteLine("");
+                                    Console.WriteLine(new string('#', 80));
+                                    Console.WriteLine("");
+                                    Console.ReadKey();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("У вас нет денег на это.");
+                                }
 
-                            break;
-                        case "2":
-                            Console.Clear();
-                            if (moneys >= 50)
-                            {
-                                Console.WriteLine("");
-                                Console.WriteLine(new string('#', 80));
-                                Console.WriteLine("");
-                                Console.WriteLine("Вы заказываете овощи.");
-                                MainCharacter.RemoveMoney(50);
-                                Console.WriteLine("После того, как вы поели, вам стало лучше.");
-                                MainCharacter.AddHP(20);
-                                MainCharacter.AddMT(10);
-                                Console.WriteLine("");
-                                Console.WriteLine(new string('#', 80));
-                                Console.WriteLine("");
-                                Console.ReadKey();
-                            }
-                            else
-                            {
-                                Console.WriteLine("У вас нет денег на это."); //ГЫЫЫЫЯЫЫ ТЫ БОМЖ
-                            }
-                            break;
-                        case "3":
-                            Console.Clear();
-                            if (moneys >= 100)
-                            {
-                                Console.WriteLine("");
-                                Console.WriteLine(new string('#', 80));
-                                Console.WriteLine("");
-                                Console.WriteLine("Вы заказываете большой сытный окорок.");
-                                MainCharacter.RemoveMoney(100);
-                                Console.WriteLine("После того, как вы его съели, вам стало очень хорошо.");//Править меню nconc: В плане править? 
-                                MainCharacter.AddHP(25);
-                                MainCharacter.AddMT(15);
-                                Console.WriteLine("");
-                                Console.WriteLine(new string('#', 80));
-                                Console.WriteLine("");
-                                Console.ReadKey();
-                            }
-                            else
-                            {
-                                Console.WriteLine("У вас нет денег на это.");
-                                Console.WriteLine("");
-                                Console.WriteLine(new string('#', 80));
-                                Console.WriteLine("");
-                                Console.ReadKey();
-                            }
-                            break;
-                        default:
-                            Console.Write("Давай по новой, Миша, все хуйня: ");
-                            choiceEat = Console.ReadLine();
-                            goto case "check";
+                                break;
+                            case "2":
+                                done = true;
+                                Console.Clear();
+                                if (moneys >= 50)
+                                {
+                                    Console.WriteLine("");
+                                    Console.WriteLine(new string('#', 80));
+                                    Console.WriteLine("");
+                                    Console.WriteLine("Вы заказываете овощи.");
+                                    MainCharacter.RemoveMoney(50);
+                                    Console.WriteLine("После того, как вы поели, вам стало лучше.");
+                                    MainCharacter.AddHP(20);
+                                    MainCharacter.AddMT(10);
+                                    Console.WriteLine("");
+                                    Console.WriteLine(new string('#', 80));
+                                    Console.WriteLine("");
+                                    Console.ReadKey();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("У вас нет денег на это."); //ГЫЫЫЫЯЫЫ ТЫ БОМЖ
+                                }
+                                break;
+                            case "3":
+                                done = true;
+                                Console.Clear();
+                                if (moneys >= 100)
+                                {
+                                    Console.WriteLine("");
+                                    Console.WriteLine(new string('#', 80));
+                                    Console.WriteLine("");
+                                    Console.WriteLine("Вы заказываете большой сытный окорок.");
+                                    MainCharacter.RemoveMoney(100);
+                                    Console.WriteLine("После того, как вы его съели, вам стало очень хорошо.");//Править меню nconc: В плане править? 
+                                    MainCharacter.AddHP(25);
+                                    MainCharacter.AddMT(15);
+                                    Console.WriteLine("");
+                                    Console.WriteLine(new string('#', 80));
+                                    Console.WriteLine("");
+                                    Console.ReadKey();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("У вас нет денег на это.");
+                                    Console.WriteLine("");
+                                    Console.WriteLine(new string('#', 80));
+                                    Console.WriteLine("");
+                                    Console.ReadKey();
+                                }
+                                break;
+                            default:
+                                Console.Write("Давай по новой, Миша, все хуйня: ");
+                                choiceEat = Console.ReadLine();
+                                break;
 
+                        }
                     }
                 }
 
@@ -228,7 +210,7 @@ namespace Portania_strikes_back
                     Console.ReadKey();
                 }
 
-                GoToTavern(PopTavrn, ProsTavrn);
+                GoToTavern();
             }
 
             void GoToBar()
@@ -251,39 +233,27 @@ namespace Portania_strikes_back
                 string choice2;
                 Console.Write("Введите букву(Регистр важен): ");
                 choice2 = Console.ReadLine();
-                switch (choice2)
+                done = false;
+                while (!done)
                 {
-                    case "dew": //nconc: и снова вопрос: зачем нужен этот кейс? 
-                        if (choice2 == "1")
-                        {
-                            goto case "1";
-                        }
-                        else if (choice2 == "2")
-                        {
-                            goto case "2";
-                        }
-                        else if (choice2 == "3")
-                        {
-                            goto case "3";
-                        }
-                        else
-                        {
-                            goto default;
-                        }
-                    case "1":
-                        TalkBarman();
-                        break;
-                    case "2":
-                        DrinkBarman(MainCharacter.HP, MainCharacter.MT, MainCharacter.Money);
-                        break;
-                    case "3":
-                        GoToTavern(PopTavrn, ProsTavrn);
-                        break;
-                    default:
-                        Console.Write("Давай по новой, Миша, все хуйня: ");
-                        choice2 = Console.ReadLine();
-                        goto case "dew";
+                    switch (choice2)
+                    {
 
+                        case "1":
+                            TalkBarman();
+                            break;
+                        case "2":
+                            DrinkBarman(MainCharacter.HP, MainCharacter.MT, MainCharacter.Money);
+                            break;
+                        case "3":
+                            GoToTavern();
+                            break;
+                        default:
+                            Console.Write("Давай по новой, Миша, все хуйня: ");
+                            choice2 = Console.ReadLine();
+                            break;
+
+                    }
                 }
 
 
@@ -322,8 +292,8 @@ namespace Portania_strikes_back
             void TalkBarman()
             {
                 // Генератор для слухов
-                int value = rnd.Next(1, 13);
-                int value2 = rnd.Next(1, 10);
+                int value = random.Next(1, 12);
+                int value2 = random.Next(1, 10);
                 Console.Clear();
                 Console.WriteLine("");
                 Console.WriteLine(new string('#', 80));
@@ -397,9 +367,6 @@ namespace Portania_strikes_back
                         break;
                     case 11:
                         Console.WriteLine("'tovarish, mne nravitsya vash govnokod'");
-                        break;
-                    case 12:
-                        Console.WriteLine("'tovarish, codit' c# na raspbian - eto pizdec'");
                         break;
 
                 }

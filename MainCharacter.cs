@@ -10,8 +10,8 @@ namespace Portania_strikes_back
     {
         static public int Plot = 0; // "Число сюжета"
         static public string Name; // Имя ГГ
-        static public int Money = 100;
-        static public int Fatigue = 0;
+        static public int Money = 100; //Д Е Н Ь Г И
+        static public int Fatigue = 0; //усталость
         static public int MT = 100; //Мораль ГГ
         static public int MCArmorHead;//Броня ГГ голова
         static public int MCArmorBody;//Броня ГГ тело
@@ -24,7 +24,7 @@ namespace Portania_strikes_back
         static public int BeliveLev = 0;//Уровень веры ГГ
         static public int damage = 25;//Прямой урон ГГ. По идее, он должен зависеть от оружия
 
-        static List<Weapon> weaponsInv = new List<Weapon>();
+        static List<Weapon> weaponsInv = new List<Weapon>(); //инвентарь
 
         static public void DoNothingBM()
         {
@@ -305,7 +305,8 @@ namespace Portania_strikes_back
 
             if (MT < 1)
             {
-                GameAct.DeadByMind();
+                //GameAct.DeadByMind(); TODO переработать механику смерти
+                Environment.Exit(0);
             }
 
             return MT;
@@ -317,7 +318,8 @@ namespace Portania_strikes_back
 
             if (HP < 1)
             {
-                GameAct.DeadByPhysic();
+                Environment.Exit(0);
+                //GameAct.DeadByPhysic(); TODO переработать механику смерти
             }
 
             return HP;

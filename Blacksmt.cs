@@ -6,17 +6,23 @@ using System.Threading.Tasks;
 
 namespace Portania_strikes_back
 {
-    public class Blacksmt
+    public class Blacksmt : Business
     {
-        Random random = new Random(0);
+        public Blacksmt(int popul, int prosp)
+        {
+            Pop = popul;
+            Pros = prosp;
+            Name = "Кузня";
+        }
+
         //кузница для покупки оружий
 
-        public void GoToBlacksmt(int blackProsp)
+        public void GoToBlacksmt()
         {
             Console.Clear();
             Console.WriteLine(new string('#', 80));
             Console.WriteLine("Вы захождите в К У У У З Н Ю.");
-            switch (blackProsp)
+            switch (Pros) //проверка на богатство кузни
             {
                 case 0:
                     Console.WriteLine("Кузня Процветание 0");
@@ -34,28 +40,23 @@ namespace Portania_strikes_back
             Console.WriteLine("");
             Console.WriteLine(new string('#', 80));
             Console.WriteLine("");
-            Console.WriteLine("[L] - Показать список оружия.");
+            Console.WriteLine("1 - Показать список оружия.");
             string choice;
-            Console.Write("Введите букву(Регистр важен): ");
+            Console.Write("Введите цифру: "); //нужно провести общую оптимизацию с букв на цифры
             choice = Console.ReadLine();
-            switch (choice)
+            bool done = false;
+            while (!done)
             {
-                case "1":
-                    if (choice == "L")
-                    {
-                        goto case "L";
-                    }
-                    else
-                    {
-                        goto default;
-                    }
-                case "L":
-                    BlacksmtListWeapons();
-                    break;
-                default:
-                    Console.Write("Давай по новой, Миша, все хуйня: ");
-                    choice = Console.ReadLine();
-                    goto case "1";
+                switch (choice)
+                {
+                    case "1":
+                        BlacksmtListWeapons();
+                        done = true;
+                        break;
+                    default:
+                        Console.Write("Давай по новой, Миша, все хуйня: ");
+                        break;
+                }
             }
         }
 
@@ -64,7 +65,7 @@ namespace Portania_strikes_back
         {
             Console.Clear();
             List<Weapon> weapons = new List<Weapon>(); //инициализация списка оружий для продажи
-            if (weapons.Count < 10)
+            if (weapons.Count < 10) //TODO проверить значимость этого блока
             {
                 for (int i = 0; i < 10; i++)
                 {
@@ -74,8 +75,8 @@ namespace Portania_strikes_back
             Console.WriteLine(new string('#', 80));
             Console.WriteLine("Вы заходите в кузницу");
             Console.WriteLine("У кузнеца есть:");
-            Console.WriteLine("");
-            foreach (Weapon weap in weapons)
+            Console.WriteLine();
+            foreach (Weapon weap in weapons) //выводим список оружия
             {
                 int iType = weap.typeOfWeapon;
                 weap.getDescr(); //добавить вывод описания оружия, см класс Weapon
