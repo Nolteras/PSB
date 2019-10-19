@@ -14,21 +14,12 @@ namespace Portania_strikes_back
         static public int Pops { get; set; }
         static public int Prosp { get; set; }
 
-        static Tavrn tavern = new Tavrn(Pops, Prosp);
-        static Church church = new Church(Pops, Prosp);
-        static Blacksmt blacksmith = new Blacksmt(Pops, Prosp);
-        static Markt market = new Markt(Pops, Prosp);
-        protected Business[] places = new Business[]
-            {
-            tavern,
-            church,
-            blacksmith,
-            market
-            };
+        //static Tavrn tavern = new Tavrn(Pops, Prosp);
+        //static Church church = new Church(Pops, Prosp);
+        //static Blacksmt blacksmith = new Blacksmt(Pops, Prosp);
+        //static Markt market = new Markt(Pops, Prosp);
+        protected Business[] places = new Business[4];
 
-        //public virtual void PlotVill()
-        //{
-        //}
 
         public VillageDef(string name, int buildings, int pops, int prosp)
         {
@@ -36,7 +27,16 @@ namespace Portania_strikes_back
             Buildings = buildings;
             Pops = pops;
             Prosp = prosp;
+            Tavrn tavern = new Tavrn(Pops, Prosp);
+            Church church = new Church(Pops, Prosp);
+            Blacksmt blacksmith = new Blacksmt(Pops, Prosp);
+            Markt market = new Markt(Pops, Prosp);
+            places[0] = tavern;
+            places[1] = church;
+            places[2] = blacksmith;
+            places[3] = market;
         }
+
 
 
         public void DefVillAct()
@@ -184,14 +184,21 @@ namespace Portania_strikes_back
                     {
                         case "Рынок":
                             Console.WriteLine("Market");
+                            choice = Console.ReadLine();
                             break;
                         case "Кузня":
+                            done = true;
+                            Blacksmt blacksmith = places[c] as Blacksmt;
                             blacksmith.GoToBlacksmt();
                             break;
                         case "Таверна":
+                            done = true;
+                            Tavrn tavern = places[c] as Tavrn;
                             tavern.GoToTavern();
                             break;
                         case "Церковь":
+                            done = true;
+                            Church church = places[c] as Church;
                             church.GoToChurch();
                             break;
                         default:

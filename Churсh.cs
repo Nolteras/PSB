@@ -63,9 +63,9 @@ namespace Portania_strikes_back
             }
             Console.WriteLine("Подойдя к алтарю пожертвований, вы видите, что:");
             Console.WriteLine("");
-            getDarkKrac();
+            getDarkKrac(Pop);
             Console.WriteLine("Последователей  'Темного Краца' - " + darkKrac + "");
-            getNoDarkKrac();
+            getNoDarkKrac(Pop);
             Console.WriteLine("Последователей  'Не Темного Краца' - " + noDarkKrac + "");
             Console.WriteLine("");
             Console.WriteLine(new string('#', 80));
@@ -112,13 +112,13 @@ namespace Portania_strikes_back
 
 
 
-        int getDarkKrac() //вычисляем кол-во последователей
+        int getDarkKrac(int allMen) //вычисляем кол-во последователей
         {
-            darkKrac = (Pop / 4) + religiousZeal + 15; //делим всех посетителей церкви на 4, прибавляем (что-то) и 15
+            darkKrac = (allMen / 4) + religiousZeal + 15; //делим всех посетителей церкви на 4, прибавляем (что-то) и 15
             return darkKrac;
         }
 
-        int getNoDarkKrac() //остальные - не последователи
+        int getNoDarkKrac(int allMen) //остальные - не последователи
         {
             noDarkKrac = Pop - darkKrac;
             return noDarkKrac;

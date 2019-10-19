@@ -55,6 +55,7 @@ namespace Portania_strikes_back
                         break;
                     default:
                         Console.Write("Давай по новой, Миша, все хуйня: ");
+                        choice = Console.ReadLine();
                         break;
                 }
             }
