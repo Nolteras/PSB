@@ -51,11 +51,11 @@ public static class GameBase
     public static void TestStuff()
     {
         Console.Clear();
-        Weapon sword = new Weapon(0);
+        //Weapon sword = new Weapon(0);
         VillageDef dragenhof = new VillageDef("Dragenhof", 57, 325, 1);
         dragenhof.DefVillAct();
         FightModule fight = new FightModule();
-        fight.GetEnemy("Human", 8, 50, 20, 10, 0, 0);
+        //fight.GetEnemy("Human", 8, 50, 20, 10, 0, 0);
         Console.ReadKey();
         DisplayMenu();
 

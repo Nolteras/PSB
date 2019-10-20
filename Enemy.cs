@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Portania_strikes_back
 {
-    public abstract class Enemy : IEnemy
+    public abstract class Enemy
     {
         public string TypeOfEnemy { get; set; } //Undead, Human
         public int AttackSkill { get; set; }   //Навык защиты, 0 - 100

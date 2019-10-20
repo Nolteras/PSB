@@ -24,6 +24,7 @@ namespace Portania_strikes_back
 
         public int GetReligiousZeal()
         {
+
             switch (Pros)
             {
                 case 0:
@@ -42,70 +43,74 @@ namespace Portania_strikes_back
 
         public void GoToChurch() //основной метод церкви
         {
-            Console.Clear();
-            GetReligiousZeal();
-            Console.WriteLine(new string('#', 80));
-            Console.WriteLine("Вы захождите в церковь.");
-            switch (Pros)
+            bool doneAll = false;
+            while (!doneAll)
             {
-                case 0:
-                    Console.WriteLine("Хотя населенный пункт является очень бедным, церковь выглядит неплохо.");
-                    break;
-                case 1:
-                    Console.WriteLine("Церковь хорошо выглядит. Видно, бедность не так сильно затронула это место."); // Переделать
-                    break;
-                case 2:
-                    Console.WriteLine("Церковь выглядит отлично. Похоже, это одно из самых богатых построек в городе.");
-                    break;
-                case 3:
-                    Console.WriteLine("Церковь выглядит роскошно и богато. Похоже, это одно из самых богатых построек в городе.");
-                    break;
-            }
-            Console.WriteLine("Подойдя к алтарю пожертвований, вы видите, что:");
-            Console.WriteLine("");
-            getDarkKrac(Pop);
-            Console.WriteLine("Последователей  'Темного Краца' - " + darkKrac + "");
-            getNoDarkKrac(Pop);
-            Console.WriteLine("Последователей  'Не Темного Краца' - " + noDarkKrac + "");
-            Console.WriteLine("");
-            Console.WriteLine(new string('#', 80));
-            Console.WriteLine("");
-            Console.WriteLine("Вы можете:");
-            Console.WriteLine("[1] - Попросить благословение.");
-            Console.WriteLine("[2] - Покинуть церковь.");
-
-            string choice;
-            Console.Write("Введите цифру: ");
-            choice = Console.ReadLine();
-            bool done = false;
-            while (!done)
-            {
-                switch (choice)
+                Console.Clear();
+                GetReligiousZeal();
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("Вы захождите в церковь.");
+                switch (Pros)
                 {
-                    case "1":
-                        done = true;
-                        if (canGetBless) //если можно О Б М А З А Т Ь С Я
-                        {
-                            getBless();//обмазываемся
-                        }
-                        else //иначе не обмазываемся
-                        {
-                            Console.Clear();
-                            Console.WriteLine('\n' + new string('#', 80) + '\n');
-                            Console.WriteLine("В этом месте вы уже обращались к Крацу.");
-                            Console.WriteLine("");
-                            Console.WriteLine(new string('#', 80));
-                            Console.WriteLine("");
-                            Console.ReadKey();
-                            GoToChurch(); //возвращаемся в основной метод
-                        }
+                    case 0:
+                        Console.WriteLine("Хотя населенный пункт является очень бедным, церковь выглядит неплохо.");
                         break;
-                    case "2":
+                    case 1:
+                        Console.WriteLine("Церковь хорошо выглядит. Видно, бедность не так сильно затронула это место."); // Переделать
                         break;
-                    default:
-                        Console.Write("Давай по новой, Миша, все хуйня: ");
-                        choice = Console.ReadLine();
+                    case 2:
+                        Console.WriteLine("Церковь выглядит отлично. Похоже, это одно из самых богатых построек в городе.");
                         break;
+                    case 3:
+                        Console.WriteLine("Церковь выглядит роскошно и богато. Похоже, это одно из самых богатых построек в городе.");
+                        break;
+                }
+                Console.WriteLine("Подойдя к алтарю пожертвований, вы видите, что:");
+                Console.WriteLine("");
+                getDarkKrac(Pop);
+                Console.WriteLine("Последователей  'Темного Краца' - " + darkKrac + "");
+                getNoDarkKrac(Pop);
+                Console.WriteLine("Последователей  'Не Темного Краца' - " + noDarkKrac + "");
+                Console.WriteLine("");
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("");
+                Console.WriteLine("Вы можете:");
+                Console.WriteLine("[1] - Попросить благословение.");
+                Console.WriteLine("[2] - Покинуть церковь.");
+
+                string choice;
+                Console.Write("Введите цифру: ");
+                choice = Console.ReadLine();
+                bool done = false;
+                while (!done)
+                {
+                    switch (choice)
+                    {
+                        case "1":
+                            done = true;
+                            if (canGetBless) //если можно О Б М А З А Т Ь С Я
+                            {
+                                getBless();//обмазываемся
+                            }
+                            else //иначе не обмазываемся
+                            {
+                                Console.Clear();
+                                Console.WriteLine('\n' + new string('#', 80) + '\n');
+                                Console.WriteLine("В этом месте вы уже обращались к Крацу.");
+                                Console.WriteLine("");
+                                Console.WriteLine(new string('#', 80));
+                                Console.WriteLine("");
+                                Console.ReadKey();
+                                GoToChurch(); //возвращаемся в основной метод
+                            }
+                            break;
+                        case "2":
+                            break;
+                        default:
+                            Console.Write("Давай по новой, Миша, все хуйня: ");
+                            choice = Console.ReadLine();
+                            break;
+                    }
                 }
             }
         }
