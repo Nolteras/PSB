@@ -126,67 +126,42 @@ namespace Portania_strikes_back
             Console.Write("Введите буквы(Регистр важен): ");
             string choice;
             choice = Console.ReadLine();
-            switch (choice)
+            bool done = false;
+            while (!done)
             {
-                case "dew":
-                    if (choice == "T")
-                    {
-                        goto case "T";
-                    }
-                    else if (choice == "A")
-                    {
-                        goto case "A";
-                    }
-                    else if (choice == "LA")
-                    {
-                        goto case "LA";
-                    }
-                    else if (choice == "RA")
-                    {
-                        goto case "RA";
-                    }
-                    else if (choice == "LL")
-                    {
-                        goto case "LL";
-                    }
-                    else if (choice == "RL")
-                    {
-                        goto case "RL";
-                    }
-                    else
-                    {
-                        goto default;
-                    }
-                case "T":
-                    AttackLimb("Chest");
-                    break;
-                case "A":
-                    if (Skills > 0)
-                    {
-                        AttackLimb("ASS");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Ошибка");
-                        goto default;
-                    }
-                    break;
-                case "LA":
-                    AttackLimb("LeftArm");
-                    break;
-                case "RA":
-                    AttackLimb("RightArm");
-                    break;
-                case "LL":
-                    AttackLimb("LeftLeg");
-                    break;
-                case "RL":
-                    AttackLimb("RightLeg");
-                    break;
-                default:
-                    choice = Console.ReadLine();
-                    goto case "dew";
+                switch (choice)
+                {
+                    case "T":
+                        AttackLimb("Chest");
+                        break;
+                    case "A":
+                        if (Skills > 0)
+                        {
+                            AttackLimb("ASS");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Ошибка");
+                            goto default;
+                        }
+                        break;
+                    case "LA":
+                        AttackLimb("LeftArm");
+                        break;
+                    case "RA":
+                        AttackLimb("RightArm");
+                        break;
+                    case "LL":
+                        AttackLimb("LeftLeg");
+                        break;
+                    case "RL":
+                        AttackLimb("RightLeg");
+                        break;
+                    default:
+                        choice = Console.ReadLine();
+                        break;
 
+                }
             }
             void AttackLimb(string Chast_tela)
             {
@@ -305,8 +280,7 @@ namespace Portania_strikes_back
 
             if (MT < 1)
             {
-                //GameAct.DeadByMind(); TODO переработать механику смерти
-                Environment.Exit(0);
+                GameBase.Death(true);
             }
 
             return MT;
@@ -318,8 +292,7 @@ namespace Portania_strikes_back
 
             if (HP < 1)
             {
-                Environment.Exit(0);
-                //GameAct.DeadByPhysic(); TODO переработать механику смерти
+                GameBase.Death(false);
             }
 
             return HP;

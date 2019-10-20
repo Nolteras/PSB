@@ -114,4 +114,20 @@ public static class GameBase
             }
         }
     }
+
+    public static void Death(bool cause)
+    {
+        Console.Clear();
+        if (cause)
+        {
+            Console.WriteLine("Death by mind");
+        }
+        else
+        {
+            Console.WriteLine("Your body is dead");
+        }
+        Console.ReadKey();
+        Environment.Exit(0);
+    } 
+
 }
