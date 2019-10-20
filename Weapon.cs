@@ -8,11 +8,11 @@ namespace Portania_strikes_back
 {
     public class Weapon
     {
-        public string name;
-        public int armorPenetrat;
-        public int weaponWeight;
-        public int weaponLength;
-        protected int damage;
+        public string name; //имя
+        public int armorPenetrat; //пробитие
+        public int weaponWeight;//вес
+        public int weaponLength; //длина
+        protected int damage; //урон
         public int typeOfWeapon; // 0 - Короткий меч, 1 - Длинный меч
 
 

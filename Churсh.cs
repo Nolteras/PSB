@@ -6,21 +6,25 @@ using System.Threading.Tasks;
 
 namespace Portania_strikes_back
 {
-    class Churh
+    public class Church : Business
     {
-        //TODO  добавить описание переменным
-        Random rnd = new Random();
-        public int PopChurch;
-        int darkKrac;
-        int noDarkKrac;
-        public int ProsChurch;
-        int religiousZeal;
-        bool canGetBless = true;
+        int darkKrac; //последователи темного краца
+        int noDarkKrac; //не последователи темного краца
+        int religiousZeal; //???
+        bool canGetBless = true; //можно ли О Б М А З А Т Ь С Я  Б Л А Г О С Л О В Е Н И Е М
+
+        public Church(int popul, int prosp)
+        {
+            Pop = popul;
+            Pros = prosp;
+            Name = "Церковь";
+        }
+
         // Описание и возможности
 
-        public int GetReligiousZeal(int pros)
+        public int GetReligiousZeal()
         {
-            switch (pros)
+            switch (Pros)
             {
                 case 0:
                     return religiousZeal = 30;
@@ -36,15 +40,13 @@ namespace Portania_strikes_back
         }
 
 
-        public void GoToChurch(int popchurh, int proschurh)
+        public void GoToChurch() //основной метод церкви
         {
-            PopChurch = popchurh;
-            ProsChurch = proschurh;
             Console.Clear();
-            GetReligiousZeal(proschurh);
+            GetReligiousZeal();
             Console.WriteLine(new string('#', 80));
             Console.WriteLine("Вы захождите в церковь.");
-            switch (proschurh)
+            switch (Pros)
             {
                 case 0:
                     Console.WriteLine("Хотя населенный пункт является очень бедным, церковь выглядит неплохо.");
@@ -61,9 +63,9 @@ namespace Portania_strikes_back
             }
             Console.WriteLine("Подойдя к алтарю пожертвований, вы видите, что:");
             Console.WriteLine("");
-            getDarkKrac(PopChurch);
+            getDarkKrac(Pop);
             Console.WriteLine("Последователей  'Темного Краца' - " + darkKrac + "");
-            getNoDarkKrac(PopChurch);
+            getNoDarkKrac(Pop);
             Console.WriteLine("Последователей  'Не Темного Краца' - " + noDarkKrac + "");
             Console.WriteLine("");
             Console.WriteLine(new string('#', 80));
@@ -73,82 +75,69 @@ namespace Portania_strikes_back
             Console.WriteLine("[2] - Покинуть церковь.");
 
             string choice;
-            Console.Write("Введите букву(Регистр важен): ");
+            Console.Write("Введите цифру: ");
             choice = Console.ReadLine();
-
-            switch (choice)
+            bool done = false;
+            while (!done)
             {
-                case "check":
-                    if (choice == "1")
-                    {
-                        goto case "1";
-                    }
-                    if (choice == "2")
-                    {
-                        goto case "2";
-                    }
-                    else
-                    {
-                        goto default;
-                    }
-                case "1":
-                    if (canGetBless)
-                    {
-                        getBless();
-                    }
-                    else
-                    {
-                        Console.Clear();
-                        Console.WriteLine("");
-                        Console.WriteLine(new string('#', 80));
-                        Console.WriteLine("");
-                        Console.WriteLine("В этом месте вы уже обращались к Крацу.");
-                        Console.WriteLine("");
-                        Console.WriteLine(new string('#', 80));
-                        Console.WriteLine("");
-                        Console.ReadKey();
-                        GoToChurch(PopChurch, ProsChurch);
-                    }
-                    break;
-                case "2":
-                    break;
-                default:
-                    Console.Write("Давай по новой, Миша, все хуйня: ");
-                    choice = Console.ReadLine();
-                    goto case "check";
+                switch (choice)
+                {
+                    case "1":
+                        done = true;
+                        if (canGetBless) //если можно О Б М А З А Т Ь С Я
+                        {
+                            getBless();//обмазываемся
+                        }
+                        else //иначе не обмазываемся
+                        {
+                            Console.Clear();
+                            Console.WriteLine('\n' + new string('#', 80) + '\n');
+                            Console.WriteLine("В этом месте вы уже обращались к Крацу.");
+                            Console.WriteLine("");
+                            Console.WriteLine(new string('#', 80));
+                            Console.WriteLine("");
+                            Console.ReadKey();
+                            GoToChurch(); //возвращаемся в основной метод
+                        }
+                        break;
+                    case "2":
+                        break;
+                    default:
+                        Console.Write("Давай по новой, Миша, все хуйня: ");
+                        choice = Console.ReadLine();
+                        break;
+                }
             }
         }
 
 
 
-        int getDarkKrac(int alldudes)
+        int getDarkKrac(int allMen) //вычисляем кол-во последователей
         {
-            darkKrac = (alldudes / 4) + religiousZeal + 15;
+            darkKrac = (allMen / 4) + religiousZeal + 15; //делим всех посетителей церкви на 4, прибавляем (что-то) и 15
             return darkKrac;
         }
 
-        int getNoDarkKrac(int alldudes)
+        int getNoDarkKrac(int allMen) //остальные - не последователи
         {
-            noDarkKrac = alldudes - darkKrac;
+            noDarkKrac = Pop - darkKrac;
             return noDarkKrac;
         }
 
-        void getBless()
+        void getBless() //молимся и О Б М А З Ы В А Е М С Я  Б Л А Г О С Л О В Е Н И Е М
         {
             Console.Clear();
-            Console.WriteLine("");
-            Console.WriteLine(new string('#', 80));
-            Console.WriteLine("");
+            Console.WriteLine('\n' + new string('#', 80) + '\n');
             Console.WriteLine("Вы усердно молитесь...");
             Console.WriteLine("");
             Console.WriteLine(new string('#', 80));
             Console.WriteLine("");
             canGetBless = false;
-            int iGotBless = rnd.Next(0, 3);
+            int gotBless = random.Next(0, 3); //результат молитвы
             Console.ReadKey();
-            switch (iGotBless)
+            switch (gotBless) //вычисляем последствия молитвы
             {
-                case 0:
+                case 0: //очень плохо помолились
                     Console.Clear();
                     Console.WriteLine("");
                     Console.WriteLine(new string('#', 80));
@@ -158,9 +147,9 @@ namespace Portania_strikes_back
                     Console.WriteLine(new string('#', 80));
                     Console.WriteLine("");
                     Console.ReadKey();
-                    GoToChurch(PopChurch, ProsChurch);
+                    GoToChurch();
                     break;
-                case 1:
+                case 1: //хорошо помолились
                     Console.Clear();
                     Console.WriteLine("");
                     Console.WriteLine(new string('#', 80));
@@ -173,9 +162,9 @@ namespace Portania_strikes_back
                     Console.WriteLine(new string('#', 80));
                     Console.WriteLine("");
                     Console.ReadKey();
-                    GoToChurch(PopChurch, ProsChurch);
+                    GoToChurch();
                     break;
-                case 2:
+                case 2: //слишком хорошо помолились
                     Console.Clear();
                     Console.WriteLine("");
                     Console.WriteLine(new string('#', 80));
@@ -187,9 +176,9 @@ namespace Portania_strikes_back
                     Console.WriteLine(new string('#', 80));
                     Console.WriteLine("");
                     Console.ReadKey();
-                    GoToChurch(PopChurch, ProsChurch);
+                    GoToChurch();
                     break;
-                case 3:
+                case 3: //О Т Д А Й  С В О Ю  Д У Ш У
                     Console.Clear();
                     Console.WriteLine("");
                     Console.WriteLine(new string('#', 80));
@@ -201,7 +190,7 @@ namespace Portania_strikes_back
                     Console.WriteLine(new string('#', 80));
                     Console.WriteLine("");
                     Console.ReadKey();
-                    GoToChurch(PopChurch, ProsChurch);
+                    GoToChurch();
                     break;
             }
         }

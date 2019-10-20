@@ -52,7 +52,7 @@ public static class GameBase
     {
         Console.Clear();
         Weapon sword = new Weapon(0);
-        Dragenhof dragenhof = new Dragenhof();
+        VillageDef dragenhof = new VillageDef("Dragenhof", 57, 325, 1);
         dragenhof.DefVillAct();
         FightModule fight = new FightModule();
         fight.GetEnemy("Human", 8, 50, 20, 10, 0, 0);
@@ -82,44 +82,52 @@ public static class GameBase
         string choice;
         Console.Write("Введите число [1-5]: "); // постоянное меню
         choice = Console.ReadLine(); // ввод меню
-        switch (choice)
+        bool done = false;
+        while (!done)
         {
-            case "dew":
-                if (choice == "1")
-                {
-                    goto case "1";
-                }
-                else if (choice == "2")
-                {
-                    goto case "2";
-                }
-                else if (choice == "3")
-                {
-                    goto case "3";
-                }
-                else
-                {
-                    goto default;
-                }
-            case "1":
-                StartThisShit();
-                break;
-            case "2":
-                AboutWorld();
-                break;
-            case "3":
-                AboutUs();
-                break;
-            case "4":
-                TestStuff();
-                break;
-            case "5":
-                Environment.Exit(0);
-                break;
-            default:
-                Console.Write("Давай по новой, Миша, все хуйня: ");
-                choice = Console.ReadLine();
-                goto case "dew";
+            switch (choice)
+            {
+                case "1":
+                    done = true;
+                    StartThisShit();
+                    break;
+                case "2":
+                    done = true;
+                    AboutWorld();
+                    break;
+                case "3":
+                    done = true;
+                    AboutUs();
+                    break;
+                case "4":
+                    done = true;
+                    TestStuff();
+                    break;
+                case "5":
+                    done = true;
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.Write("Давай по новой, Миша, все хуйня: ");
+                    choice = Console.ReadLine();
+                    break;
+            }
         }
     }
+
+    public static void Death(bool cause)
+    {
+        Console.Clear();
+        if (cause)
+        {
+            Console.WriteLine("Death by mind");
+        }
+        else
+        {
+            Console.WriteLine("Your body is dead");
+        }
+        Console.ReadKey();
+        Environment.Exit(0);
+    } 
+
 }

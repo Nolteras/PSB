@@ -6,22 +6,8 @@ using System.Threading.Tasks;
 
 public static class GameAct
 {
-
-
-   public static void DeadByMind()
-    {
-
-    }
-
-    public static void DeadByPhysic()
-    {
-
-    }
-
-
-
-
-    public static void Main(string[] args)
+    
+    public static void Main(string[] args) //входная точка программы
     {
         GameBase.DisplayMenu();
 

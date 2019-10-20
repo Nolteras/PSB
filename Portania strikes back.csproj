@@ -59,8 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blacksmt.cs" />
-    <Compile Include="Churh.cs" />
-    <Compile Include="Dragenhof.cs" />
+    <Compile Include="Business.cs" />
+    <Compile Include="Churсh.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="FightModule.cs" />
     <Compile Include="GameAct.cs" />

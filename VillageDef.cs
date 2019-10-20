@@ -6,47 +6,59 @@ using System.Threading.Tasks;
 
 namespace Portania_strikes_back
 {
-    public abstract class VillageDef
+    public class VillageDef
     {
 
         public string Name { get; set; }
         public int Buildings { get; set; }
-        public int Pops { get; set; }
-        public int Prosp { get; set; }
-        protected bool Tavern { get; set; }
-        protected bool Blacksmith { get; set; }
-        protected bool Market { get; set; }
-        protected bool Church { get; set; }
-        Tavrn tavern = new Tavrn();
-        Churh church = new Churh();
-        Blacksmt blacksmith = new Blacksmt();
+        static public int Pops { get; set; }
+        static public int Prosp { get; set; }
 
-        public virtual void PlotVill()
+        //static Tavrn tavern = new Tavrn(Pops, Prosp);
+        //static Church church = new Church(Pops, Prosp);
+        //static Blacksmt blacksmith = new Blacksmt(Pops, Prosp);
+        //static Markt market = new Markt(Pops, Prosp);
+        protected Business[] places = new Business[4];
+
+
+        public VillageDef(string name, int buildings, int pops, int prosp)
         {
+            Name = name;
+            Buildings = buildings;
+            Pops = pops;
+            Prosp = prosp;
+            Tavrn tavern = new Tavrn(Pops, Prosp);
+            Church church = new Church(Pops, Prosp);
+            Blacksmt blacksmith = new Blacksmt(Pops, Prosp);
+            Markt market = new Markt(Pops, Prosp);
+            places[0] = tavern;
+            places[1] = church;
+            places[2] = blacksmith;
+            places[3] = market;
         }
+
+
 
         public void DefVillAct()
         {
-            int a = 0;
-            string[] arr = new string[5];
             Console.WriteLine(new string('#', 80));
             //Обстановка, начало
             int bulds = Buildings; //15 - маленькая деревня, 35 - средняя деревня, 60 - небольшой город
-            string name = Name;
-            int pop = Pops;
+            string name = Name; //имя
+            int pop = Pops; //популяция
             int pros = Prosp; // 0 - нищие, 1 - бедные, 2 - зажиточные, 3 - богатые
                               // Описание пункта
             if (bulds > 10 && bulds < 20)
             {
-                Console.WriteLine("Вы находитесь в маленькой деревне " + name + ".");
+                Console.WriteLine($"Вы находитесь в маленькой деревне {name} .");
             }
             else if (bulds > 20 && bulds < 50)
             {
-                Console.WriteLine("Вы находитесь в средней деревне " + name + ".");
+                Console.WriteLine($"Вы находитесь в средней деревне {name} .");
             }
             else if (bulds > 50 && bulds < 70)
             {
-                Console.WriteLine("Вы находитесь в небольшом городе " + name + ".");
+                Console.WriteLine($"Вы находитесь в небольшом городе {name} .");
             }
 
             if (pop > 10 && pop < 35)
@@ -132,110 +144,70 @@ namespace Portania_strikes_back
             }
             //Постройки
             Console.WriteLine("В " + name + " есть:");
-            if (Tavern)
+            for (int i = 0; i < places.Length; i++)
             {
-                a++;
-                arr[a] = $"{a}.Таверна";
-                Console.WriteLine(arr[a]);
-            }
-            if (Blacksmith)
-            {
-                a++;
-                arr[a] = $"{a}.Кузня(???)";
-                Console.WriteLine(arr[a]);
-            }
-            if (Market)
-            {
-                a++;
-                arr[a] = $"{a}.Рынок";
-                Console.WriteLine(arr[a]);
-            }
-            if (Church)
-            {
-                a++;
-                arr[a] = $"{a}.Церковь";
-                Console.WriteLine(arr[a]);
+                if (places[i] != null)
+                {
+                    Console.WriteLine($"{i + 1} - {places[i].Name}");
+                }
             }
 
             //Конец построек
 
             for (int i = 0; i < 3; i++)
             {
-                Console.WriteLine("            ");
+                Console.WriteLine();
             }
 
             Console.WriteLine(new string('#', 80));
 
-            for (int i = 0; i < 1; i++)
-            {
-                Console.WriteLine("            ");
-            }
+            Console.WriteLine();
             //Конец описания
             Console.WriteLine("Вы можете:");
-            if (Tavern)
+            for (int i = 0; i < places.Length; i++)
             {
-                Console.WriteLine("[T] - Таверна");
-            }
-            if (Blacksmith)
-            {
-                Console.WriteLine("[B] - Кузня(???)");
-            }
-            if (Market)
-            {
-                Console.WriteLine("[M] - Рынок");
-            }
-            if (Church)
-            {
-                Console.WriteLine("[C] - Церковь");
+                if (places[i] != null)
+                {
+                    Console.WriteLine($"{i} - {places[i].Name}");
+                }
             }
             string choice;
-            Console.Write("Введите букву(Регистр важен): ");
+            int c;
+            Console.Write("Введите цифру: ");
             choice = Console.ReadLine();
-            switch (choice)
+            bool done = false;
+            while (!done)
             {
-                case "1":
-                    if (choice == "T")
+                if (int.TryParse(choice, out c) && c >= 0)
+                {
+                    switch (places[c].Name)
                     {
-                        goto case "T";
+                        case "Рынок":
+                            Console.WriteLine("Market");
+                            choice = Console.ReadLine();
+                            break;
+                        case "Кузня":
+                            done = true;
+                            Blacksmt blacksmith = places[c] as Blacksmt;
+                            blacksmith.GoToBlacksmt();
+                            break;
+                        case "Таверна":
+                            done = true;
+                            Tavrn tavern = places[c] as Tavrn;
+                            tavern.GoToTavern();
+                            break;
+                        case "Церковь":
+                            done = true;
+                            Church church = places[c] as Church;
+                            church.GoToChurch();
+                            break;
+                        default:
+                            Console.Write("Давай по новой, Миша, все хуйня: ");
+                            choice = Console.ReadLine();
+                            break;
                     }
-                    else if (choice == "B")
-                    {
-                        goto case "B";
-                    }
-                    else if (choice == "M")
-                    {
-                        goto case "M";
-                    }
-                    else if (choice == "C")
-                    {
-                        goto case "C";
-                    }
-                    else
-                    {
-                        goto default;
-                    }
-                case "T":
-                    tavern.GoToTavern(pop, pros); //Переход к классу "Таверна"
-                    Console.Clear();
-                    DefVillAct();
-                    break;
-                case "B":
-                   blacksmith.GoToBlacksmt(pros);
-                    break;
-                case "M":
-                    Console.WriteLine("Market");
-                    break;
-                case "C":
-                    church.GoToChurch(pop, pros); //Переход к классу "Церковь"
-                    Console.Clear();
-                    DefVillAct();
-                    break;
-                default:
-                    Console.Write("Давай по новой, Миша, все хуйня: ");
-                    choice = Console.ReadLine();
-                    goto case "1";
+                }
             }
-
         }
 
     }

@@ -16,6 +16,5 @@ C:\Users\LalkaTheThird\Documents\GitHub\PSB\bin\Debug\Portania strikes back.exe.
 C:\Users\LalkaTheThird\Documents\GitHub\PSB\bin\Debug\Portania strikes back.exe
 C:\Users\LalkaTheThird\Documents\GitHub\PSB\bin\Debug\Portania strikes back.pdb
 C:\Users\LalkaTheThird\Documents\GitHub\PSB\obj\Debug\Portania strikes back.csprojAssemblyReference.cache
-C:\Users\LalkaTheThird\Documents\GitHub\PSB\obj\Debug\Portania strikes back.csproj.CoreCompileInputs.cache
 C:\Users\LalkaTheThird\Documents\GitHub\PSB\obj\Debug\Portania strikes back.exe
 C:\Users\LalkaTheThird\Documents\GitHub\PSB\obj\Debug\Portania strikes back.pdb
