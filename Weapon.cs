@@ -21,6 +21,7 @@ namespace Portania_strikes_back
             armorPen = random.Next(weight, weight + 5);
             wnLength = random.Next(armorPen, armorPen + 4);
             dam = random.Next(weight, wnLength);
+            Price = random.Next(dam, dam * 3);
         }
 
 
@@ -29,7 +30,7 @@ namespace Portania_strikes_back
             Console.WriteLine("");
             Console.WriteLine(new string('#', 80));
             Console.WriteLine("");
-            Console.WriteLine($"Короткий меч");
+            Console.WriteLine($"Меч");
             Console.WriteLine($"Урон - {dam}");
             Console.WriteLine($"Тяжесть - {Weight}");
             Console.WriteLine($"Длина - {wnLength}");

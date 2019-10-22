@@ -17,12 +17,12 @@ namespace Portania_strikes_back
         static public int MCArmorBody;//Броня ГГ тело
         static public string MCHead;//Название брони ГГ голова
         static public string MCBody;//Название брони ГГ тело
-        static public int MCWeapon;//Название... Я... А черт его знает, что это
+        static public Weapon MCWeapon = new Weapon("UBERSHWARD", 6);//Оружие
         static public int Skills = 1;// 0 - плохо, 1 - нормально
         static public string DoNow;//Что ГГ делаел в предыдущем действии во время боя
         static public int HP = 100;//Здоровье ГГ
         static public int BeliveLev = 0;//Уровень веры ГГ
-        static public int damage = 25;//Прямой урон ГГ. По идее, он должен зависеть от оружия
+        static public int strength = 5;//Прямой урон ГГ. По идее, он должен зависеть от оружия
 
         static List<Item> Inv = new List<Item>(); //инвентарь
 

@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arena.cs" />
     <Compile Include="Blacksmt.cs" />
     <Compile Include="Business.cs" />
     <Compile Include="Churсh.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Item.cs" />
     <Compile Include="MainCharacter.cs" />
     <Compile Include="Markt.cs" />
+    <Compile Include="Potion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tavrn.cs" />
     <Compile Include="VillageDef.cs" />

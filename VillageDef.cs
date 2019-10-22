@@ -14,7 +14,7 @@ namespace Portania_strikes_back
         static public int Pops { get; set; }
         static public int Prosp { get; set; }
 
-        protected Business[] places = new Business[4];
+        protected Business[] places = new Business[5];
 
 
         public VillageDef(string name, int buildings, int pops, int prosp)
@@ -27,10 +27,12 @@ namespace Portania_strikes_back
             Church church = new Church(Pops, Prosp);
             Blacksmt blacksmith = new Blacksmt(Pops, Prosp);
             Markt market = new Markt(Pops, Prosp);
+            Arena arena = new Arena();
             places[0] = tavern;
             places[1] = church;
             places[2] = blacksmith;
             places[3] = market;
+            places[4] = arena;
         }
 
 
@@ -137,7 +139,7 @@ namespace Portania_strikes_back
                             Console.WriteLine("Город в более-менее хорошем состоянии; Бедняков имеют собственный районы...");
                             break;
                         case 3:
-                            Console.WriteLine("Город явно процветает; Местные люди живкт богато...");
+                            Console.WriteLine("Город явно процветает; Местные люди живут богато...");
                             break;
                     }
                 }
@@ -181,6 +183,11 @@ namespace Portania_strikes_back
                                 done = true;
                                 Church church = places[ch] as Church;
                                 church.GoToChurch();
+                                break;
+                            case "Арена":
+                                done = true;
+                                Arena arena = places[ch] as Arena;
+                                arena.GoToArena();
                                 break;
                             default:
                                 Console.Write("Давай по новой, Миша, все хуйня: ");

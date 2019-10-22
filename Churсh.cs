@@ -105,6 +105,8 @@ namespace Portania_strikes_back
                             }
                             break;
                         case "2":
+                            done = true;
+                            doneAll = true;
                             break;
                         default:
                             Console.Write("Давай по новой, Миша, все хуйня: ");
