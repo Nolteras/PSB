@@ -19,46 +19,55 @@ namespace Portania_strikes_back
 
         public void GoToBlacksmt()
         {
-            Console.Clear();
-            Console.WriteLine(new string('#', 80));
-            Console.WriteLine("Вы захождите в К У У У З Н Ю.");
-            switch (Pros) //проверка на богатство кузни
-            {
-                case 0:
-                    Console.WriteLine("Кузня Процветание 0");
-                    break;
-                case 1:
-                    Console.WriteLine("Кузня Процветание 1");
-                    break;
-                case 2:
-                    Console.WriteLine("Кузня Процветание 2");
-                    break;
-                case 3:
-                    Console.WriteLine("Кузня Процветание 3");
-                    break;
-            }
-            Console.WriteLine("");
-            Console.WriteLine(new string('#', 80));
-            Console.WriteLine("");
-            Console.WriteLine("1 - Показать список оружия.");
-            string choice;
-            Console.Write("Введите цифру: "); //нужно провести общую оптимизацию с букв на цифры
-            choice = Console.ReadLine();
             bool done = false;
             while (!done)
             {
-                switch (choice)
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("Вы захождите в К У У У З Н Ю.");
+                switch (Pros) //проверка на богатство кузни
                 {
-                    case "1":
-                        BlacksmtListWeapons();
-                        done = true;
+                    case 0:
+                        Console.WriteLine("Кузня Процветание 0");
                         break;
-                    default:
-                        Console.Write("Давай по новой, Миша, все хуйня: ");
-                        choice = Console.ReadLine();
+                    case 1:
+                        Console.WriteLine("Кузня Процветание 1");
+                        break;
+                    case 2:
+                        Console.WriteLine("Кузня Процветание 2");
+                        break;
+                    case 3:
+                        Console.WriteLine("Кузня Процветание 3");
                         break;
                 }
+                Console.WriteLine("");
+                Console.WriteLine(new string('#', 80));
+                Console.WriteLine("");
+                Console.WriteLine("1 - Показать список оружия.");
+                Console.WriteLine("2 - Уйти");
+                string choice;
+                Console.Write("Введите цифру: "); //нужно провести общую оптимизацию с букв на цифры
+                choice = Console.ReadLine();
+                bool done2 = false;
+                while (!done2)
+                {
+                    switch (choice)
+                    {
+                        case "1":
+                            BlacksmtListWeapons();
+                            done2 = true;
+                            break;
+                        case "2":
+                            done = true;
+                            done2 = true; 
+                            break;
+                        default:
+                            Console.Write("Давай по новой, Миша, все хуйня: ");
+                            choice = Console.ReadLine();
+                            break;
+                    }
+                }
             }
+            
         }
 
 
@@ -70,7 +79,7 @@ namespace Portania_strikes_back
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    weapons.Add(new Weapon(random.Next(0, 2)));
+                    weapons.Add(new Weapon("Weapon", random.Next(1, 5)));
                 }
             }
             Console.WriteLine(new string('#', 80));
@@ -79,7 +88,6 @@ namespace Portania_strikes_back
             Console.WriteLine();
             foreach (Weapon weap in weapons) //выводим список оружия
             {
-                int iType = weap.typeOfWeapon;
                 weap.getDescr(); //добавить вывод описания оружия, см класс Weapon
             }
             Console.ReadKey();

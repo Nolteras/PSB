@@ -1,0 +1,6 @@
+C:\Users\LalkaTheThird\Documents\GitHub\PSB\bin\Release\Portania strikes back.exe.config
+C:\Users\LalkaTheThird\Documents\GitHub\PSB\bin\Release\Portania strikes back.exe
+C:\Users\LalkaTheThird\Documents\GitHub\PSB\bin\Release\Portania strikes back.pdb
+C:\Users\LalkaTheThird\Documents\GitHub\PSB\obj\Release\Portania strikes back.csprojAssemblyReference.cache
+C:\Users\LalkaTheThird\Documents\GitHub\PSB\obj\Release\Portania strikes back.exe
+C:\Users\LalkaTheThird\Documents\GitHub\PSB\obj\Release\Portania strikes back.pdb

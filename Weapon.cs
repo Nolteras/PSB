@@ -6,36 +6,22 @@ using System.Threading.Tasks;
 
 namespace Portania_strikes_back
 {
-    public class Weapon
+    public class Weapon : Item
     {
-        public string name; //имя
-        public int armorPenetrat; //пробитие
-        public int weaponWeight;//вес
-        public int weaponLength; //длина
-        protected int damage; //урон
-        public int typeOfWeapon; // 0 - Короткий меч, 1 - Длинный меч
+        public int armorPen; //пробитие
+        public int wnLength; //длина
+        public int dam; //урон
+        Random random = new Random();
 
-
-        public Weapon(int _type)
+        public Weapon(string name, int weight)
         {
-            
-            if (_type == 0)
-            {
-                weaponWeight = 10;
-                weaponLength = 3;
-                damage = 20;
-                armorPenetrat = 15;
-                typeOfWeapon = 0;
-            }
-            else if (_type == 1)
-            {
-                weaponWeight = 20;
-                weaponLength = 5;
-                damage = 30;
-                armorPenetrat = 30;
-                typeOfWeapon = 1;
-            }
-          
+            Name = name;
+            Weight = weight;
+            Type = 1;
+            armorPen = random.Next(weight, weight + 5);
+            wnLength = random.Next(armorPen, armorPen + 4);
+            dam = random.Next(weight, wnLength);
+            Price = random.Next(dam, dam * 3);
         }
 
 
@@ -44,22 +30,11 @@ namespace Portania_strikes_back
             Console.WriteLine("");
             Console.WriteLine(new string('#', 80));
             Console.WriteLine("");
-            if(typeOfWeapon == 0)
-            {
-                Console.WriteLine("Короткий меч");
-                Console.WriteLine("Урон - {0}", damage);
-                Console.WriteLine("Тяжесть - {0}", weaponWeight);
-                Console.WriteLine("Длина - {0}", weaponLength);
-                Console.WriteLine("Пробитие брони - {0}", armorPenetrat);
-            }
-            if (typeOfWeapon == 1) //Тестовый-драйв Вовы 2
-            {
-                Console.WriteLine("Длинный меч");
-                Console.WriteLine("Урон - {0}", damage);
-                Console.WriteLine("Тяжесть - {0}", weaponWeight);
-                Console.WriteLine("Длина - {0}", weaponLength);
-                Console.WriteLine("Пробитие брони - {0}", armorPenetrat);
-            }
+            Console.WriteLine($"Меч");
+            Console.WriteLine($"Урон - {dam}");
+            Console.WriteLine($"Тяжесть - {Weight}");
+            Console.WriteLine($"Длина - {wnLength}");
+            Console.WriteLine($"Пробитие брони - {armorPen}");
             Console.WriteLine("");
             Console.WriteLine(new string('#', 80));
             Console.WriteLine("");

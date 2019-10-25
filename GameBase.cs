@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 public static class GameBase
 {
+
+    
+
     static public void StartThisShit()
     {
 
@@ -24,6 +27,7 @@ public static class GameBase
         Console.WriteLine("Молодой оруженосец по имени " + NameGG + " только-только выпустился из оружейной академии Барона Керонча."); //Все это к херам переделать nconc: да вроде и так нормально
         MainCharacter.Name = NameGG;
         Console.ReadKey();
+        TestStuff();
     }
 
     public static void AboutWorld()
@@ -51,11 +55,11 @@ public static class GameBase
     public static void TestStuff()
     {
         Console.Clear();
-        Weapon sword = new Weapon(0);
+        //Weapon sword = new Weapon(0);
         VillageDef dragenhof = new VillageDef("Dragenhof", 57, 325, 1);
         dragenhof.DefVillAct();
         FightModule fight = new FightModule();
-        fight.GetEnemy("Human", 8, 50, 20, 10, 0, 0);
+        //fight.GetEnemy("Human", 8, 50, 20, 10, 0, 0);
         Console.ReadKey();
         DisplayMenu();
 
@@ -80,13 +84,13 @@ public static class GameBase
             Console.WriteLine("");
         }
         string choice;
-        Console.Write("Введите число [1-5]: "); // постоянное меню
-        choice = Console.ReadLine(); // ввод меню
+        Console.Write("Введите число: "); // постоянное меню
         bool done = false;
         while (!done)
         {
+                choice = Console.ReadLine();
             switch (choice)
-            {
+            { 
                 case "1":
                     done = true;
                     StartThisShit();
@@ -100,16 +104,16 @@ public static class GameBase
                     AboutUs();
                     break;
                 case "4":
-                    done = true;
-                    TestStuff();
+                    //done = true;
+                    //TestStuff();
                     break;
                 case "5":
                     done = true;
                     Environment.Exit(0);
                     break;
                 default:
+
                     Console.Write("Давай по новой, Миша, все хуйня: ");
-                    choice = Console.ReadLine();
                     break;
             }
         }
