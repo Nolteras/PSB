@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Portania_strikes_back
+namespace Portania_strikes_back.Places
 {
     public class Church : Business
     {
@@ -12,6 +12,7 @@ namespace Portania_strikes_back
         int noDarkKrac; //не последователи темного краца
         int religiousZeal; //???
         bool canGetBless = true; //можно ли О Б М А З А Т Ь С Я  Б Л А Г О С Л О В Е Н И Е М
+        Random random = new Random();
 
         public Church(int popul, int prosp)
         {
@@ -41,7 +42,7 @@ namespace Portania_strikes_back
         }
 
 
-        public void GoToChurch() //основной метод церкви
+        public override void GoTo() //основной метод церкви
         {
             bool doneAll = false;
             while (!doneAll)
@@ -101,7 +102,6 @@ namespace Portania_strikes_back
                                 Console.WriteLine(new string('#', 80));
                                 Console.WriteLine("");
                                 Console.ReadKey();
-                                GoToChurch(); //возвращаемся в основной метод
                             }
                             break;
                         case "2":
@@ -154,7 +154,6 @@ namespace Portania_strikes_back
                     Console.WriteLine(new string('#', 80));
                     Console.WriteLine("");
                     Console.ReadKey();
-                    GoToChurch();
                     break;
                 case 1: //хорошо помолились
                     Console.Clear();
@@ -169,7 +168,6 @@ namespace Portania_strikes_back
                     Console.WriteLine(new string('#', 80));
                     Console.WriteLine("");
                     Console.ReadKey();
-                    GoToChurch();
                     break;
                 case 2: //слишком хорошо помолились
                     Console.Clear();
@@ -183,7 +181,6 @@ namespace Portania_strikes_back
                     Console.WriteLine(new string('#', 80));
                     Console.WriteLine("");
                     Console.ReadKey();
-                    GoToChurch();
                     break;
                 case 3: //О Т Д А Й  С В О Ю  Д У Ш У
                     Console.Clear();
@@ -197,7 +194,6 @@ namespace Portania_strikes_back
                     Console.WriteLine(new string('#', 80));
                     Console.WriteLine("");
                     Console.ReadKey();
-                    GoToChurch();
                     break;
             }
         }

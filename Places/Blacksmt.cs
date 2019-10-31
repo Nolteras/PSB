@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using Portania_strikes_back.Items;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Portania_strikes_back
+namespace Portania_strikes_back.Places
 {
     public class Blacksmt : Business
     {
+        Random random = new Random();
         public Blacksmt(int popul, int prosp)
         {
             Pop = popul;
@@ -17,7 +19,7 @@ namespace Portania_strikes_back
 
         //кузница для покупки оружий
 
-        public void GoToBlacksmt()
+        public override void GoTo()
         {
             bool done = false;
             while (!done)

@@ -3,20 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Portania_strikes_back.Places;
+using System.IO;
 
 namespace Portania_strikes_back
 {
     public class VillageDef
     {
-
+        Random rnd = new Random();
+        public static bool doneAll = false;
         public string Name { get; set; }
         public int Buildings { get; set; }
-        static public int Pops { get; set; }
-        static public int Prosp { get; set; }
+        public int Pops { get; set; }
+        public int Prosp { get; set; }
 
-        protected Business[] places = new Business[5];
+        protected Business[] places = new Business[6];
 
 
+        public VillageDef(int buildings, int pops, int prosp)
+        {
+            Name = Names.GetName();
+            Buildings = buildings;
+            Pops = pops;
+            Prosp = prosp;
+            Tavrn tavern = new Tavrn(Pops, Prosp);
+            Church church = new Church(Pops, Prosp);
+            Blacksmt blacksmith = new Blacksmt(Pops, Prosp);
+            Markt market = new Markt(Pops, Prosp);
+            Arena arena = new Arena();
+            TravelCoach trav = new TravelCoach(Pops, Prosp);
+            places[0] = tavern;
+            places[1] = church;
+            places[2] = blacksmith;
+            places[3] = market;
+            places[4] = arena;
+            places[5] = trav;
+        }
         public VillageDef(string name, int buildings, int pops, int prosp)
         {
             Name = name;
@@ -28,44 +50,56 @@ namespace Portania_strikes_back
             Blacksmt blacksmith = new Blacksmt(Pops, Prosp);
             Markt market = new Markt(Pops, Prosp);
             Arena arena = new Arena();
+            TravelCoach trav = new TravelCoach(Pops, Prosp);
             places[0] = tavern;
             places[1] = church;
             places[2] = blacksmith;
             places[3] = market;
             places[4] = arena;
+            places[5] = trav;
         }
 
 
 
         public void DefVillAct()
         {
-            while (true)
+            while (!doneAll)
             {
                 Console.Clear();
                 Console.WriteLine(new string('#', 80));
                 //Обстановка, начало
-                int bulds = Buildings; //15 - маленькая деревня, 35 - средняя деревня, 60 - небольшой город
-                string name = Name; //имя
-                int pop = Pops; //популяция
-                int pros = Prosp; // 0 - нищие, 1 - бедные, 2 - зажиточные, 3 - богатые
-                                  // Описание пункта
-                if (bulds > 10 && bulds < 20)
+                //15 - маленькая деревня, 35 - средняя деревня, 60 - небольшой город
+                string name = Name; // 0 - нищие, 1 - бедные, 2 - зажиточные, 3 - богатые
+                                    // Описание пункта
+                if (Buildings >= 0 && Buildings < 10)
                 {
-                    Console.WriteLine($"Вы находитесь в маленькой деревне {name} .");
+                    Console.WriteLine($"Вы находитесь в гиблой деревне {name}.");
                 }
-                else if (bulds > 20 && bulds < 50)
+                else if (Buildings >= 10 && Buildings < 20)
                 {
-                    Console.WriteLine($"Вы находитесь в средней деревне {name} .");
+                    Console.WriteLine($"Вы находитесь в маленькой деревне {name}.");
                 }
-                else if (bulds > 50 && bulds < 70)
+                else if (Buildings >= 20 && Buildings < 50)
                 {
-                    Console.WriteLine($"Вы находитесь в небольшом городе {name} .");
+                    Console.WriteLine($"Вы находитесь в средней деревне {name}.");
+                }
+                else if (Buildings >= 50 && Buildings < 70)
+                {
+                    Console.WriteLine($"Вы находитесь в небольшом городе {name}.");
+                }
+                else if (Buildings >= 70)
+                {
+                    Console.WriteLine($"Вы находитесь в большом городе {name}.");
                 }
 
-                if (pop > 10 && pop < 35)
+                if (Pops == 0)
+                {
+                    Console.WriteLine("Население этой деревни вымерло");
+                }
+                else if (Pops > 0 && Pops < 35)
                 {
                     Console.WriteLine("На ваш взгляд, тут проживает около 25-ти человек.");
-                    switch (pros)
+                    switch (Prosp)
                     {
                         case 0:
                             Console.WriteLine("Местные жители явно бедствуют.");
@@ -83,10 +117,10 @@ namespace Portania_strikes_back
                     }
                 }
 
-                if (pop > 35 && pop < 75)
+                if (Pops >= 35 && Pops < 75)
                 {
                     Console.WriteLine("На ваш взгляд, тут проживает около 50-ти человек.");
-                    switch (pros)
+                    switch (Prosp)
                     {
                         case 0:
                             Console.WriteLine("Население данной деревни явно бедствует.");
@@ -104,10 +138,10 @@ namespace Portania_strikes_back
                     }
                 }
 
-                if (pop > 75 && pop < 345 && bulds < 50)
+                if (Pops >= 75 && Pops < 345 && Buildings < 50)
                 {
                     Console.WriteLine("На ваш взгляд, тут проживает около 200-та человек.");
-                    switch (pros)
+                    switch (Prosp)
                     {
                         case 0:
                             Console.WriteLine("Хоть в деревне проживает много людей, обстановка среди них плачевная.");
@@ -124,10 +158,10 @@ namespace Portania_strikes_back
                     }
 
                 }
-                if (pop > 75 && pop < 345 && bulds > 50)
+                if (Pops >= 75 && Pops < 345 && Buildings > 50)
                 {
                     Console.WriteLine("На ваш взгляд, тут проживает около 200-та человек.");
-                    switch (pros)
+                    switch (Prosp)
                     {
                         case 0:
                             Console.WriteLine("Город в очень плачевном состоянии; Торговцев и ремесленников почти нет и люди пытаются покинуть это место.");
@@ -159,40 +193,25 @@ namespace Portania_strikes_back
                 bool done = false;
                 while (!done)
                 {
-                    if (choice != null && choice != "" && int.TryParse(choice, out c) && c >= 0)
+                    if (choice != null && choice != "" && int.TryParse(choice, out c) && c >= 0 && c <= places.Length)
                     {
+                        done = true;
                         int ch = c - 1;
-                        switch (places[ch].Name)
+                        if (ch == 5)
                         {
-                            case "Рынок":
-                                Console.WriteLine("Market");
-                                choice = Console.ReadLine();
-                                break;
-                            case "Кузня":
-                                done = true;
-                                Blacksmt blacksmith = places[ch] as Blacksmt;
-                                Console.Clear();
-                                blacksmith.GoToBlacksmt();
-                                break;
-                            case "Таверна":
-                                done = true;
-                                Tavrn tavern = places[ch] as Tavrn;
-                                tavern.GoToTavern();
-                                break;
-                            case "Церковь":
-                                done = true;
-                                Church church = places[ch] as Church;
-                                church.GoToChurch();
-                                break;
-                            case "Арена":
-                                done = true;
-                                Arena arena = places[ch] as Arena;
-                                arena.GoToArena();
-                                break;
-                            default:
-                                Console.Write("Давай по новой, Миша, все хуйня: ");
-                                choice = Console.ReadLine();
-                                break;
+                            string tempName = Names.GetName();
+                            while (tempName == Name)
+                            {
+                                tempName = Names.GetName();
+                            }
+                            Name = tempName;
+                                Buildings = rnd.Next(1, 100);
+                            Pops = rnd.Next(1, 100);
+                            Prosp = rnd.Next(0, 4);
+                        }
+                        else
+                        {
+                            places[ch].GoTo();
                         }
                     }
                     else

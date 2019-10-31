@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Portania_strikes_back
+namespace Portania_strikes_back.Places
 {
     public class Markt : Business
     {
@@ -16,7 +16,7 @@ namespace Portania_strikes_back
         }
 
         // Описание и возможности
-        public void GoToMarket()
+        public override void GoTo()
         {
             bool doneAll = false;
             while (!doneAll)

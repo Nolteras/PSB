@@ -11,9 +11,11 @@ namespace Portania_strikes_back
         public int Pros { get; set; }//богатство данного заведения
         public int Pop { get; set; }//популярность/заполненность бизнеса
         public string Name { get; set; }
-        protected Random random = new Random();
 
-
+        public virtual void GoTo()
+        {
+            Console.WriteLine("Error");
+        }
 
     }
 }

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Portania_strikes_back
+namespace Portania_strikes_back.Places
 {
     public class Tavrn : Business
     {
+        Random random = new Random();
         public Tavrn(int popul, int prosp)
         {
             Pop = popul;
@@ -16,7 +17,7 @@ namespace Portania_strikes_back
         }
 
         // Описание и возможности
-        public void GoToTavern()
+        public override void GoTo()
         {
             bool doneAll = false;
             while (!doneAll)
@@ -215,7 +216,6 @@ namespace Portania_strikes_back
                         Console.ReadKey();
                     }
 
-                    GoToTavern();
                 }
 
                 void GoToBar()
@@ -251,7 +251,8 @@ namespace Portania_strikes_back
                                 DrinkBarman(MainCharacter.HP, MainCharacter.MT, MainCharacter.Money);
                                 break;
                             case "3":
-                                GoToTavern();
+                                done = true;
+                                doneAll = true;
                                 break;
                             default:
                                 Console.Write("Давай по новой, Миша, все хуйня: ");

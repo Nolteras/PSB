@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Portania_strikes_back
+namespace Portania_strikes_back.Items
 {
     class Potion : Item
     {

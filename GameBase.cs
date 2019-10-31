@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public static class GameBase
+public class GameBase
 {
 
-    
+    Random rnd = new Random();
 
-    static public void StartThisShit()
+
+    public void StartThisShit()
     {
 
         string NameGG;
@@ -30,43 +31,40 @@ public static class GameBase
         TestStuff();
     }
 
-    public static void AboutWorld()
+    public void AboutWorld()
     {
         Console.Clear();
-        Console.WriteLine("Ну в общем сначала был Крац");
-        Console.WriteLine("А потом злой Матрац");
-        Console.WriteLine("И теперь тебе придется это разгребать");
+        Console.WriteLine("To be added in the future builds");
+        //Console.WriteLine("Ну в общем сначала был Крац");
+        //Console.WriteLine("А потом злой Матрац");
+        //Console.WriteLine("И теперь тебе придется это разгребать");
         Console.ReadKey();
         DisplayMenu();
     }
 
-    public static void AboutUs()
+    public void AboutUs()
     {
         Console.Clear();
         Console.WriteLine("Сценарист - ???(Ушел в порно-индустрию)");
         Console.WriteLine("Автор мира - Markela");
-        Console.WriteLine("Глав. Гад - Нолтерасс А.К.А Нолт А.К.А Террррррновое Вино А.К.А Noltras"); 
-        Console.WriteLine("Соавтор - Солнцеликий Nconc");
+        Console.WriteLine("Бывший глав. Гад - [DELETED]");//Нолтерасс А.К.А Нолт А.К.А Террррррновое Вино А.К.А Noltras"); 
+        Console.WriteLine("Главный Глав. Гад - Солнцеликий Nconc");
         Console.ReadKey();
         DisplayMenu();
 
     }
 
-    public static void TestStuff()
+    public void TestStuff()
     {
         Console.Clear();
-        //Weapon sword = new Weapon(0);
-        VillageDef dragenhof = new VillageDef("Dragenhof", 57, 325, 1);
-        dragenhof.DefVillAct();
-        FightModule fight = new FightModule();
-        //fight.GetEnemy("Human", 8, 50, 20, 10, 0, 0);
-        Console.ReadKey();
-        DisplayMenu();
-
-
+        new VillageDef("Dragenhof", rnd.Next(1, 100), rnd.Next(1, 344), rnd.Next(0, 4)).DefVillAct();
+        while (true)
+        {
+            new VillageDef(rnd.Next(1, 100), rnd.Next(1, 344), rnd.Next(0, 4)).DefVillAct();
+        }
     }
 
-    public static void DisplayMenu()
+    public void DisplayMenu()
     {
         Console.Clear();
         Console.WriteLine("       Portania Strikes Back    ");
